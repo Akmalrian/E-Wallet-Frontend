@@ -8,7 +8,7 @@ const ContentForgotPassword = () => {
     <section className="w-full p-10 justify-center items-center">
       <div className="container">
         <h4 className="logo flex text-[#2948FF] my-2 font-nunitoSans text-xl items-center gap-2">
-          <img className="w-8 h-8" src="./src/assets/MoneyWallet.png" alt="Money-Wallet.png" /> E-Wallet
+          <img className="w-8 h-8" src="./public/image/MoneyWallet.png" alt="Money-Wallet.png" /> E-Wallet
         </h4>
         <p className="text-3xl my-2 font-montserrat">
           <b>Fill Out Form Correctly 👋</b>
@@ -24,7 +24,7 @@ const ContentForgotPassword = () => {
           type="email"
           placeholder="Enter Your Email" 
           id="email" 
-          icon="./src/assets/mail.png"
+          icon="./public/image/mail.png"
         />
         <ButtonLogin type="submit">Submit</ButtonLogin>
       </form>

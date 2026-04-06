@@ -9,7 +9,7 @@ const ContentLogin = () => {
     <section className="h-screen w-full p-20">
       <div className="container">
         <h4 className="logo flex text-[#2948FF] my-2 font-nunitoSans text-xl items-center gap-2">
-          <img className="w-8 h-8" src="./src/assets/MoneyWallet.png" alt="Money-Wallet.png" /> E-Wallet
+          <img className="w-8 h-8" src="./public/image/MoneyWallet.png" alt="Money-Wallet.png" /> E-Wallet
         </h4>
         <p className="text-3xl my-2 font-montserrat">
           <b>Hello Welcome Back 👋</b>
@@ -21,11 +21,11 @@ const ContentLogin = () => {
     <div className="space-y-6">
       <div className="space-y-3">
         <SignInWithButton 
-          icon="/src/assets/google.png" 
+          icon="/public/image/google.png" 
           text="Sign In With Google" 
         />
         <SignInWithButton 
-          icon="/src/assets/facebook.png" 
+          icon="/public/image/facebook.png" 
           text="Sign In With Facebook" 
         />
       </div>
@@ -42,14 +42,14 @@ const ContentLogin = () => {
           type="email" 
           placeholder="Enter Your Email" 
           id="email" 
-          icon="./src/assets/mail.png"
+          icon="./public/image/mail.png"
         />
         <InputLogin
           label="Password" 
           type="password" 
           placeholder="Enter Your Password" 
           id="pass" 
-          icon="./src/assets/password.png"
+          icon="./public/image/password.png"
         />
         
         <div className="text-right font-montserrat">

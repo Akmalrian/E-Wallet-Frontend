@@ -1,4 +1,4 @@
-const ContentSection1LandingPage = () => {
+const LeftHeroLanding = () => {
   return (
     <section className="h-screen w-[576px] h-[389px] ">
       <div className="container">
@@ -14,11 +14,11 @@ const ContentSection1LandingPage = () => {
         </button>
         <p className="my-6 text-[#4F5665] font-montserrat">Available On</p>
         <div className="flex gap-10">
-          <img src="/src/assets/playStore.png" alt="Icon Playstore" />
-          <img src="/src/assets/Apple.png" alt="Icon Playstore" />
+          <img src="/public/image/playStore.png" alt="Icon Playstore" />
+          <img src="/public/image/Apple.png" alt="Icon Playstore" />
         </div>
       </div>
     </section>
   );
 };
-export default ContentSection1LandingPage;
+export default LeftHeroLanding;

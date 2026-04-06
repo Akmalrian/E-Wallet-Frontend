@@ -1,12 +1,12 @@
-import BackgroundVector from "./BackgroundVector";
-import CardFeatures from "./CardFeatures";
+import BackgroundVector from "../section/BackgroundVector";
+import CardFeatures from "../Card/CardFeatures";
 
-const Section3LandingPage = () => (
+const FeaturesAplication = () => (
   <section className="font-montserrat mb-80">
     <BackgroundVector />
     <div class="flex justify-center gap-4 p-10 ">
       <div class="relative right-20">
-        <img src="/src/assets/Mobile-Dashboard.png" alt="mobile Dashboard" />
+        <img src="/public/image/Mobile-Dashboard.png" alt="mobile Dashboard" />
       </div>
       <div class="relative left-30 top-60 h-[460px] w-[580px]">
         <div class="text-white">
@@ -18,17 +18,17 @@ const Section3LandingPage = () => (
         </div>
         <div class="grid gap-4">
             <CardFeatures
-            icon ="/src/assets/fee.png"
+            icon ="/public/image/fee.png"
             title = "Small Fee"
             text="We only charge 5% of every success transaction done in Zwallet
                 app." />
             <CardFeatures
-            icon ="/src/assets/secured.png"
+            icon ="/public/image/secured.png"
             title = "Data Secured"
             text="All your data is secured properly in our system and it’s
                 encrypted." />
             <CardFeatures
-            icon ="/src/assets/friendly.png"
+            icon ="/public/image/friendly.png"
             title = "User Friendly"
             text="Zwallet come up with modern and sleek design and not
                 complicated.." />
@@ -41,5 +41,5 @@ const Section3LandingPage = () => (
     </div>
   </section>
 );
-export default Section3LandingPage;
+export default FeaturesAplication;
 

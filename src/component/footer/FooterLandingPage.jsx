@@ -6,7 +6,7 @@ function FooterLandingPage() {
           <div className="flex items-center mb-4">
             <img
               className="w-12.5 h-12.5"
-              src="./src/assets/MoneyWallet.png"
+              src="/public/image/MoneyWallet.png"
               alt="Logo"
             />
             <h6 className="font-nunitoSans text-[36px] mx-4">E-Wallet</h6>
@@ -19,23 +19,23 @@ function FooterLandingPage() {
         <div>
           <h6 className="mb-4 text-[18px] font-semibold">GET IN TOUCH</h6>
           <div className="flex gap-4 mb-4">
-            <img src="/src/assets/telephone.svg" alt="icon telephone" />
+            <img src="/public/image/telephone.svg" alt="icon telephone" />
             <p>+62 5637 8882 9901</p>
           </div>
           <div className="flex gap-4">
-            <img src="/src/assets/mail.svg" alt="icon mail" />
+            <img src="/public/image/mail.svg" alt="icon mail" />
             <p>contact@zwallet.com</p>
           </div>
         </div>
         <div>
           <h6 className="mb-4 text-[18px] font-semibold">SOCIAL MEDIA</h6>
-          <img src="/src/assets/Social.svg" alt="icon social media" />
+          <img src="/public/image/Social.svg" alt="icon social media" />
         </div>
         <div>
           <h6 className="mb-4 text-[18px] font-semibold">NEWSLETTER</h6>
           <div className="relative flex items-center">
             <img
-              src="/src/assets/mail.png"
+              src="/public/image/mail.png"
               className="absolute left-3 "
               alt="mail icon"
             />

@@ -14,7 +14,7 @@ function NavigationDashboard() {
           }}
         >
           <ButtonDashboardMenu
-            icon="/src/assets/dashboard-two (1).svg"
+            icon="/public/image/dashboard-two (1).svg"
             text="Dashboard"
           />
         </NavLink>
@@ -26,7 +26,7 @@ function NavigationDashboard() {
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
-          <ButtonDashboardMenu icon="/src/assets/Send.svg" text="Transfer" />
+          <ButtonDashboardMenu icon="/public/image/Send.svg" text="Transfer" />
         </NavLink>
         <NavLink
           to={"/history"}
@@ -36,7 +36,7 @@ function NavigationDashboard() {
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
-          <ButtonDashboardMenu icon="/src/assets/history.svg" text="History" />
+          <ButtonDashboardMenu icon="/public/image/history.svg" text="History" />
         </NavLink>
         <NavLink
           to={"/topup"}
@@ -46,7 +46,7 @@ function NavigationDashboard() {
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
-          <ButtonDashboardMenu icon="/src/assets/Upload.svg" text="Top Up" />
+          <ButtonDashboardMenu icon="/public/image/Upload.svg" text="Top Up" />
         </NavLink>
         <NavLink
           to={"/profile"}
@@ -56,7 +56,7 @@ function NavigationDashboard() {
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
-          <ButtonDashboardMenu icon="/src/assets/2 User.svg" text="Profile" />
+          <ButtonDashboardMenu icon="/public/image/2 User.svg" text="Profile" />
         </NavLink>
         <NavLink
           to={"/login"}
@@ -66,7 +66,7 @@ function NavigationDashboard() {
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
-          <ButtonDashboardMenu icon="/src/assets/Log Out.svg" text="Keluar" />
+          <ButtonDashboardMenu icon="/public/image/Log Out.svg" text="Keluar" />
         </NavLink>
       </div>
     </nav>

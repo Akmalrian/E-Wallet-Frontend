@@ -1,18 +1,16 @@
-import HeaderLandingPage from "../header/HeaderLandingPage";
-import BrandLandingPage from "./BrandLandingPage";
-import ContentSection1LandingPage from "./ContentSection1LandingPage";
+import BrandLandingPage from "../Card/BrandLandingPage";
+import LeftHeroLanding from "./LeftHeroLanding";
 
-const Section1LadingPage = () => (
+const HeroLandingPage = () => (
   <main className="bg-white w-full ">
-    <HeaderLandingPage />
     <section className="flex w-full h-screen p-28">
       <div className="bg-white flex-1 rounded-r-2xl">
-        <ContentSection1LandingPage />
+        <LeftHeroLanding />
       </div>
       <div className="flex">
         <img
           className="relative z-10"
-          src="/src/assets/onlinePayment.png"
+          src="/public/image/onlinePayment.png"
           alt="Wallet"
         />
       </div>
@@ -24,5 +22,5 @@ const Section1LadingPage = () => (
     </section>
   </main>
 );
-export default Section1LadingPage;
+export default HeroLandingPage;
 

@@ -9,12 +9,12 @@ const LoginPage = () => (
       <div className="hidden md:flex flex-1 items-center justify-center relative">
         <img
           className="absolute w-full h-full"
-          src="/src/assets/Ellipse 1.svg"
+          src="/public/image/Ellipse 1.svg"
           alt="dim background"
         />
         <img
           className="relative z-10"
-          src="/src/assets/handMakingCashless.png"
+          src="/public/image/handMakingCashless.png"
           alt="Wallet"
         />
       </div>

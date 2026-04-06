@@ -3,12 +3,12 @@ const BackgroundVector = () => {
     <div className="-z-2 absolute ">
       <img
         className="w-screen"
-        src="/src/assets/VectorUp.png"
+        src="/public/image/VectorUp.png"
         alt="background vector up"
       />
       <img
         class="w-screen"
-        src="/src/assets/VectorDown.png"
+        src="/public/image/VectorDown.png"
         alt="background vector down"
       />
     </div>

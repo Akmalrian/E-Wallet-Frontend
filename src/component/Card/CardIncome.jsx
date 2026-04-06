@@ -10,7 +10,7 @@ const isNegative = detail.includes("-");
             <p className="text-black font-medium mt-2 text-[24px]">{text}</p>
             <p className={`text-[12px] flex items-center gap-1 mt-2 ${isNegative ? 'text-red-500' : 'text-[#00A700]'}`}>
             {detail}
-            <img src={arrow} className={isNegative ? "rotate-180" : ""} alt="arrow" />{day}
+            <img src={arrow} alt="arrow" />{day}
       </p>
         </div>
     </div>

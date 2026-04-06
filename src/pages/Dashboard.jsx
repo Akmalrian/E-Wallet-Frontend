@@ -1,20 +1,20 @@
 import HeaderDashboard from "../component/header/HeaderDashboard";
 import NavigationDashboard from "../component/header/NavigationDashboard";
-import Section1Dashboard from "../component/section/Section1Dashboard";
-import Section2Dashboard from "../component/section/Section2Dashboard";
+import IncomeChartDashboard from "../component/dashboard/IncomeChartDashboard";
+import TransactionHistory from "../component/dashboard/TransactionHistory";
 
 const Dashboard = () => (
   <main>
     <HeaderDashboard />
     <section className="grid grid-cols-[1fr_3fr_1.5fr] gap-15 font-montserrat">
         <nav>
-            <NavigationDashboard />
+          <NavigationDashboard />
         </nav>
         <div>
-          <Section1Dashboard />
+          <IncomeChartDashboard />
         </div>
         <div>
-          <Section2Dashboard />
+          <TransactionHistory />
         </div>
     </section>
   </main>

@@ -1,7 +1,7 @@
 
-import CardAboutAplication from "./CardAboutAplication";
+import CardAboutAplication from "../Card/CardAboutAplication";
 
-const Section2LandingPage = () => (
+const AboutAplication = () => (
 
     <section className="grid grid-cols-[2fr_3fr] w-full p-28 font-montserrat">
         <div className="flex items-center p-4">
@@ -12,20 +12,20 @@ const Section2LandingPage = () => (
         </div>
         <div className="flex gap-5 p-4">
             <CardAboutAplication
-            icon ="/src/assets/Headphones.png"
+            icon ="/public/image/Headphones.png"
             title = "24/7 Support"
             text="We have 24/7 contact support so you can contact us whenever you want and we will respond it." />
             <CardAboutAplication
-            icon ="/src/assets/Shield-Done.png"
+            icon ="/public/image/Shield-Done.png"
             title = "Data Privacy"
             text="We make sure your data is safe in our database and we will encrypt any data you submitted to us." />
             <CardAboutAplication
-            icon ="/src/assets/Download.png"
+            icon ="/public/image/Download.png"
             title = "Easy Download"
             text="Zwallet is 100% totally free to use it’s now available on Google Play Store and App Store." />
         </div>
         
     </section>
 );
-export default Section2LandingPage;
+export default AboutAplication;
 
