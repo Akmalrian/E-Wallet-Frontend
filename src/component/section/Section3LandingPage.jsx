@@ -42,3 +42,4 @@ const Section3LandingPage = () => (
   </section>
 );
 export default Section3LandingPage;
+

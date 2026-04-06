@@ -25,3 +25,4 @@ const Section1LadingPage = () => (
   </main>
 );
 export default Section1LadingPage;
+

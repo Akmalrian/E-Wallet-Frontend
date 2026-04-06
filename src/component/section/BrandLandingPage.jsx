@@ -12,3 +12,4 @@ const BrandLandingPage = () => {
 };
 
 export default BrandLandingPage;
+

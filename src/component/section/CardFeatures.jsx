@@ -15,3 +15,4 @@ const CardFeatures = ({ icon, title, text }) => {
 };
 
 export default CardFeatures;
+

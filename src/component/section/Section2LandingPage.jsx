@@ -28,3 +28,4 @@ const Section2LandingPage = () => (
     </section>
 );
 export default Section2LandingPage;
+

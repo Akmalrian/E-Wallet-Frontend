@@ -18,3 +18,4 @@ const isNegative = detail.includes("-");
 };
 
 export default CardHistoryDashboard;
+

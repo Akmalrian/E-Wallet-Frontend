@@ -21,5 +21,4 @@ const ContentSection1LandingPage = () => {
     </section>
   );
 };
-
 export default ContentSection1LandingPage;
