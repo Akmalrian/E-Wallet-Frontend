@@ -9,5 +9,4 @@ const SignInWithButton = ({ icon, text, onClick }) => {
     </button>
   );
 };
-
 export default SignInWithButton;

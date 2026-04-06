@@ -9,5 +9,4 @@ const ButtonDashboardMenu = ({ icon, text, onClick }) => {
     </button>
   );
 };
-
 export default ButtonDashboardMenu;

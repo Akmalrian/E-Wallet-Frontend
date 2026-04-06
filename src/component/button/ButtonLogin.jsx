@@ -15,5 +15,4 @@ const ButtonLogin = ({ children, onClick, type = "button", variant = "primary" }
     </button>
   );
 };
-
 export default ButtonLogin;
