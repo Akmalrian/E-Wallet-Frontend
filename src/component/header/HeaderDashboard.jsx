@@ -20,5 +20,4 @@ function HeaderDashboard() {
     </header>
   );
 }
-
 export default HeaderDashboard;

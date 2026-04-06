@@ -28,5 +28,4 @@ function HeaderLandingPage() {
     </header>
   );
 }
-
 export default HeaderLandingPage;
