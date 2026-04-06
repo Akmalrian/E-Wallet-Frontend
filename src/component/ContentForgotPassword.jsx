@@ -32,5 +32,4 @@ const ContentForgotPassword = () => {
     </section>
   );
 };
-
 export default ContentForgotPassword;
