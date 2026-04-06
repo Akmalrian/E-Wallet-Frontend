@@ -66,5 +66,4 @@ const ContentLogin = () => {
     </section>
   );
 };
-
 export default ContentLogin;
