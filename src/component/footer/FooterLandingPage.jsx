@@ -57,5 +57,4 @@ function FooterLandingPage() {
     </footer>
   );
 }
-
 export default FooterLandingPage;
