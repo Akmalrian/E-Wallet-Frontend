@@ -1,3 +1,15 @@
+/**
+ * ButtonLogin Component
+ * 
+ * * @component
+ * @param {Object} props
+ * @param {React.ReactNode} props.children 
+ * @param {Function} props.onClick 
+ * @param {"button" | "submit" | "reset"} [props.type="button"] 
+ * @param {"primary" | "outline"} [props.variant="primary"] 
+ * @returns {JSX.Element}
+ */
+
 const ButtonLogin = ({ children, onClick, type = "button", variant = "primary" }) => {
   const baseStyle = "w-full py-3 rounded-xl font-bold shadow-lg transition transform active:scale-95 font-montserrat";
   const variants = {

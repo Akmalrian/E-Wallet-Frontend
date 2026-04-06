@@ -1,3 +1,14 @@
+/**
+ * Button Component
+ * @type {tipedata}
+ * @param {Object} props
+ * @param {String} props.text
+ * @param {String} props.icon
+ * @param {Function} props.onClick 
+ * @return {JSX.Elements}
+ * 
+ */
+
 const SignInWithButton = ({ icon, text, onClick }) => {
   return (
     <button

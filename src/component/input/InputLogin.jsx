@@ -1,3 +1,17 @@
+/**
+ * Button Component
+ * @type {tipedata}
+ * @param {Object} props
+ * @param {String} props.label
+ * @param {String} [props.type="text"]
+ * @param {String} props.placeholder
+ * @param {String} props.name
+ * @param {String} props.id
+ * @param {String} props.icon
+ * @return {JSX.Elements}
+ * 
+ */
+
 const InputLogin = ({ label, type = "text", placeholder, name, id, icon }) => {
   return (
     <div className="w-full">
