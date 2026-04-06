@@ -24,5 +24,4 @@ const InputLogin = ({ label, type = "text", placeholder, name, id, icon }) => {
     </div>
   );
 };
-
 export default InputLogin;
