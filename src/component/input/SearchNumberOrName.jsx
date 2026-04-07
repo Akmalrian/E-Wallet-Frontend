@@ -28,7 +28,7 @@ const SearchNumberOrName = ({ type = "text", placeholder, name, id, icon }) => {
           name={name}
           id={id}
           placeholder={placeholder}
-          className={`w-full py-3 rounded-2xl border border-gray-200 focus:border-[#2948FF] outline-none transition bg-transparent ${icon ? 'pl-2' : 'pl-0'}`}
+          className={`w-full py-3 rounded-md border border-gray-200 focus:border-[#2948FF] outline-none transition bg-transparent ${icon ? 'pl-2' : 'pl-0'}`}
         />
       </div>
     </div>

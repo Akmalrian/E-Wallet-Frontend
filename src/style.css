@@ -4,4 +4,11 @@
 @theme {
   --font-montserrat: "montserrat", sans-serif;
   --font-nunitoSans: "Nunito+Sans", sans-serif;
+  
+  --primary-color: #2948FF;
+  --color-primary: var(--primary-color);
+  --secondary-color: #4F5665;
+  --color-secondary: var(--secondary-color);
+  --text-tiny: 12px;
+  --text-medium: 16px;
 }

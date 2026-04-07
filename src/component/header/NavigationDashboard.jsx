@@ -3,7 +3,7 @@ import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 
 function NavigationDashboard() {
   return (
-    <nav className="shadow h-[130vh]">
+    <nav className="shadow h-[130vh] w-[262px]">
       <div className="w-[208px] h-[350px] grid gap-2 p-6 ml-2">
         <NavLink
           to={"/dashboard"}

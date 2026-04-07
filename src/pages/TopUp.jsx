@@ -1,5 +1,7 @@
 import HeaderDashboard from "../component/header/HeaderDashboard";
 import NavigationDashboard from "../component/header/NavigationDashboard";
+import TopUpAccountInformation from "../component/section/TopUpAccountInformation";
+import TopUpPayment from "../component/section/TopUpPayment";
 
 const TopUp = () => (
   <main>
@@ -9,10 +11,10 @@ const TopUp = () => (
             <NavigationDashboard />
         </nav>
         <div>
-          
+          <TopUpAccountInformation />
         </div>
         <div>
-          
+          <TopUpPayment />
         </div>
     </section>
   </main>

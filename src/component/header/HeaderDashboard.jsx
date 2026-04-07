@@ -1,5 +1,11 @@
+import { useState } from "react";
+import DropdownMenu from "./DropdownMenu";
 
 function HeaderDashboard() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropDrown = () => {
+    setIsOpen(!isOpen);
+  }
   return (
     <header className="bg-[#ffffff] shadow w-full">
       <nav className="max-w-full pl-8 pr-12 py-4 flex justify-between items-center">
@@ -13,8 +19,12 @@ function HeaderDashboard() {
         </div>
         <div className="flex items-center gap-4 text-[#4F5665] font-montserrat">
             <p>Ghaluh Wizard</p>
-            <img src="/public/image/photo-ghaluh.svg" alt="Photo Ghaluh" />
-            <img src="/public/image/down.svg" alt="Icon Down" />
+            <div className="cursor-pointer flex items-center gap-2" onClick={toggleDropDrown}>
+            <img src="/public/image/photo-ghaluh.svg" alt="Photo Ghaluh" 
+            />
+            <img src="/public/image/down.svg" alt="Icon Down" /></div>
+
+            {isOpen && <DropdownMenu />}
         </div>
       </nav>
     </header>

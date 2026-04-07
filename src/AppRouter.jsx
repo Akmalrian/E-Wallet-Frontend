@@ -8,6 +8,7 @@ import History from "./pages/History";
 import Transfer from "./pages/Transfer";
 import TopUp from "./pages/TopUp";
 import Profile from "./pages/Profile";
+import TransferSetNominal from "./pages/TransferSetNominal";
 
 function AppRouter() {
   return (
@@ -22,6 +23,7 @@ function AppRouter() {
         <Route path="/history" element={<History />} />
         <Route path="/topup" element={<TopUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/nominal" element={<TransferSetNominal />} />
       </Routes>
     </BrowserRouter>
   );

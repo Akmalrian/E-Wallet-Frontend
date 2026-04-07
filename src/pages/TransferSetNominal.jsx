@@ -1,8 +1,8 @@
 import HeaderDashboard from "../component/header/HeaderDashboard";
 import NavigationDashboard from "../component/header/NavigationDashboard";
-import TransferMoney from "../component/section/TransferMoney";
+import SetNominal from "../component/section/SetNominal";
 
-const Transfer = () => (
+const TransferSetNominal = () => (
   <main>
     <HeaderDashboard />
     <section className="grid grid-cols-[1fr_4.5fr] gap-15 font-montserrat">
@@ -10,9 +10,9 @@ const Transfer = () => (
         <NavigationDashboard />
       </nav>
       <div>
-        <TransferMoney />
+        <SetNominal />
       </div>
     </section>
   </main>
 );
-export default Transfer;
+export default TransferSetNominal;

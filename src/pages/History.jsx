@@ -1,6 +1,6 @@
 import HeaderDashboard from "../component/header/HeaderDashboard";
 import NavigationDashboard from "../component/header/NavigationDashboard";
-import SectionHistory from "../component/section/SectionHistory";
+import HistoryTransaction from "../component/section/HistoryTransaction";
 
 const History = () => (
   <main>
@@ -10,7 +10,7 @@ const History = () => (
             <NavigationDashboard />
         </nav>
         <div>
-          <SectionHistory />
+          <HistoryTransaction />
         </div>
     </section>
   </main>

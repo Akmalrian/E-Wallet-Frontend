@@ -12,7 +12,9 @@
  * 
  */
 
-const InputLogin = ({ label, type = "text", placeholder, name, id, icon }) => {
+import React, { forwardRef } from "react";
+
+const InputLogin = forwardRef(({ label, type = "text", placeholder, id, icon, ...props }, ref) => {
   return (
     <div className="w-full">
       <label htmlFor={id} className="block font-semibold text-[#0B132A] mb-2 text-base">
@@ -28,14 +30,17 @@ const InputLogin = ({ label, type = "text", placeholder, name, id, icon }) => {
         )}
         
         <input
+          ref={ref}
           type={type}
-          name={name}
           id={id}
           placeholder={placeholder}
-          className={`w-full py-3 rounded-2xl border border-gray-200 focus:border-[#2948FF] outline-none transition bg-transparent ${icon ? 'pl-12' : 'pl-0'}`}
+          {...props}
+          className={`w-full py-3 rounded-2xl border border-gray-200 focus:border-[#2948FF] outline-none transition bg-transparent ${icon ? 'pl-12' : 'pl-4'} pr-4`}
         />
       </div>
     </div>
   );
-};
+});
+
+
 export default InputLogin;
