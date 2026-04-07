@@ -1,22 +1,43 @@
 import SignInWithButton from "./button/SignInWithButton";
 import ButtonLogin from "./button/ButtonLogin";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import InputLogin from "./input/InputLogin";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import authSchema from "../schemas/schema.auth.js";
+import {registerSchema} from "../schemas/schema.auth.js";
 
 const ContentRegister = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: joiResolver(authSchema),
+    resolver: joiResolver(registerSchema),
   });
+    const onSubmit = (data) => {
+  // 1. Ambil data user yang sudah ada di localStorage (jika ada)
+  const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-  const onSubmit = (data) => console.log(data);
+  // 2. Cek apakah username sudah terdaftar
+  const isUsernameTaken = existingUsers.some(user => user.username === data.username);
+
+  if (isUsernameTaken) {
+    alert("Username sudah digunakan, silakan pilih yang lain.");
+    return;
+  }
+
+  // 3. Tambahkan user baru ke dalam array (hapus repeat_password agar tidak ikut tersimpan)
+  const { repeat_password: _, ...newUser } = data;
+  existingUsers.push(newUser);
+
+  // 4. Simpan kembali ke localStorage
+  localStorage.setItem("users", JSON.stringify(existingUsers));
+
+  alert("Registrasi Berhasil! Silakan Login.");
+  navigate("/login"); // Pastikan sudah import useNavigate dari react-router
+};
 
   useEffect(() => {
     console.log("[DEBUG] error form", errors);
