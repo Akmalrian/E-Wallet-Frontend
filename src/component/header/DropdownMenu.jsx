@@ -15,7 +15,7 @@ function DropdownMenu() {
             }}
           >
             <ButtonDashboardMenu
-              icon="/public/image/dashboard-two (1).svg"
+              icon="/image/dashboard-two (1).svg"
               text="Dashboard"
             />
           </NavLink>
@@ -28,7 +28,7 @@ function DropdownMenu() {
             }}
           >
             <ButtonDashboardMenu
-              icon="/public/image/2 User.svg"
+              icon="/image/2 User.svg"
               text="Transfer"
             />
           </NavLink>
@@ -41,7 +41,7 @@ function DropdownMenu() {
             }}
           >
             <ButtonDashboardMenu
-              icon="/public/image/history.svg"
+              icon="/image/history.svg"
               text="History"
             />
           </NavLink>
@@ -54,7 +54,7 @@ function DropdownMenu() {
             }}
           >
             <ButtonDashboardMenu
-              icon="/public/image/Upload.svg"
+              icon="/image/Upload.svg"
               text="Top Up"
             />
           </NavLink>
@@ -67,7 +67,7 @@ function DropdownMenu() {
               : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff]";
           }}
         >
-          <ButtonDashboardMenu icon="/public/image/2 User.svg" text="Profile" />
+          <ButtonDashboardMenu icon="/image/2 User.svg" text="Profile" />
         </NavLink>
         <NavLink
           to={"/login"}
@@ -77,7 +77,7 @@ function DropdownMenu() {
               : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff]";
           }}
         >
-          <ButtonDashboardMenu icon="/public/image/Log Out.svg" text="Keluar" />
+          <ButtonDashboardMenu icon="/image/Log Out.svg" text="Keluar" />
         </NavLink>
       </div>
     </nav>

@@ -6,7 +6,7 @@ const FeaturesAplication = () => (
     <BackgroundVector />
     <div class="flex justify-center gap-4 p-10 ">
       <div class="relative right-20">
-        <img src="/public/image/Mobile-Dashboard.png" alt="mobile Dashboard" />
+        <img src="/image/Mobile-Dashboard.png" alt="mobile Dashboard" />
       </div>
       <div class="relative left-30 top-60 h-115 w-145">
         <div class="text-white">
@@ -18,17 +18,17 @@ const FeaturesAplication = () => (
         </div>
         <div class="grid gap-4">
             <CardFeatures
-            icon ="/public/image/fee.png"
+            icon ="/image/fee.png"
             title = "Small Fee"
             text="We only charge 5% of every success transaction done in Zwallet
                 app." />
             <CardFeatures
-            icon ="/public/image/secured.png"
+            icon ="/image/secured.png"
             title = "Data Secured"
             text="All your data is secured properly in our system and it’s
                 encrypted." />
             <CardFeatures
-            icon ="/public/image/friendly.png"
+            icon ="/image/friendly.png"
             title = "User Friendly"
             text="Zwallet come up with modern and sleek design and not
                 complicated.." />

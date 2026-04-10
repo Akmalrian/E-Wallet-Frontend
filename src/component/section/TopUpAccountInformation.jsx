@@ -5,7 +5,7 @@ function TopUpAccountInformation() {
   return (
     <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
-        <img src="/public/image/UploadBlue.svg" alt="icon Top Up" />
+        <img src="/image/UploadBlue.svg" alt="icon Top Up" />
         <p>Top Up Account</p>
       </div>
       <div className="mx-4 w-175 h-198 justify-between shadow">
@@ -18,13 +18,13 @@ function TopUpAccountInformation() {
               <div className="flex items-center">
                 <img
                   className="w-20 h-20"
-                  src="/public/image/Profile.svg"
+                  src="/image/Profile.svg"
                   alt="Ghaluh Photo"
                 />
                 <div className="ml-5 grid gap-2">
                   <h6 className="font-bold">Ghaluh Wizard</h6>
                   <p>(239) 555-0108</p>
-                  <img src="/public/image/verified.svg" alt="icon verified" />
+                  <img src="/image/verified.svg" alt="icon verified" />
                 </div>
               </div>
             </div>
@@ -36,7 +36,7 @@ function TopUpAccountInformation() {
               type="text"
               placeholder="Enter Nominal Transfer"
               id="text"
-              icon="/public/image/u_money-bill.svg"
+              icon="/image/u_money-bill.svg"
             />
             <h6 className="mt-4 font-bold">Payment Method</h6>
             <p className="mt-1 mb-4">
@@ -44,31 +44,31 @@ function TopUpAccountInformation() {
             </p>
             <div className="grid gap-5">
               <CardPaymentMethod
-                image="/public/image/Bank BRI (Bank Rakyat Indonesia).svg"
+                image="/image/Bank BRI (Bank Rakyat Indonesia).svg"
                 title="Bank Rakyat Indonesia"
                 name="bri"
                 id="bri"
               />
               <CardPaymentMethod
-                image="/public/image/Logo DANA.svg"
+                image="/image/Logo DANA.svg"
                 title="Dana"
                 name="dana"
                 id="dana"
               />
               <CardPaymentMethod
-                image="/public/image/BCA.svg"
+                image="/image/BCA.svg"
                 title="Bank Central Asia "
                 name="bca"
                 id="bca"
               />
               <CardPaymentMethod
-                image="/public/image/Gopay.svg"
+                image="/image/Gopay.svg"
                 title="Gopay"
                 name="gopay"
                 id="gopay"
               />
               <CardPaymentMethod
-                image="/public/image/Ovo.svg"
+                image="/image/Ovo.svg"
                 title="Ovo"
               />
             </div>

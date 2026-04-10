@@ -9,12 +9,12 @@ const RegisterPage = () => (
       <div className="hidden md:flex flex-1 items-center justify-center relative">
         <img
           className="absolute w-full h-full"
-          src="/public/image/Ellipse 1.svg"
+          src="/image/Ellipse 1.svg"
           alt="dim background"
         />
         <img
           className="relative z-10"
-          src="/public/image/wallet.png"
+          src="/image/wallet.png"
           alt="Wallet"
         />
       </div>

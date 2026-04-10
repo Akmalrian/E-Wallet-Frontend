@@ -5,7 +5,7 @@ function HistoryTransaction() {
   return (
     <section className="mt-6 text-medium ">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
-        <img src="/public/image/historyBlue.svg" alt="icon history" />
+        <img src="/image/historyBlue.svg" alt="icon history" />
         <p>History Transaction</p>
       </div>
       <div className="mx-4 w-280 h-205 justify-between shadow">
@@ -18,63 +18,63 @@ function HistoryTransaction() {
               type="text"
               placeholder="Enter Number Or Full Name"
               id="email"
-              icon="/public/image/Search.svg"
+              icon="/image/Search.svg"
             />
           </div>
           
         </div>
         <div className="grid gap-4">
         <CardHistoryTransaction
-          image="/public/image/historyPhoto.svg"
+          image="/image/historyPhoto.svg"
           title="Ghaluh 1"
           detail="082116304337"
           text="Rp.50.000"
-          icon="/public/image/Trash.svg"
+          icon="/image/Trash.svg"
           result={false}
           />
           <CardHistoryTransaction
-          image="/public/image/historyPhoto (2).svg"
+          image="/image/historyPhoto (2).svg"
           title="Cameron Williamson"
           detail="(308) 555-0121"
           text="Rp.50.000"
-          icon="/public/image/Trash.svg"
+          icon="/image/Trash.svg"
           />
           <CardHistoryTransaction
-          image="/public/image/historyPhoto (3).svg"
+          image="/image/historyPhoto (3).svg"
           title="Cody Fisher"
           detail="(704) 555-0127"
           text="Rp.50.000"
-          icon="/public/image/Trash.svg"
+          icon="/image/Trash.svg"
           result={false}
           />
           <CardHistoryTransaction
-          image="/public/image/historyPhoto (4).svg"
+          image="/image/historyPhoto (4).svg"
           title="Kristin Watson"
           detail="(603) 555-0123"
           text="Rp.50.000"
-          icon="/public/image/Trash.svg"
+          icon="/image/Trash.svg"
           />
           <CardHistoryTransaction
-          image="/public/image/historyPhoto (5).svg"
+          image="/image/historyPhoto (5).svg"
           title="Floyd Miles"
           detail="(671) 555-0110"
           text="Rp.50.000"
-          icon="/public/image/Trash.svg"
+          icon="/image/Trash.svg"
           result={false}
           />
           <CardHistoryTransaction
-          image="/public/image/historyPhoto (6).svg"
+          image="/image/historyPhoto (6).svg"
           title="Wade Warren"
           detail="(225) 555-0118"
           text="Rp.50.000"
-          icon="/public/image/Trash.svg"
+          icon="/image/Trash.svg"
           />
           <CardHistoryTransaction
-          image="/public/image/historyPhoto (7).svg"
+          image="/image/historyPhoto (7).svg"
           title="Savannah Nguyen"
           detail="(217) 555-0113"
           text="Rp.50.000"
-          icon="/public/image/Trash.svg"
+          icon="/image/Trash.svg"
           result={false}
           />
           </div>

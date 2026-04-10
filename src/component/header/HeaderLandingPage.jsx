@@ -7,7 +7,7 @@ function HeaderLandingPage() {
         <div className="flex items-center gap-2 relative left-20">
           <img
             className="w-8 h-8"
-            src="/public/image/MoneyWallet.png"
+            src="/image/MoneyWallet.png"
             alt="Logo"
           />
           <span className="font-nunitoSans text-xl">E-Wallet</span>

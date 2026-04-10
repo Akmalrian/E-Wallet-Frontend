@@ -12,7 +12,7 @@ function HeaderDashboard() {
         <div className="flex items-center gap-2">
           <img
             className="w-8 h-8"
-            src="/public/image/MoneyWallet.png"
+            src="/image/MoneyWallet.png"
             alt="Logo"
           />
           <span className="font-nunitoSans text-xl text-primary">E-Wallet</span>
@@ -20,9 +20,9 @@ function HeaderDashboard() {
         <div className="flex items-center gap-4 text-secondary font-montserrat">
             <p>Ghaluh Wizard</p>
             <div className="cursor-pointer flex items-center gap-2" onClick={toggleDropDrown}>
-            <img src="/public/image/photo-ghaluh.svg" alt="Photo Ghaluh" 
+            <img src="/image/photo-ghaluh.svg" alt="Photo Ghaluh" 
             />
-            <img src="/public/image/down.svg" alt="Icon Down" /></div>
+            <img src="/image/down.svg" alt="Icon Down" /></div>
 
             {isOpen && <DropdownMenu />}
         </div>

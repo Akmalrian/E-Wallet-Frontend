@@ -14,8 +14,8 @@ const LeftHeroLanding = () => {
         </button>
         <p className="my-6 text-secondary font-montserrat">Available On</p>
         <div className="flex gap-10">
-          <img src="/public/image/playStore.png" alt="Icon Playstore" />
-          <img src="/public/image/Apple.png" alt="Icon Playstore" />
+          <img src="/image/playStore.png" alt="Icon Playstore" />
+          <img src="/image/Apple.png" alt="Icon Playstore" />
         </div>
       </div>
     </section>

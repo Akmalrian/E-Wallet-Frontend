@@ -18,7 +18,7 @@ function TopUpPayment() {
           <p>Tax</p>
           <b>Idr.4000</b>
         </div>
-        <img src="/public/image/line2.svg" alt="image line" />
+        <img src="/image/line2.svg" alt="image line" />
         <div className="flex justify-between">
           <p>Sub Total</p>
           <b>Idr.44.000</b>

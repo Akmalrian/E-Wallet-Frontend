@@ -10,7 +10,7 @@ const HeroLandingPage = () => (
       <div className="flex">
         <img
           className="relative z-10"
-          src="/public/image/onlinePayment.png"
+          src="/image/onlinePayment.png"
           alt="Wallet"
         />
       </div>

@@ -1,7 +1,7 @@
 const CardPaymentMethod = ({ type = "radio", title, name, id, image }) => {
   return (
     <label className="flex h-15 bg-[#E8E8E84D] rounded-lg w-full items-center px-4">
-      <input className="text-[#4f5665] text-[16px]" type={type} name={name} id={id}/>
+      <input className="text-[#4f5665] text-medium" type={type} name={name} id={id}/>
       <div className="flex items-center ml-8">
         <img className="w-14 h-14" src={image} alt="bank transfer" />
       </div>

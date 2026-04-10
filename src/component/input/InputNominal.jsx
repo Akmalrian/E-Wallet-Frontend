@@ -32,7 +32,7 @@ const InputNominal = ({ label, type, placeholder, id, icon }) => {
           type={type}
           id={id}
           placeholder={placeholder}
-          className={`w-full py-3 rounded-md border border-gray-200 focus:border-[#2948FF] outline-none transition bg-transparent ${icon ? "pl-12" : "pl-4"} pr-4`}
+          className={`w-full py-3 rounded-md border border-gray-200 focus:border-primary outline-none transition bg-transparent ${icon ? "pl-12" : "pl-4"} pr-4`}
         />
       </div>
     </div>
