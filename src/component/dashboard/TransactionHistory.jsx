@@ -2,10 +2,10 @@ import CardHistoryDashboard from "../Card/CardHistoryDashboard";
 
 function TransactionHistory() {
   return (
-    <section className="mt-10 text-[16px] w-[341px] h-[867px] shadow">
+    <section className="mt-10 text-medium md:w-85.25 h-216.75 shadow w-full">
       <div className="flex mx-4 justify-between items-center">
-        <p className="text-[16px] mt-5 font-semibold">Transaction History</p>
-        <p className="text-[12px] mt-5 text-[#2948FF] font-medium">See All</p>
+        <p className="text-medium mt-5 font-semibold">Transaction History</p>
+        <p className="text-tiny mt-5 text-primary font-medium">See All</p>
       </div>
       <div className="grid gap-8 mx-4 mt-5">
         <CardHistoryDashboard

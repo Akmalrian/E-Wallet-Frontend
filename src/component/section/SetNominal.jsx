@@ -4,7 +4,7 @@ import InputNominal from "../input/InputNominal";
 
 function SetNominal() {
   return (
-    <section className="mt-6 text-[16px] font-montserrat">
+    <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
         <img src="/public/image/SendBlue.svg" alt="icon history" />
         <p>Transfer Money</p>
@@ -52,7 +52,7 @@ function SetNominal() {
               You can add some notes for this transfer such as payment coffee or
               something
             </p>
-            <textarea className="w-full h-55.75 p-3 border border-gray-400 mb-4" placeholder="Enter Some Notes"></textarea>
+            <textarea className="w-full h-55.75 p-3 border border-gray-400 mb-4 " placeholder="Enter Some Notes"></textarea>
             <a href="transferEnterPin.html">
               <ButtonLogin type="submit">
               Submit & Transfer

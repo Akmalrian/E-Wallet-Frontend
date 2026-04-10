@@ -35,7 +35,7 @@ const InputLogin = forwardRef(({ label, type = "text", placeholder, id, icon, ..
           id={id}
           placeholder={placeholder}
           {...props}
-          className={`w-full py-3 rounded-2xl border border-gray-200 focus:border-[#2948FF] outline-none transition bg-transparent ${icon ? 'pl-12' : 'pl-4'} pr-4`}
+          className={`w-full py-3 rounded-2xl border border-gray-200 focus:border-primary outline-none transition bg-transparent ${icon ? 'pl-12' : 'pl-4'} pr-4`}
         />
       </div>
     </div>

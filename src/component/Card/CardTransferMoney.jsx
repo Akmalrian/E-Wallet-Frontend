@@ -1,10 +1,10 @@
 const CardTransferMoney = ({ icon, title, detail, image, result = true }) => {
   return (
-    <div className="mx-6 text-secondary text-[16px]">
+    <div className="mx-6 text-secondary text-medium md:w-full w-100">
       <div
-        className={`flex gap-5 justify-between items-center w-full h-18 ${result ? "bg-white" : "bg-[#F9FAFB]"}`}
+        className={`flex md:gap-5 gap-0 justify-between items-center w-full h-18 ${result ? "bg-white" : "bg-[#F9FAFB]"}`}
       >
-        <div className="flex items-center ml-20">
+        <div className="flex items-center md:ml-20 ml-0">
           <img className="w-14 h-14" src={image} alt="photo profile" />
         </div>
         <h6 className="w-108.75 text-center">{title}</h6>

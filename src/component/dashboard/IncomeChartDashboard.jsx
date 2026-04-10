@@ -3,8 +3,8 @@ import ChartDashboard from "../section/ChartDashboard";
 
 function IncomeChartDashboard() {
   return (
-    <section className="text-[16px]">
-      <div className="flex justify-between">
+    <section className="text-medium">
+      <div className="md:flex md:justify-between grid justify-center">
         <div>
           <CardIncome
             icon="/public/image/balance.svg"
@@ -34,18 +34,18 @@ function IncomeChartDashboard() {
           />
         </div>
       </div>
-      <div className="shadow mt-5 h-20.25 w-full flex justify-between items-center rounded-md">
-        <p className="ml-4 font-semibold text-[16px]">Fast Service</p>
+      <div className="shadow mt-5 md:h-20.25 md:w-full flex md:justify-between w-[320px] justify-center ml-10 md:ml-0 md:items-center rounded-md">
+        <p className="ml-4 font-semibold text-medium">Fast Service</p>
         <div className="flex gap-4">
-          <button className="flex border bg-[#2948FF] h-11 w-27.25 items-center justify-center gap-2 rounded-[5px] hover:bg-blue-700 transition text-white">
+          <button className="flex border bg-primary h-11 w-27.25 items-center justify-center gap-2 rounded-[5px] hover:bg-blue-700 transition text-white">
           <img className="w-6 h-6" src="/public/image/Vector2.svg" alt="icon top up" />Top Up
         </button>
-        <button className="flex mr-4 border bg-[#2948FF] h-11 w-27.25 items-center justify-center gap-2 rounded-[5px] hover:bg-blue-700 transition text-white">
+        <button className="flex mr-4 border bg-primary h-11 w-27.25 items-center justify-center gap-2 rounded-[5px] hover:bg-blue-700 transition text-white">
          <img className="w-6 h-6" src="/public/image/Send2.svg" alt="icon transfer" /> Transfer
         </button>
         </div>
       </div>
-      <div className="shadow mt-5 h-[574px] w-full">
+      <div className="shadow mt-5 md:h-143.5 w-full">
         <ChartDashboard />
       </div>
       <div>

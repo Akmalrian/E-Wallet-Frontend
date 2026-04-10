@@ -3,7 +3,7 @@ import InputNominal from "../input/InputNominal";
 
 function TopUpAccountInformation() {
   return (
-    <section className="mt-6 text-[16px] font-montserrat">
+    <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
         <img src="/public/image/UploadBlue.svg" alt="icon Top Up" />
         <p>Top Up Account</p>

@@ -6,7 +6,7 @@ export const registerSchema = Joi.object({
         'string.min': "Email minimal 5 karakter",
         'string.email': "Email tidak valid!",
     }),
-    password: Joi.string().min(8).required().messages({
+    password: Joi.string().min(6).required().messages({
         'string.min': "password minimal 6 karakter",
         'string.empty': "Password tidak boleh kosong"
     }),
@@ -21,7 +21,7 @@ username: Joi.string().min(5).email().required().messages({
         'string.min': "Email minimal 5 karakter",
         'string.email': "Email tidak valid!",
     }),
-    password: Joi.string().min(8).required().messages({
+    password: Joi.string().min(6).required().messages({
         'string.min': "password minimal 6 karakter",
         'string.empty': "Password tidak boleh kosong"
     }),

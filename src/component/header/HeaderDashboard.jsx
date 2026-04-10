@@ -15,9 +15,9 @@ function HeaderDashboard() {
             src="/public/image/MoneyWallet.png"
             alt="Logo"
           />
-          <span className="font-nunitoSans text-xl text-[#2948FF]">E-Wallet</span>
+          <span className="font-nunitoSans text-xl text-primary">E-Wallet</span>
         </div>
-        <div className="flex items-center gap-4 text-[#4F5665] font-montserrat">
+        <div className="flex items-center gap-4 text-secondary font-montserrat">
             <p>Ghaluh Wizard</p>
             <div className="cursor-pointer flex items-center gap-2" onClick={toggleDropDrown}>
             <img src="/public/image/photo-ghaluh.svg" alt="Photo Ghaluh" 

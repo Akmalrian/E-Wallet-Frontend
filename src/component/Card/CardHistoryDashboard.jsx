@@ -8,9 +8,9 @@ const isNegative = detail.includes("-");
         </div>
         <div className="w-30">
           <h6 className="text-black font-bold text-[18px]">{title}</h6>
-          <p className="text-[#4F5665] text-[16px]">{text}</p>
+          <p className="text-secondary text-medium">{text}</p>
         </div>
-        <p className={`text-[16px] font-semibold ${isNegative ? 'text-[#D00000]' : 'text-[#1EC15F]'}`}>
+        <p className={`text-medium font-semibold ${isNegative ? 'text-[#D00000]' : 'text-[#1EC15F]'}`}>
             {detail}</p>
       </div>
     </div>

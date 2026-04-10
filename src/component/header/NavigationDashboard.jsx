@@ -3,13 +3,13 @@ import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 
 function NavigationDashboard() {
   return (
-    <nav className="shadow h-[130vh] w-[262px]">
-      <div className="w-[208px] h-[350px] grid gap-2 p-6 ml-2">
+    <nav className="shadow h-[130vh] w-65.5 hidden md:flex">
+      <div className="w-52 h-87.5 grid gap-2 p-6 ml-2">
         <NavLink
           to={"/dashboard"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] rounded-md text-white"
+              ? "bg-primary rounded-md text-white"
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
@@ -22,7 +22,7 @@ function NavigationDashboard() {
           to={"/transfer"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] rounded-md text-white"
+              ? "bg-primary rounded-md text-white"
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
@@ -32,7 +32,7 @@ function NavigationDashboard() {
           to={"/history"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] rounded-md text-white"
+              ? "bg-primary rounded-md text-white"
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
@@ -42,7 +42,7 @@ function NavigationDashboard() {
           to={"/topup"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] rounded-md text-white"
+              ? "bg-primary rounded-md text-white"
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
@@ -52,7 +52,7 @@ function NavigationDashboard() {
           to={"/profile"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] rounded-md text-white"
+              ? "bg-primary rounded-md text-white"
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >
@@ -62,7 +62,7 @@ function NavigationDashboard() {
           to={"/login"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] rounded-md text-white"
+              ? "bg-primary rounded-md text-white"
               : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
           }}
         >

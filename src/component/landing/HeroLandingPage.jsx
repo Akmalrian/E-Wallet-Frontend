@@ -15,7 +15,7 @@ const HeroLandingPage = () => (
         />
       </div>
     </section>
-    <section className="h-[171px] w-full bg-[#E8E8E84D]">
+    <section className="h-42.75 w-full bg-[#E8E8E84D]">
         <div className="mx-14 p-6">
     <BrandLandingPage />
         </div>

@@ -3,15 +3,28 @@ import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 
 function DropdownMenu() {
   return (
-    <nav className="shadow md:h-[142px] w-[235px] bg-white absolute top-20 z-10 rounded-2xl h-[400px]">
+    <nav className="shadow md:h-35.5 w-58.75 bg-white absolute top-20 z-10 rounded-2xl h-80">
       <div className=" grid gap-2 p-6 ml-2">
-        <div className="md:hidden">
+        <div className="md:hidden grid">
+          <NavLink
+            to={"/dashboard"}
+            className={({ isActive }) => {
+              return isActive
+                ? "bg-primary -ml-5 mr-5 rounded-md text-white "
+                : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] ";
+            }}
+          >
+            <ButtonDashboardMenu
+              icon="/public/image/dashboard-two (1).svg"
+              text="Dashboard"
+            />
+          </NavLink>
           <NavLink
             to={"/transfer"}
             className={({ isActive }) => {
               return isActive
-                ? "bg-[#2948FF] -ml-5 mr-5 rounded-md text-white"
-                : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] hover:text-white";
+                ? "bg-primary -ml-5 mr-5 rounded-md text-white "
+                : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] ";
             }}
           >
             <ButtonDashboardMenu
@@ -23,12 +36,12 @@ function DropdownMenu() {
             to={"/history"}
             className={({ isActive }) => {
               return isActive
-                ? "bg-[#2948FF] rounded-md text-white"
-                : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] hover:text-white";
+                ? "bg-primary -ml-5 mr-5 rounded-md text-white"
+                : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] ";
             }}
           >
             <ButtonDashboardMenu
-              icon="/public/image/Log Out.svg"
+              icon="/public/image/history.svg"
               text="History"
             />
           </NavLink>
@@ -36,12 +49,12 @@ function DropdownMenu() {
             to={"/topup"}
             className={({ isActive }) => {
               return isActive
-                ? "bg-[#2948FF] rounded-md text-white"
-                : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] hover:text-white";
+                ? "bg-primary -ml-5 mr-5 rounded-md text-white"
+                : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] ";
             }}
           >
             <ButtonDashboardMenu
-              icon="/public/image/Log Out.svg"
+              icon="/public/image/Upload.svg"
               text="Top Up"
             />
           </NavLink>
@@ -50,8 +63,8 @@ function DropdownMenu() {
           to={"/profile"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] -ml-5 mr-5 rounded-md text-white"
-              : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] hover:text-white";
+              ? "bg-primary -ml-5 mr-5 rounded-md text-white"
+              : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff]";
           }}
         >
           <ButtonDashboardMenu icon="/public/image/2 User.svg" text="Profile" />
@@ -60,8 +73,8 @@ function DropdownMenu() {
           to={"/login"}
           className={({ isActive }) => {
             return isActive
-              ? "bg-[#2948FF] rounded-md text-white"
-              : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff] hover:text-white";
+              ? "bg-primary rounded-md text-white"
+              : "bg-white -ml-5 mr-5 rounded-md hover:bg-[#798dff]";
           }}
         >
           <ButtonDashboardMenu icon="/public/image/Log Out.svg" text="Keluar" />

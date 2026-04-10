@@ -8,10 +8,10 @@ const FeaturesAplication = () => (
       <div class="relative right-20">
         <img src="/public/image/Mobile-Dashboard.png" alt="mobile Dashboard" />
       </div>
-      <div class="relative left-30 top-60 h-[460px] w-[580px]">
+      <div class="relative left-30 top-60 h-115 w-145">
         <div class="text-white">
           <h6 className="text-4xl mb-6">All The Great Zwallet Features.</h6>
-          <p className="text-[16px] mb-6">
+          <p className="text-medium mb-6">
             We have some great features from the application and it’s totally
             free to use by all users around the world.
           </p>
@@ -32,7 +32,7 @@ const FeaturesAplication = () => (
             title = "User Friendly"
             text="Zwallet come up with modern and sleek design and not
                 complicated.." />
-        <button className="border mt-4 bg-white h-12.5 w-41.25 px-6 rounded-md text-[#2948FF]">
+        <button className="border mt-4 bg-white h-12.5 w-41.25 px-6 rounded-md text-primary">
           Get Started
         </button>
         </div>

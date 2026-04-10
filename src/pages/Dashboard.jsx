@@ -6,7 +6,7 @@ import TransactionHistory from "../component/dashboard/TransactionHistory";
 const Dashboard = () => (
   <main>
     <HeaderDashboard />
-    <section className="grid grid-cols-[1fr_3fr_1.5fr] gap-15 font-montserrat">
+    <section className="md:grid md:grid-cols-[1fr_3fr_1.5fr] grid md:gap-15 items-center font-montserrat">
         <nav>
           <NavigationDashboard />
         </nav>

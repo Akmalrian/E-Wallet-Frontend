@@ -7,7 +7,7 @@ const AboutAplication = () => (
         <div className="flex items-center p-4">
             <div>
                 <p className="text-[36px] font-medium mb-4">About The Aplication</p>
-                <p className="text-[16px] text-[#4F5665]">We have some great features from the application and it’s totally free to use by all users around the world.</p>
+                <p className="text-medium text-secondary">We have some great features from the application and it’s totally free to use by all users around the world.</p>
             </div>
         </div>
         <div className="flex gap-5 p-4">

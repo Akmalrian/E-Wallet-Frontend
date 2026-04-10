@@ -3,7 +3,7 @@ import InputNominal from "../input/InputNominal";
 
 function TopUpPayment() {
   return (
-    <section className="mt-20 text-[14px] flex p-6 rounded-sm relative right-10 bg-white shadow h-94.5 w-85.25 font-montserrat">
+    <section className="mt-20 text-[14px] flex p-6 rounded-sm relative md:right-10 bg-white  shadow h-94.5 w-85.25 font-montserrat">
       <div className="grid gap-5">
         <h6 className="font-semibold text-medium ">Payment</h6>
         <div className="flex justify-between">

@@ -5,12 +5,12 @@ import SearchNumberOrName from "../input/SearchNumberOrName";
 
 function TransferMoney() {
   return (
-    <section className="mt-6 text-[16px] font-montserrat">
+    <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
         <img src="/public/image/SendBlue.svg" alt="icon history" />
         <p>Transfer Money</p>
       </div>
-      <div className="ml-4 flex items-center gap-4 mb-8">
+      <div className="ml-4 md:flex grid items-center gap-4 mb-8">
         <img src="/public/image/number1.svg" alt="icon number 1" />
         <p>Find People</p>
         <img src="/public/image/VectorDotted.svg" alt="vector dotted" />
@@ -20,7 +20,7 @@ function TransferMoney() {
         <img src="/public/image/number3.svg" alt="icon number 3" />
         <p>Finish</p>
       </div>
-      <div className="mx-4 w-280 h-205 justify-between shadow">
+      <div className="mx-4 md:w-280 h-205 justify-between shadow">
         <div className="flex p-6">
           <div>
             <p className="font-semibold">Find People</p>
@@ -28,7 +28,7 @@ function TransferMoney() {
               8 Result Found For Ghaluh
             </p>
           </div>
-          <div className="absolute right-19 text-black">
+          <div className="absolute md:right-19 right-2 text-black">
             <SearchNumberOrName
               type="text"
               placeholder="Enter Number Or Full Name"

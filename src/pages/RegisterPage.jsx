@@ -1,7 +1,7 @@
 import ContentRegister from "../component/ContentRegister";
 
 const RegisterPage = () => (
-  <main className="bg-[#2948FF] w-full ">
+  <main className="bg-primary w-full ">
     <section className="flex w-full h-[130vh]">
       <div className="bg-white flex-1 rounded-r-2xl">
         <ContentRegister />

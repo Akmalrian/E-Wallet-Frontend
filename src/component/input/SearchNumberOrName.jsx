@@ -11,26 +11,17 @@
  * 
  */
 
-const SearchNumberOrName = ({ type = "text", placeholder, name, id, icon }) => {
+const SearchNumberOrName = ({ value, onChange, placeholder, icon, ...props }) => {
   return (
-    <div className="w-[340px] h-[40px]">
-      <div className="relative flex items-center">
-        {icon && (
-          <img 
-            src={icon} 
-            alt="" 
-            className="absolute right-4 w-5 h-5 pointer-events-none" 
-          />
-        )}
-        
-        <input
-          type={type}
-          name={name}
-          id={id}
-          placeholder={placeholder}
-          className={`w-full py-3 rounded-md border border-gray-200 focus:border-[#2948FF] outline-none transition bg-transparent ${icon ? 'pl-2' : 'pl-0'}`}
-        />
-      </div>
+    <div className="relative flex items-center">
+      {icon && <img src={icon} className="absolute left-4 w-5 h-5" alt="search" />}
+      <input
+        {...props}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="md:w-85 w-37.5 h-10 pl-12 pr-4 py-2 border rounded-md outline-none focus:border-blue-500"
+      />
     </div>
   );
 };
