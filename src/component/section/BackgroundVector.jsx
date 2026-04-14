@@ -1,13 +1,13 @@
 const BackgroundVector = () => {
   return (
-    <div className="-z-2 absolute ">
+    <div className="-z-2 absolute max-md:relative max-md:top-150 max-md:scale-500">
       <img
-        className="w-screen"
+        className="md:w-screen "
         src="/image/VectorUp.png"
         alt="background vector up"
       />
       <img
-        class="w-screen"
+        class="md:w-screen"
         src="/image/VectorDown.png"
         alt="background vector down"
       />

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import CardHistoryTransaction from "../Card/CardHistoryTransaction";
 import SearchNumberOrName from "../input/SearchNumberOrName";
+import { useSearchParams } from "react-router";
 
 
 const TRANSACTION_DATA = [
@@ -15,7 +15,19 @@ const TRANSACTION_DATA = [
 
 function HistoryTransaction() {
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const searchQuery = searchParams.get("search") || "";
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+
+    if (value) {
+      setSearchParams({ search: value });
+    } else {
+      setSearchParams({}); 
+    }
+  };
 
   const filteredTransactions = TRANSACTION_DATA.filter((item) => {
     const searchLower = searchQuery.toLowerCase();
@@ -43,7 +55,7 @@ function HistoryTransaction() {
               placeholder="Enter Number Or Full Name"
               icon="/image/Search.svg"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} 
+              onChange={handleSearchChange}
             />
           </div>
         </div>
@@ -63,7 +75,7 @@ function HistoryTransaction() {
               />
             ))
           ) : (
-            <p className="text-center py-10 text-gray-400">Data tidak ditemukan...</p>
+            <p className="text-center py-10 text-gray-400">Data "{searchQuery}" tidak ditemukan...</p>
           )}
         </div>
                   <div className="mx-6 text-tiny mt-10 flex justify-between">

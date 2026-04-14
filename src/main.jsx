@@ -8,9 +8,11 @@ import LandingPage from './pages/LandingPage'
 import ContentForgotPassword from './component/ContentForgotPassword'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import Dashboard from './pages/Dashboard'
+import { Toaster } from 'react-hot-toast'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Toaster position="top-center" />
     <AppRouter />
   </StrictMode>,
 )

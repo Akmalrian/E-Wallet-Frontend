@@ -4,7 +4,6 @@ import TransferMoney from "../component/section/TransferMoney";
 
 const Transfer = () => (
   <main>
-    <HeaderDashboard />
     <section className="grid grid-cols-[1fr_4.5fr] gap-15 font-montserrat">
       <nav>
         <NavigationDashboard />

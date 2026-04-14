@@ -1,4 +1,5 @@
 
+import { Link } from "react-router";
 import ButtonLogin from "./button/ButtonLogin";
 import InputLogin from "./input/InputLogin";
 
@@ -25,7 +26,7 @@ const ContentForgotPassword = () => {
           id="email" 
           icon="/image/mail.png"
         />
-        <ButtonLogin type="submit">Submit</ButtonLogin>
+        <Link to={"enter-pin"}><ButtonLogin>Submit</ButtonLogin></Link>
       </form>
     </div>
     </section>

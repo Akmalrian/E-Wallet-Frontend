@@ -9,21 +9,41 @@ import Transfer from "./pages/Transfer";
 import TopUp from "./pages/TopUp";
 import Profile from "./pages/Profile";
 import TransferSetNominal from "./pages/TransferSetNominal";
+import ChangePinProfile from "./pages/ChangePinProfile";
+import ChangePasswordProfile from "./pages/ChangePasswordProfile";
+import MainLayout from "./layout/MainLayout";
+import EnterPin from "./pages/EnterPin";
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login">
+          <Route index element={<LoginPage />} />
+          <Route path="forgot-password">
+            <Route index element={<ForgotPasswordPage />} />
+            <Route path="enter-pin" element={<EnterPin />} />
+          </Route>
+        </Route>
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forgot+password" element={<ForgotPasswordPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/transfer" element={<Transfer />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/topup" element={<TopUp />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/nominal" element={<TransferSetNominal />} />
+        <Route element={<MainLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/transfer">
+            <Route index element={<Transfer />} />
+            <Route path="nominal" element={<TransferSetNominal />} />
+          </Route>
+          <Route path="/topup" element={<TopUp />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/profile">
+            <Route index element={<Profile />} />
+            <Route path="pin-profile" element={<ChangePinProfile />} />
+            <Route
+              path="password-profile"
+              element={<ChangePasswordProfile />}
+            />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

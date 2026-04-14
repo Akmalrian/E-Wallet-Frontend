@@ -1,8 +1,13 @@
-
+import { useState } from "react";
 import ButtonLogin from "../button/ButtonLogin";
 import InputNominal from "../input/InputNominal";
+import PinModal from "./PinModal";
+import TransferSuccessModal from "./TransferSuccesModal";
+
 
 function SetNominal() {
+  const [isPinModalOpen, setIsPinModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   return (
     <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
@@ -19,7 +24,7 @@ function SetNominal() {
         <img src="/image/number3.svg" alt="icon number 3" />
         <p>Finish</p>
       </div>
-      <div className="mx-4 w-280 h-205 justify-between shadow">
+      <div className="mx-4 w-280 h-180 justify-between shadow">
         <div>
           <p className="font-semibold px-10 py-5">People Infromation</p>
         </div>
@@ -27,7 +32,11 @@ function SetNominal() {
           <div className="ml-10 mr-10">
             <div className="flex justify-between items-center h-28.75 w-full p-4 bg-[#E8E8E84D] ">
               <div className="flex items-center">
-                <img className="w-20 h-20" src="/image/historyPhoto.svg" alt="Ghaluh Photo" />
+                <img
+                  className="w-20 h-20"
+                  src="/image/historyPhoto.svg"
+                  alt="Ghaluh Photo"
+                />
                 <div className="ml-5 grid gap-2">
                   <h6 className="font-bold">Ghaluh 1</h6>
                   <p>(239) 555-0108</p>
@@ -52,15 +61,38 @@ function SetNominal() {
               You can add some notes for this transfer such as payment coffee or
               something
             </p>
-            <textarea className="w-full h-55.75 p-3 border border-gray-400 mb-4 " placeholder="Enter Some Notes"></textarea>
-            <a href="transferEnterPin.html">
-              <ButtonLogin type="submit">
-              Submit & Transfer
-              </ButtonLogin>
-            </a>
+            <textarea
+              className="w-full h-55.75 p-3 border border-gray-400 mb-4 "
+              placeholder="Enter Some Notes"
+            ></textarea>
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                setIsPinModalOpen(true);
+              }}
+            >
+              <ButtonLogin type="submit">Submit & Transfer</ButtonLogin>
+            </div>
           </div>
         </div>
       </div>
+      <PinModal
+        isOpen={isPinModalOpen}
+        onClose={() => setIsPinModalOpen(false)}
+        onSuccess={() => setIsSuccessModalOpen(true)}
+        recipientName="Ghaluh 1"
+      />
+
+      {/* Modal Success */}
+      <TransferSuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        onTransferAgain={() => {
+          setIsSuccessModalOpen(false);
+          // tambahkan logika reset form atau navigasi ke halaman transfer baru
+        }}
+        recipientName="Ghaluh 1"
+      />
     </section>
   );
 }

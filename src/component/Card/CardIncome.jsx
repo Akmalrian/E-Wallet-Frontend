@@ -1,7 +1,8 @@
 const CardIncome = ({ icon, title, text, detail, arrow, day }) => {
 const isNegative = detail.includes("-");
     return (
-    <div className="shadow h-36.75 md:w-60.5 w-screen rounded-md mt-10 flex flex-col md:items-start items-center justify-center">
+    <div className="shadow h-36.75 md:w-60.5 w-screen rounded-md mt-10 flex flex-col md:items-start items-center justify-center
+  max-md:w-full max-md:h-auto max-md:py-5 max-md:rounded-xl">
         <div className="ml-5">
         <div className="flex items-center">
             <img className="w-8 h-8 mr-2" src={icon} alt="icon income" />

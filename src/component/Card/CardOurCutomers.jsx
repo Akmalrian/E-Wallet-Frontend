@@ -1,6 +1,6 @@
 const CardOurCustomers = ({ icon, title, rate, mark, text }) => {
   return (
-    <div className="bg-[#E8E8E84D] h-95 w-75.75 rounded-2xl p-4">
+    <div className="bg-[#E8E8E84D] md:h-95 h-100 md:w-75.75 w-100 rounded-2xl p-4">
       <div className="flex flex-col  items-center text-center mt-8">
         <img src={icon} alt="Customer Photo" />
         <h6 className="text-black font-bold mt-6 text-[18px]">{title}</h6>

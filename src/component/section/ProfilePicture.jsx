@@ -1,103 +1,83 @@
-import CardHistoryTransaction from "../Card/CardHistoryTransaction";
-import SearchNumberOrName from "../input/SearchNumberOrName";
 
-function HistoryTransaction() {
+import { Link } from "react-router";
+import ButtonLogin from "../button/ButtonLogin";
+import InputNominal from "../input/InputNominal";
+
+function ProfilePicture() {
   return (
-    <section className="mt-6 text-medium ">
+    <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
-        <img src="/image/historyBlue.svg" alt="icon history" />
-        <p>History Transaction</p>
+        <img src="/image/2User.svg" alt="icon history" />
+        <p>Profile</p>
       </div>
       <div className="mx-4 w-280 h-205 justify-between shadow">
-        <div className="flex p-6 mb-10">
-          <div>
-            <p className="font-semibold">Find Transaction</p>
-          </div>
-          <div className="absolute right-19 text-black">
-            <SearchNumberOrName
-              type="text"
-              placeholder="Enter Number Or Full Name"
-              id="email"
-              icon="/image/Search.svg"
-            />
-          </div>
-          
+        <div>
+          <p className="font-semibold px-10 py-5">Profile Picture</p>
         </div>
-        <div className="grid gap-4">
-        <CardHistoryTransaction
-          image="/image/historyPhoto.svg"
-          title="Ghaluh 1"
-          detail="082116304337"
-          text="Rp.50.000"
-          icon="/image/Trash.svg"
-          result={false}
-          />
-          <CardHistoryTransaction
-          image="/image/historyPhoto (2).svg"
-          title="Cameron Williamson"
-          detail="(308) 555-0121"
-          text="Rp.50.000"
-          icon="/image/Trash.svg"
-          />
-          <CardHistoryTransaction
-          image="/image/historyPhoto (3).svg"
-          title="Cody Fisher"
-          detail="(704) 555-0127"
-          text="Rp.50.000"
-          icon="/image/Trash.svg"
-          result={false}
-          />
-          <CardHistoryTransaction
-          image="/image/historyPhoto (4).svg"
-          title="Kristin Watson"
-          detail="(603) 555-0123"
-          text="Rp.50.000"
-          icon="/image/Trash.svg"
-          />
-          <CardHistoryTransaction
-          image="/image/historyPhoto (5).svg"
-          title="Floyd Miles"
-          detail="(671) 555-0110"
-          text="Rp.50.000"
-          icon="/image/Trash.svg"
-          result={false}
-          />
-          <CardHistoryTransaction
-          image="/image/historyPhoto (6).svg"
-          title="Wade Warren"
-          detail="(225) 555-0118"
-          text="Rp.50.000"
-          icon="/image/Trash.svg"
-          />
-          <CardHistoryTransaction
-          image="/image/historyPhoto (7).svg"
-          title="Savannah Nguyen"
-          detail="(217) 555-0113"
-          text="Rp.50.000"
-          icon="/image/Trash.svg"
-          result={false}
-          />
-          </div>
-          <div className="mx-6 text-tiny mt-10 flex justify-between">
-            <p>Show 5 History of 100 History</p>
-            <div className="flex gap-6">
-              <p>Prev</p>
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-              <p>6</p>
-              <p>7</p>
-              <p>8</p>
-              <p>9</p>
-              <p className="text-[#0B0909] font-bold">Next</p>
+        <div>
+          <div className="ml-10 mr-10">
+            <div className="flex justify-between items-center h-28.75 w-full">
+              <div className="flex items-center">
+                <div className="w-32 h-32 bg-[#E8E8E84D] flex justify-center items-center">
+                  <img className="w-12.5 h-12.5 bg-[#E8E8E84D]" src="/image/UserNone.svg" alt="Photo none" />
+                </div>
+                <div className="ml-5 grid gap-2 text-[14px] ">
+                 <button className="flex border bg-primary h-11 w-40 items-center gap-2 rounded-[5px] hover:bg-blue-800 transition text-white">
+                  <img className="w-6 h-6 ml-2" src="/image/Edit Square.svg" alt="icon top up" />Change Profile
+                 </button>
+                  <button className="flex mr-4 border border-red-600 text-red-600 h-11 w-40 items-center gap-2 rounded-[5px] hover:bg-gray-200 transition">
+                    <img className="w-6 h-6 ml-2" src="/image/Delete.svg" alt="icon transfer" /> Delete Profile
+                  </button>
+                </div>
+              </div>
             </div>
-            
+            <p className="mt-4 text-secondary">
+              The profile picture must be 512 x 512 pixels or less
+            </p>
+            <h6 className="mt-5 font-bold">Full Name</h6>
+            <InputNominal
+              type="text"
+              placeholder="Enter Nominal Transfer"
+              id="text"
+              icon="/image/UserNone.svg"
+            />
+            <h6 className="mt-5 font-bold">Phone</h6>
+            <InputNominal
+              type="text"
+              placeholder="Enter Nominal Transfer"
+              id="text"
+              icon="/image/Phone.svg"
+            />
+            <h6 className="mt-5 font-bold">Email</h6>
+            <InputNominal
+              type="text"
+              placeholder="Enter Nominal Transfer"
+              id="text"
+              icon="/image/mail.png"
+            />
+            <h6 className="mt-4 font-bold">Password</h6>
+
+            <p className="mt-1 mb-4 text-primary">
+              <Link to="password-profile">
+              Change Password
+              </Link>
+            </p>
+            <h6 className="mt-4 font-bold">Pin</h6>
+            <p className="mt-1 mb-4 text-primary">
+               <Link to="pin-profile">
+              Change Pin
+              </Link>
+            </p>
+            <a href="transferEnterPin.html">
+              <ButtonLogin type="submit">
+              Submit
+              </ButtonLogin>
+            </a>
           </div>
+        </div>
       </div>
     </section>
   );
 }
 
-export default HistoryTransaction;
+export default ProfilePicture;

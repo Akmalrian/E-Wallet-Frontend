@@ -1,7 +1,7 @@
 import ContentLogin from "../component/ContentLogin";
 
 const LoginPage = () => (
-  <main className="bg-primary w-full ">
+  <main className="md:bg-primary w-full bg-white ">
     <section className="flex w-full h-[120vh]">
       <div className="bg-white flex-1 rounded-r-2xl">
         <ContentLogin />

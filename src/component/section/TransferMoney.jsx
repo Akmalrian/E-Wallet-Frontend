@@ -1,9 +1,42 @@
-import { Link } from "react-router";
-import CardHistoryTransaction from "../Card/CardHistoryTransaction";
+import { Link, useSearchParams } from "react-router";
 import CardTransferMoney from "../Card/CardTransferMoney";
 import SearchNumberOrName from "../input/SearchNumberOrName";
 
+const TRANSACTION_DATA = [
+  { id: 1, image: "/image/historyPhoto.svg", title: "Ghaluh 1", detail: "082116304337", result: false },
+  { id: 2, image: "/image/historyPhoto (2).svg", title: "Ghaluh 2", detail: "(308) 555-0121", result: true },
+  { id: 3, image: "/image/historyPhoto (3).svg", title: "Ghaluh 3", detail: "(704) 555-0127", result: false },
+  { id: 4, image: "/image/historyPhoto (4).svg", title: "Ghaluh 4", detail: "(603) 555-0123", result: true },
+  { id: 5, image: "/image/historyPhoto (5).svg", title: "Ghaluh 5", detail: "(671) 555-0110", result: false },
+  { id: 6, image: "/image/historyPhoto (6).svg", title: "Ghaluh 6", detail: "(225) 555-0118", result: true },
+  { id: 7, image: "/image/historyPhoto (7).svg", title: "Ghaluh 7", detail: "(217) 555-0113", result: false },
+  { id: 7, image: "/image/historyPhoto (8).svg", title: "Ghaluh 8", detail: "(671) 555-0110", result: true }
+];
+
 function TransferMoney() {
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const searchQuery = searchParams.get("search") || "";
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+
+    if (value) {
+      setSearchParams({ search: value });
+    } else {
+      setSearchParams({}); 
+    }
+  };
+
+  const filteredTransactions = TRANSACTION_DATA.filter((item) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      item.title.toLowerCase().includes(searchLower) || 
+      item.detail.includes(searchLower)
+    );
+  });
+
   return (
     <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
@@ -32,66 +65,31 @@ function TransferMoney() {
             <SearchNumberOrName
               type="text"
               placeholder="Enter Number Or Full Name"
-              id="email"
+              value={searchQuery}
+              onChange={handleSearchChange}
               icon="/image/Search.svg"
             />
           </div>
         </div>
         <div className="grid gap-4">
-          <Link to="/nominal">
-            <CardTransferMoney
-              image="/image/historyPhoto.svg"
-              title="Ghaluh 1"
-              detail="(239) 555-0108"
-              icon="/image/Star.svg"
-              result={false}
-            />
+          <Link to="nominal">
+            <div className="grid gap-4 px-6">
+          {filteredTransactions.length > 0 ? (
+            filteredTransactions.map((item) => (
+              <CardTransferMoney
+                key={item.id}
+                image={item.image}
+                title={item.title}
+                detail={item.detail}
+                icon="/image/Star.svg"
+                result={item.result}
+              />
+            ))
+          ) : (
+            <p className="text-center py-10 text-gray-400">Data "{searchQuery}" tidak ditemukan...</p>
+          )}
+        </div>
           </Link>
-          <CardTransferMoney
-            image="/image/historyPhoto (2).svg"
-            title="Ghaluh 2"
-            detail="(480) 555-0103"
-            icon="/image/Star.svg"
-          />
-          <CardTransferMoney
-            image="/image/historyPhoto (3).svg"
-            title="Ghaluh 3"
-            detail="(225) 555-0118"
-            icon="/image/Star.svg"
-            result={false}
-          />
-          <CardTransferMoney
-            image="/image/historyPhoto (4).svg"
-            title="Ghaluh 4"
-            detail="(406) 555-0120"
-            icon="/image/Star.svg"
-          />
-          <CardTransferMoney
-            image="/image/historyPhoto (5).svg"
-            title="Ghaluh 5"
-            detail="(303) 555-0105"
-            icon="/image/Star.svg"
-            result={false}
-          />
-          <CardTransferMoney
-            image="/image/historyPhoto (6).svg"
-            title="Ghaluh 6"
-            detail="(808) 555-0111"
-            icon="/image/Star.svg"
-          />
-          <CardTransferMoney
-            image="/image/historyPhoto (7).svg"
-            title="Ghaluh 7"
-            detail="(671) 555-0110"
-            icon="/image/Star.svg"
-            result={false}
-          />
-          <CardTransferMoney
-            image="/image/historyPhoto (8).svg"
-            title="Ghaluh 8"
-            detail="(671) 555-0110"
-            icon="/image/Star.svg"
-          />
         </div>
       </div>
     </section>

@@ -46,30 +46,32 @@ function TopUpAccountInformation() {
               <CardPaymentMethod
                 image="/image/Bank BRI (Bank Rakyat Indonesia).svg"
                 title="Bank Rakyat Indonesia"
-                name="bri"
+                name="payment_method"
                 id="bri"
               />
               <CardPaymentMethod
                 image="/image/Logo DANA.svg"
                 title="Dana"
-                name="dana"
+                name="payment_method"
                 id="dana"
               />
               <CardPaymentMethod
                 image="/image/BCA.svg"
                 title="Bank Central Asia "
-                name="bca"
+                name="payment_method"
                 id="bca"
               />
               <CardPaymentMethod
                 image="/image/Gopay.svg"
                 title="Gopay"
-                name="gopay"
+                name="payment_method"
                 id="gopay"
               />
               <CardPaymentMethod
                 image="/image/Ovo.svg"
                 title="Ovo"
+                name="payment_method"
+                id="Ovo"
               />
             </div>
           </div>

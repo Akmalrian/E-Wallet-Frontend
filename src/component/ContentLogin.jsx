@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useNavigate } from "react-router";
 import { loginSchema } from "../schemas/schema.auth";
+import toast from "react-hot-toast";
 
 const ContentLogin = () => {
   const {
@@ -20,38 +21,39 @@ const ContentLogin = () => {
   useEffect(() => {
     console.log("[DEBUG] error form", errors);
   }, [errors]);
-  
+
   const navigate = useNavigate();
 
   const onLogin = (data) => {
-    // 1. Ambil semua user dari localStorage
     const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-    // 2. Cari user yang username DAN password-nya cocok
     const userFound = existingUsers.find(
-      (user) => user.username === data.username && user.password === data.password
+      (user) =>
+        user.username === data.username && user.password === data.password,
     );
 
     if (userFound) {
-      // 3. Simpan session (opsional) agar dashboard tahu siapa yang login
       localStorage.setItem("currentUser", JSON.stringify(userFound));
-      
-      alert("Login Berhasil!");
-      navigate("/dashboard"); // Pindah ke dashboard
+      toast.success("Login Berhasil!");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
     } else {
-      alert("Username atau Password salah!");
+      toast.error("Email atau Password Salah!")
     }
   };
 
   return (
-    <section className="h-screen w-full p-20">
+    <section className="h-screen w-full md:p-20 p-10">
       <div className="container">
         <h4 className="logo flex text-primary my-2 font-nunitoSans text-xl items-center gap-2">
-          <img
-            className="w-8 h-8"
-            src="/image/MoneyWallet.png"
-            alt="Money-Wallet.png"
-          />{" "}
+          <Link to="/">
+            <img
+              className="w-8 h-8"
+              src="/image/MoneyWallet.png"
+              alt="Money-Wallet.png"
+            />
+          </Link>{" "}
           E-Wallet
         </h4>
         <p className="text-3xl my-2 font-montserrat">
@@ -109,16 +111,14 @@ const ContentLogin = () => {
 
           <div className="text-right font-montserrat">
             <Link
-              to={"/forgot+password"}
+              to={"forgot-password"}
               className="text-sm text-primary hover:underline"
             >
               Forgot Password?
             </Link>
           </div>
 
-          
-            <ButtonLogin type="submit">Login</ButtonLogin>
-          
+          <ButtonLogin type="submit">Login</ButtonLogin>
         </form>
         <p className="text-center text-secondary font-montserrat">
           Not Have An Account?

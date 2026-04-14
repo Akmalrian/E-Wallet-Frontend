@@ -4,8 +4,9 @@ import ChartDashboard from "../section/ChartDashboard";
 function IncomeChartDashboard() {
   return (
     <section className="text-medium">
-      <div className="md:flex md:justify-between grid justify-center">
-        <div>
+      <div className="md:flex md:justify-between grid justify-center
+  max-md:grid max-md:grid-cols-1 max-md:gap-0 max-md:px-4">
+        <div className="flex flex-col md:flex-row gap-4 md:justify-between items-center md:items-stretch">
           <CardIncome
             icon="/image/balance.svg"
             title="Balance"
@@ -34,9 +35,10 @@ function IncomeChartDashboard() {
           />
         </div>
       </div>
-      <div className="shadow mt-5 md:h-20.25 md:w-full flex md:justify-between w-[320px] justify-center ml-10 md:ml-0 md:items-center rounded-md">
-        <p className="ml-4 font-semibold text-medium">Fast Service</p>
-        <div className="flex gap-4">
+      <div className="shadow mt-5 py-4 md:h-20.25 w-full flex flex-col md:flex-row justify-between items-center px-4 rounded-md gap-4 md:gap-0
+  max-md:rounded-xl max-md:mx-4 max-md:w-[calc(100%-2rem)]">
+  <p className="font-semibold text-medium">Fast Service</p>
+  <div className="flex gap-4 w-full md:w-auto justify-center">
           <button className="flex border bg-primary h-11 w-27.25 items-center justify-center gap-2 rounded-[5px] hover:bg-blue-700 transition text-white">
           <img className="w-6 h-6" src="/image/Vector2.svg" alt="icon top up" />Top Up
         </button>
@@ -45,7 +47,8 @@ function IncomeChartDashboard() {
         </button>
         </div>
       </div>
-      <div className="shadow mt-5 md:h-143.5 w-full">
+      <div className="shadow mt-5 md:h-149.5 w-full overflow-hidden
+  max-md:mx-4 max-md:w-[calc(100%-2rem)] max-md:rounded-xl">
         <ChartDashboard />
       </div>
       <div>

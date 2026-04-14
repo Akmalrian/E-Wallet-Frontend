@@ -9,8 +9,8 @@ const TestimoniCustomer = () => (
             We always do our best for our customers to stay comfortable using the applications we provide
           </p>
         </div>
-        <div className="flex justify-center p-4 gap-10 mb-10">
-            <div className="flex p-10"><img className="flex justify-end" src="/image/arrowLeft.svg" alt="Arrow Left" /></div>
+        <div className="flex justify-center p-4 gap-10 mb-10 max-md:flex-col max-md:items-center max-md:gap-6">
+            <div className="flex p-10 max-md:hidden"><img className="flex justify-end" src="/image/arrowLeft.svg" alt="Arrow Left" /></div>
             <CardOurCustomers
             icon ="/image/photo1.svg"
             rate="/image/rating.svg"

@@ -3,7 +3,6 @@ import NavigationDashboard from "../component/header/NavigationDashboard";
 
 const Exit = () => (
   <main>
-    <HeaderDashboard />
     <section className="grid grid-cols-[1fr_3fr_1.5fr] gap-15 font-montserrat">
         <nav>
             <NavigationDashboard />

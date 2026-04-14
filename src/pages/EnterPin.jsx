@@ -1,10 +1,11 @@
-import ContentRegister from "../component/ContentRegister";
 
-const RegisterPage = () => (
-  <main className="md:bg-primary bg-white w-full ">
-    <section className="flex w-full h-[130vh]">
+import EnterPinSection from "../component/section/EnterPinSection";
+
+const EnterPin = () => (
+  <main className="md:bg-primary w-full bg-white ">
+    <section className="flex w-full h-[120vh]">
       <div className="bg-white flex-1 rounded-r-2xl">
-        <ContentRegister />
+        <EnterPinSection />
       </div>
       <div className="hidden md:flex flex-1 items-center justify-center relative">
         <img
@@ -13,13 +14,12 @@ const RegisterPage = () => (
           alt="dim background"
         />
         <img
-          className="relative z-10"
-          src="/image/wallet.png"
+          className="relative z-10 mt-6"
+          src="/image/aMan.png"
           alt="Wallet"
         />
       </div>
     </section>
   </main>
 );
-export default RegisterPage;
-
+export default EnterPin;

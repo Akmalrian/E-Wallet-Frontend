@@ -83,7 +83,7 @@ const ChartDashboard = () => {
   };
 
   return (
-    <div className="bg-white shadow p-6  max-w-4xl mx-auto mt-10">
+    <div className="bg-white shadow p-6 max-w-4xl mx-auto mt-10 max-md:p-4 max-md:mt-4 max-md:shadow-none">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-bold text-[#252733]">Income Chart</h2>
 
@@ -106,7 +106,7 @@ const ChartDashboard = () => {
         </div>
       </div>
 
-      <div className="relative h-118">
+      <div className="relative h-118 max-md:h-64">
         <Bar data={chartData} options={options} />
       </div>
     </div>

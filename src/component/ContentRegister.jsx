@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import {registerSchema} from "../schemas/schema.auth.js";
+import toast from "react-hot-toast";
 
 const ContentRegister = () => {
   const navigate = useNavigate()
@@ -24,7 +25,8 @@ const ContentRegister = () => {
   const isUsernameTaken = existingUsers.some(user => user.username === data.username);
 
   if (isUsernameTaken) {
-    alert("Username sudah digunakan, silakan pilih yang lain.");
+    toast.error(`Email Sudah Digunakan! 
+      Silahkan Pilih Yang Lain.`)
     return;
   }
 
@@ -35,7 +37,7 @@ const ContentRegister = () => {
   // 4. Simpan kembali ke localStorage
   localStorage.setItem("users", JSON.stringify(existingUsers));
 
-  alert("Registrasi Berhasil! Silakan Login.");
+  toast.success("Registrasi Berhasil!")
   navigate("/login"); // Pastikan sudah import useNavigate dari react-router
 };
 
@@ -44,7 +46,7 @@ const ContentRegister = () => {
   }, [errors]);
 
   return (
-    <section className="h-screen w-full p-20">
+    <section className="h-screen w-full md:p-20 p-10 items-center">
       <div className="container">
         <h4 className="logo flex text-primary my-2 font-nunitoSans text-xl items-center gap-2">
           <img

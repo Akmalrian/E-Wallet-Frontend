@@ -4,11 +4,11 @@ import CardFeatures from "../Card/CardFeatures";
 const FeaturesAplication = () => (
   <section className="font-montserrat mb-80">
     <BackgroundVector />
-    <div class="flex justify-center gap-4 p-10 ">
-      <div class="relative right-20">
+    <div class="flex justify-center gap-4 p-10 max-md:flex-col max-md:p-0">
+      <div class="relative right-20 max-md:right-0 max-md:flex max-md:justify-center max-md:-mt-50">
         <img src="/image/Mobile-Dashboard.png" alt="mobile Dashboard" />
       </div>
-      <div class="relative left-30 top-60 h-115 w-145">
+      <div class="relative left-30 top-60 h-115 w-145 max-md:left-0 max-md:top-0 max-md:h-auto max-md:w-full max-md:p-6">
         <div class="text-white">
           <h6 className="text-4xl mb-6">All The Great Zwallet Features.</h6>
           <p className="text-medium mb-6">

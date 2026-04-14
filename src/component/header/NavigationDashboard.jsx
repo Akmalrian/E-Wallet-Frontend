@@ -3,7 +3,7 @@ import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 
 function NavigationDashboard() {
   return (
-    <nav className="shadow h-[130vh] w-65.5 hidden md:flex">
+    <nav className="shadow min-h-screen md:h-[130vh] w-full md:w-65.5 hidden md:flex z-50 relative bg-white">
       <div className="w-52 h-87.5 grid gap-2 p-6 ml-2">
         <NavLink
           to={"/dashboard"}
@@ -63,7 +63,7 @@ function NavigationDashboard() {
           className={({ isActive }) => {
             return isActive
               ? "bg-primary rounded-md text-white"
-              : "bg-white rounded-md hover:bg-[#798dff] hover:text-white";
+              : "bg-white rounded-md hover:bg-[#ff5e49] hover:text-white";
           }}
         >
           <ButtonDashboardMenu icon="/image/Log Out.svg" text="Keluar" />
