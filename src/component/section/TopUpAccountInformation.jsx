@@ -8,13 +8,13 @@ function TopUpAccountInformation() {
         <img src="/image/UploadBlue.svg" alt="icon Top Up" />
         <p>Top Up Account</p>
       </div>
-      <div className="mx-4 w-175 h-198 justify-between shadow">
+      <div className="mx-4 w-175 h-198 justify-between shadow max-md:w-auto max-md:h-auto max-md:mx-4 max-md:pb-6">
         <div>
           <p className="font-semibold px-10 py-5">Account Infromation</p>
         </div>
         <div>
-          <div className="ml-10 mr-10">
-            <div className="flex justify-between items-center h-28.75 w-full p-4 bg-[#E8E8E84D] ">
+          <div className="ml-10 mr-10 max-md:ml-4 max-md:mr-4">
+            <div className="flex justify-between items-center h-28.75 w-full p-4 bg-[#E8E8E84D] max-md:h-auto max-md:py-4 max-md:rounded-xl">
               <div className="flex items-center">
                 <img
                   className="w-20 h-20"

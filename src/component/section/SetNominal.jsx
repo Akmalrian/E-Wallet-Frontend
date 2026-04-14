@@ -14,22 +14,22 @@ function SetNominal() {
         <img src="/image/SendBlue.svg" alt="icon history" />
         <p>Transfer Money</p>
       </div>
-      <div className="ml-4 flex items-center gap-4 mb-8">
+      <div className="ml-4 flex items-center gap-4 mb-8 max-md:flex-wrap max-md:gap-2 max-md:ml-4">
         <img src="/image/number1black.svg" alt="icon number 1" />
         <p>Find People</p>
-        <img src="/image/VectorDotted.svg" alt="vector dotted" />
+        <img src="/image/VectorDotted.svg" alt="vector dotted" className="max-md:hidden" />
         <img src="/image/number2blue.svg" alt="icon number 2" />
         <p>Set Nominal</p>
-        <img src="/image/VectorDotted.svg" alt="vector dotted" />
+        <img src="/image/VectorDotted.svg" alt="vector dotted" className="max-md:hidden" />
         <img src="/image/number3.svg" alt="icon number 3" />
         <p>Finish</p>
       </div>
-      <div className="mx-4 w-280 h-180 justify-between shadow">
+      <div className="mx-4 w-280 h-180 justify-between shadow max-md:w-auto max-md:h-auto max-md:mx-4 max-md:pb-28">
         <div>
           <p className="font-semibold px-10 py-5">People Infromation</p>
         </div>
         <div>
-          <div className="ml-10 mr-10">
+          <div className="ml-10 mr-10 max-md:ml-4 max-md:mr-4">
             <div className="flex justify-between items-center h-28.75 w-full p-4 bg-[#E8E8E84D] ">
               <div className="flex items-center">
                 <img
@@ -62,9 +62,10 @@ function SetNominal() {
               something
             </p>
             <textarea
-              className="w-full h-55.75 p-3 border border-gray-400 mb-4 "
+              className="w-full h-55.75 p-3 border border-gray-400 mb-4
+              max-md:h-32"
               placeholder="Enter Some Notes"
-            ></textarea>
+              ></textarea>
             <div
               onClick={(e) => {
                 e.preventDefault();

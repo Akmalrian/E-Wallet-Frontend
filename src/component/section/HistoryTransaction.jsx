@@ -44,11 +44,11 @@ function HistoryTransaction() {
         <p>History Transaction</p>
       </div>
 
-      <div className="mx-4 w-280 h-auto pb-10 justify-between shadow">
-        <div className="flex p-6 mb-10 items-center justify-between">
+      <div className="mx-4 w-280 h-auto pb-10 justify-between shadow max-md:w-auto max-md:mx-4 max-md:shadow-none">
+        <div className="flex p-6 mb-10 items-center justify-between max-md:flex-col max-md:items-start max-md:gap-4 max-md:p-4 max-md:mb-4">
           <p className="font-semibold">Find Transaction</p>
           
-          <div className="w-1/3">
+          <div className="w-1/3 max-md:w-full">
 
             <SearchNumberOrName
               type="text"
@@ -60,7 +60,7 @@ function HistoryTransaction() {
           </div>
         </div>
 
-        <div className="grid gap-4 px-6">
+        <div className="grid gap-4 px-6 max-md:px-2">
 
           {filteredTransactions.length > 0 ? (
             filteredTransactions.map((item) => (
@@ -78,9 +78,9 @@ function HistoryTransaction() {
             <p className="text-center py-10 text-gray-400">Data "{searchQuery}" tidak ditemukan...</p>
           )}
         </div>
-                  <div className="mx-6 text-tiny mt-10 flex justify-between">
+              <div className="mx-6 text-tiny mt-10 flex justify-between max-md:flex-col max-md:items-center max-md:gap-4 max-md:mx-2 max-md:pb-24">
             <p>Show 5 History of 100 History</p>
-            <div className="flex gap-6">
+            <div className="flex gap-6 max-md:gap-3 max-md:flex-wrap max-md:justify-center">
               <p>Prev</p>
               <p>1</p>
               <p>2</p>

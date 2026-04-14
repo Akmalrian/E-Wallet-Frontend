@@ -10,22 +10,25 @@ function ProfilePicture() {
         <img src="/image/2User.svg" alt="icon history" />
         <p>Profile</p>
       </div>
-      <div className="mx-4 w-280 h-205 justify-between shadow">
+      <div className="mx-4 w-280 h-205 justify-between shadow max-md:w-auto max-md:h-auto max-md:mx-4 max-md:pb-28">
         <div>
           <p className="font-semibold px-10 py-5">Profile Picture</p>
         </div>
         <div>
-          <div className="ml-10 mr-10">
-            <div className="flex justify-between items-center h-28.75 w-full">
-              <div className="flex items-center">
-                <div className="w-32 h-32 bg-[#E8E8E84D] flex justify-center items-center">
+          <div className="ml-10 mr-10 max-md:ml-4 max-md:mr-4">
+            <div className="flex justify-between items-center h-28.75 w-full
+              max-md:h-auto max-md:py-4 max-md:flex-col max-md:items-start max-md:gap-4">
+              <div className="flex items-center max-md:flex-col max-md:items-center max-md:w-full max-md:gap-4">
+                <div className="w-32 h-32 bg-[#E8E8E84D] flex justify-center items-center max-md:overflow-hidden">
                   <img className="w-12.5 h-12.5 bg-[#E8E8E84D]" src="/image/UserNone.svg" alt="Photo none" />
                 </div>
-                <div className="ml-5 grid gap-2 text-[14px] ">
-                 <button className="flex border bg-primary h-11 w-40 items-center gap-2 rounded-[5px] hover:bg-blue-800 transition text-white">
+                <div className="ml-5 grid gap-2 text-[14px] max-md:ml-0 max-md:w-full max-md:grid-cols-2">
+                 <button className="flex border bg-primary h-11 w-40 items-center gap-2 rounded-[5px] hover:bg-blue-800 transition text-white
+                  max-md:w-full max-md:justify-center">
                   <img className="w-6 h-6 ml-2" src="/image/Edit Square.svg" alt="icon top up" />Change Profile
                  </button>
-                  <button className="flex mr-4 border border-red-600 text-red-600 h-11 w-40 items-center gap-2 rounded-[5px] hover:bg-gray-200 transition">
+                  <button className="flex mr-4 border border-red-600 text-red-600 h-11 w-40 items-center gap-2 rounded-[5px] hover:bg-gray-200 transition
+                  max-md:w-full max-md:mr-0 max-md:justify-center">
                     <img className="w-6 h-6 ml-2" src="/image/Delete.svg" alt="icon transfer" /> Delete Profile
                   </button>
                 </div>
