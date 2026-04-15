@@ -4,9 +4,8 @@ import ChartDashboard from "../section/ChartDashboard";
 function IncomeChartDashboard() {
   return (
     <section className="text-medium">
-      <div className="md:flex md:justify-between grid justify-center
-  max-md:grid max-md:grid-cols-1 max-md:gap-0 max-md:px-4">
-        <div className="flex flex-col md:flex-row gap-4 md:justify-between items-center md:items-stretch">
+      <div className="grid grid-cols-2 md:flex md:justify-between justify-center max-md:grid max-md:gap-0 max-md:px-4 ">
+        <div className="flex flex-col max-md:justify-self-start col-span-2 md:flex-row gap-4 md:justify-between items-center md:items-stretch">
           <CardIncome
             icon="/image/balance.svg"
             title="Balance"

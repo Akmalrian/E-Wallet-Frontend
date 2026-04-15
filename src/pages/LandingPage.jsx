@@ -6,7 +6,7 @@ import FeaturesAplication from "../component/landing/FeaturesAplication";
 import TestimoniCustomer from "../component/landing/TestimoniCustomer";
 
 const LandingPage = () => (
-  <main>
+  <main className="overflow-hidden">
     <HeaderLandingPage />
     <HeroLandingPage />
     <AboutAplication />

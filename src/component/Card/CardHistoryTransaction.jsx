@@ -15,7 +15,7 @@ const CardHistoryTransaction = ({
       >
         <div
           className="flex items-center ml-8
-          max-md:ml-0 max-md:flex-shrink-0"
+          max-md:ml-0 max-md:shrink-0"
         >
           <img
             className="w-14 h-14 max-md:w-11 max-md:h-11 max-md:rounded-full"
@@ -30,11 +30,11 @@ const CardHistoryTransaction = ({
         <p className="md:w-77.5 w-50"> {detail} </p>
         </div>
         <p
-          className={`text-medium font-semibold w-60.75 ${result ? "text-[#D00000]" : "text-[#1EC15F]"} max-md:w-auto max-md:text-sm max-md:font-bold max-md:flex-shrink-0`}
+          className={`text-medium font-semibold w-60.75 ${result ? "text-[#D00000]" : "text-[#1EC15F]"} max-md:w-auto max-md:text-sm max-md:font-bold max-md:shrink-0`}
         >
           {text}
         </p>
-        <img className="mr-8 max-md:mr-0 max-md:w-5 max-md:h-5 max-md:flex-shrink-0" src={icon} alt="icon remove" />
+        <img className="mr-8 max-md:mr-0 max-md:w-5 max-md:h-5 max-md:shrink-0" src={icon} alt="icon remove" />
       </div>
     </div>
   );
