@@ -2,8 +2,9 @@ import { NavLink } from "react-router";
 import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 
 function DropdownMenu() {
+
   return (
-    <nav className="shadow md:h-35.5 w-58.75 bg-white absolute top-20 z-10 rounded-2xl h-80">
+    <nav className="shadow md:h-35.5 w-58.75 bg-white absolute top-20 z-10 right-5 rounded-2xl h-80">
       <div className=" grid gap-2 p-6 ml-2">
         <div className="md:hidden grid">
           <NavLink

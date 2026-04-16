@@ -1,7 +1,14 @@
+import { useAppSelector } from "../../store/hooks";
 import CardPaymentMethod from "../Card/CardPaymentMethod";
 import InputNominal from "../input/InputNominal";
 
 function TopUpAccountInformation() {
+
+    const { currentUser } = useAppSelector((state) => state.auth);
+    const displayPhone = currentUser?.phone || "";
+    const displayName = currentUser?.fullName || "User";
+    const displayAvatar = currentUser?.avatar || "/public/image/blank-photo.jpg";
+
   return (
     <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
@@ -18,12 +25,12 @@ function TopUpAccountInformation() {
               <div className="flex items-center">
                 <img
                   className="w-20 h-20"
-                  src="/image/Profile.svg"
+                  src={displayAvatar}
                   alt="Ghaluh Photo"
                 />
                 <div className="ml-5 grid gap-2">
-                  <h6 className="font-bold">Ghaluh Wizard</h6>
-                  <p>(239) 555-0108</p>
+                  <h6 className="font-bold">{displayName}</h6>
+                  <p>{displayPhone}</p>
                   <img src="/image/verified.svg" alt="icon verified" />
                 </div>
               </div>

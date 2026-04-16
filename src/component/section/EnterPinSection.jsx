@@ -15,7 +15,7 @@ function EnterPinSection() {
 
   return (
     <div className="flex justify-center items-center h-[120vh]">
-      <div className="bg-white rounded-xl w-149 h-147.5 p-8 font-montserrat">
+      <div className="bg-white rounded-xl md:w-149 w-full h-147.5 p-8 font-montserrat">
         <h4 className="logo flex text-primary my-2 font-nunitoSans text-xl items-center gap-2">
           <img
             className="w-8 h-8"
@@ -34,7 +34,7 @@ function EnterPinSection() {
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <input
               key={i}
-              className="pin-input mb-20 w-18 h-12 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none text-3xl font-semibold text-center text-[#0B132A]"
+              className="pin-input mb-20 md:w-18 w-12 h-12 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none text-3xl font-semibold text-center text-[#0B132A]"
               type="password"
               maxLength="1"
               onKeyDown={(e) => handleKeyDown(e, i)}

@@ -46,6 +46,34 @@ const authSlice = createSlice({
       }
     },
 
+    // ✅ BARU: update profile user yang sedang login
+    updateProfile: (state, action) => {
+      const { fullName, phone, email, avatar } = action.payload;
+
+      // Update currentUser
+      if (state.currentUser) {
+        if (fullName !== undefined) state.currentUser.fullName = fullName;
+        if (phone !== undefined) state.currentUser.phone = phone;
+        if (email !== undefined) state.currentUser.email = email;
+        if (avatar !== undefined) state.currentUser.avatar = avatar;
+
+        // Simpan currentUser yang sudah diupdate ke localStorage
+        localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
+
+        // Update juga di array users agar persistent saat login ulang
+        const index = state.users.findIndex(
+          (u) => u.username === state.currentUser.username
+        );
+        if (index !== -1) {
+          state.users[index] = { ...state.users[index], ...state.currentUser };
+          localStorage.setItem("users", JSON.stringify(state.users));
+        }
+
+        state.success = "Profile berhasil diupdate!";
+        state.error = null;
+      }
+    },
+
     logoutUser: (state) => {
       state.currentUser = null;
       state.error = null;
@@ -60,6 +88,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginUser, registerUser, logoutUser, clearMessages } =
+export const { loginUser, registerUser, logoutUser, updateProfile, clearMessages } =
   authSlice.actions;
 export default authSlice.reducer;

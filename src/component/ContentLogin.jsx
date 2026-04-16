@@ -8,8 +8,14 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { useNavigate } from "react-router";
 import { loginSchema } from "../schemas/schema.auth";
 import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { loginUser, clearMessages } from "../store/slices/authSlice";
 
 const ContentLogin = () => {
+  const dispatch = useAppDispatch();
+  const { error, success } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -18,41 +24,29 @@ const ContentLogin = () => {
     resolver: joiResolver(loginSchema),
   });
 
-  useEffect(() => {
-    console.log("[DEBUG] error form", errors);
-  }, [errors]);
-
-  const navigate = useNavigate();
-
   const onLogin = (data) => {
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    const userFound = existingUsers.find(
-      (user) =>
-        user.username === data.username && user.password === data.password,
-    );
-
-    if (userFound) {
-      localStorage.setItem("currentUser", JSON.stringify(userFound));
-      toast.success("Login Berhasil!");
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1000);
-    } else {
-      toast.error("Email atau Password Salah!")
-    }
+    dispatch(loginUser({ username: data.username, password: data.password }));
   };
+
+  // Reaksi terhadap perubahan state Redux
+  useEffect(() => {
+    if (success) {
+      toast.success(success);
+      dispatch(clearMessages());
+      setTimeout(() => navigate("/dashboard"), 1000);
+    }
+    if (error) {
+      toast.error(error);
+      dispatch(clearMessages());
+    }
+  }, [success, error]);
 
   return (
     <section className="h-screen w-full md:p-20 p-10">
       <div className="container">
         <h4 className="logo flex text-primary my-2 font-nunitoSans text-xl items-center gap-2">
           <Link to="/">
-            <img
-              className="w-8 h-8"
-              src="/image/MoneyWallet.png"
-              alt="Money-Wallet.png"
-            />
+            <img className="w-8 h-8" src="/image/MoneyWallet.png" alt="Money-Wallet.png" />
           </Link>{" "}
           E-Wallet
         </h4>
@@ -65,67 +59,39 @@ const ContentLogin = () => {
       </div>
       <div className="space-y-6">
         <div className="space-y-3">
-          <SignInWithButton
-            icon="/image/google.png"
-            text="Sign In With Google"
-          />
-          <SignInWithButton
-            icon="/image/facebook.png"
-            text="Sign In With Facebook"
-          />
+          <SignInWithButton icon="/image/google.png" text="Sign In With Google" />
+          <SignInWithButton icon="/image/facebook.png" text="Sign In With Facebook" />
         </div>
-
         <div className="relative flex py-2 items-center">
-          <div className=" grow border-t border-gray-200"></div>
-          <span className=" shrink mx-4 text-gray-400 text-sm">Or</span>
-          <div className=" grow border-t border-gray-200"></div>
+          <div className="grow border-t border-gray-200"></div>
+          <span className="shrink mx-4 text-gray-400 text-sm">Or</span>
+          <div className="grow border-t border-gray-200"></div>
         </div>
-
         <form onSubmit={handleSubmit(onLogin)} className="space-y-4">
           <InputLogin
-            label="Email"
-            type="text"
-            placeholder="Enter Your Email"
-            id="email"
-            icon="/image/mail.png"
-            {...register("username")}
+            label="Email" type="text" placeholder="Enter Your Email"
+            id="email" icon="/image/mail.png" {...register("username")}
           />
           {errors.username && (
-            <span className="text-red-500 text-sm block mt-1">
-              {errors.username.message}
-            </span>
+            <span className="text-red-500 text-sm block mt-1">{errors.username.message}</span>
           )}
           <InputLogin
-            label="Password"
-            type="password"
-            placeholder="Enter Your Password"
-            id="pass"
-            icon="/image/password.png"
-            {...register("password")}
+            label="Password" type="password" placeholder="Enter Your Password"
+            id="pass" icon="/image/password.png" {...register("password")}
           />
           {errors.password && (
-            <span className="text-red-500 text-sm block mt-1">
-              {errors.password.message}
-            </span>
+            <span className="text-red-500 text-sm block mt-1">{errors.password.message}</span>
           )}
-
           <div className="text-right font-montserrat">
-            <Link
-              to={"forgot-password"}
-              className="text-sm text-primary hover:underline"
-            >
+            <Link to={"forgot-password"} className="text-sm text-primary hover:underline">
               Forgot Password?
             </Link>
           </div>
-
           <ButtonLogin type="submit">Login</ButtonLogin>
         </form>
         <p className="text-center text-secondary font-montserrat">
           Not Have An Account?
-          <Link className="text-primary hover:underline" to={"/register"}>
-            {" "}
-            Register
-          </Link>
+          <Link className="text-primary hover:underline" to={"/register"}> Register</Link>
         </p>
       </div>
     </section>
