@@ -10,7 +10,7 @@ const TRANSACTION_DATA = [
   { id: 5, image: "/image/historyPhoto (5).svg", title: "Ghaluh 5", detail: "(671) 555-0110", result: false },
   { id: 6, image: "/image/historyPhoto (6).svg", title: "Ghaluh 6", detail: "(225) 555-0118", result: true },
   { id: 7, image: "/image/historyPhoto (7).svg", title: "Ghaluh 7", detail: "(217) 555-0113", result: false },
-  { id: 7, image: "/image/historyPhoto (8).svg", title: "Ghaluh 8", detail: "(671) 555-0110", result: true }
+  { id: 8, image: "/image/historyPhoto (8).svg", title: "Ghaluh 8", detail: "(671) 555-0110", result: true }
 ];
 
 function TransferMoney() {

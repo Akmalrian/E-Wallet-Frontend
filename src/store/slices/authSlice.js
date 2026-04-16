@@ -1,16 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const getUsersFromStorage = () =>
-  JSON.parse(localStorage.getItem("users")) || [];
-
-const getCurrentUserFromStorage = () =>
-  JSON.parse(localStorage.getItem("currentUser")) || null;
-
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    currentUser: getCurrentUserFromStorage(),
-    users: getUsersFromStorage(),
+    currentUser: null,
+    users: [],
+    isLogin: false,  // ← ini yang akan dijelaskan di bawah
     error: null,
     success: null,
   },
@@ -22,10 +17,11 @@ const authSlice = createSlice({
       );
       if (found) {
         state.currentUser = found;
+        state.isLogin = true;   // ← set true saat login berhasil
         state.error = null;
         state.success = "Login Berhasil!";
-        localStorage.setItem("currentUser", JSON.stringify(found));
       } else {
+        state.isLogin = false;
         state.error = "Email atau Password Salah!";
         state.success = null;
       }
@@ -42,33 +38,24 @@ const authSlice = createSlice({
         state.users.push(newUser);
         state.error = null;
         state.success = "Registrasi Berhasil!";
-        localStorage.setItem("users", JSON.stringify(state.users));
       }
     },
 
-    // ✅ BARU: update profile user yang sedang login
     updateProfile: (state, action) => {
       const { fullName, phone, email, avatar } = action.payload;
-
-      // Update currentUser
       if (state.currentUser) {
         if (fullName !== undefined) state.currentUser.fullName = fullName;
         if (phone !== undefined) state.currentUser.phone = phone;
         if (email !== undefined) state.currentUser.email = email;
         if (avatar !== undefined) state.currentUser.avatar = avatar;
 
-        // Simpan currentUser yang sudah diupdate ke localStorage
-        localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
-
-        // Update juga di array users agar persistent saat login ulang
+        // Update juga di array users
         const index = state.users.findIndex(
           (u) => u.username === state.currentUser.username
         );
         if (index !== -1) {
           state.users[index] = { ...state.users[index], ...state.currentUser };
-          localStorage.setItem("users", JSON.stringify(state.users));
         }
-
         state.success = "Profile berhasil diupdate!";
         state.error = null;
       }
@@ -76,9 +63,9 @@ const authSlice = createSlice({
 
     logoutUser: (state) => {
       state.currentUser = null;
+      state.isLogin = false;  // ← set false saat logout
       state.error = null;
       state.success = null;
-      localStorage.removeItem("currentUser");
     },
 
     clearMessages: (state) => {
@@ -88,6 +75,11 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginUser, registerUser, logoutUser, updateProfile, clearMessages } =
-  authSlice.actions;
+export const {
+  loginUser,
+  registerUser,
+  logoutUser,
+  updateProfile,
+  clearMessages,
+} = authSlice.actions;
 export default authSlice.reducer;
