@@ -13,6 +13,7 @@ import ChangePinProfile from "./pages/ChangePinProfile";
 import ChangePasswordProfile from "./pages/ChangePasswordProfile";
 import MainLayout from "./layout/MainLayout";
 import EnterPin from "./pages/EnterPin";
+import ProtectedRoute from "./component/protected/ProtectedRoute";
 
 function AppRouter() {
   return (
@@ -27,21 +28,23 @@ function AppRouter() {
           </Route>
         </Route>
         <Route path="/register" element={<RegisterPage />} />
-        <Route element={<MainLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/transfer">
-            <Route index element={<Transfer />} />
-            <Route path="nominal" element={<TransferSetNominal />} />
-          </Route>
-          <Route path="/topup" element={<TopUp />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/profile">
-            <Route index element={<Profile />} />
-            <Route path="pin-profile" element={<ChangePinProfile />} />
-            <Route
-              path="password-profile"
-              element={<ChangePasswordProfile />}
-            />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/transfer">
+              <Route index element={<Transfer />} />
+              <Route path="nominal" element={<TransferSetNominal />} />
+            </Route>
+            <Route path="/topup" element={<TopUp />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/profile">
+              <Route index element={<Profile />} />
+              <Route path="pin-profile" element={<ChangePinProfile />} />
+              <Route
+                path="password-profile"
+                element={<ChangePasswordProfile />}
+              />
+            </Route>
           </Route>
         </Route>
       </Routes>

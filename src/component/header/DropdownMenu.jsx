@@ -1,8 +1,17 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
+import { useAppDispatch } from "../../store/hooks";
+import { logoutUser } from "../../store/slices/authSlice";
 
 function DropdownMenu() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logoutUser());
+    navigate("/login");
+  };
   return (
     <nav className="shadow md:h-35.5 w-58.75 bg-white absolute top-20 z-10 right-5 rounded-2xl h-80">
       <div className=" grid gap-2 p-6 ml-2">
@@ -72,6 +81,7 @@ function DropdownMenu() {
         </NavLink>
         <NavLink
           to={"/login"}
+          onClick={handleLogout}
           className={({ isActive }) => {
             return isActive
               ? "bg-primary rounded-md text-white"
