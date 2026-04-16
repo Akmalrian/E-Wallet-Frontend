@@ -7,7 +7,7 @@ function TopUpAccountInformation() {
     const { currentUser } = useAppSelector((state) => state.auth);
     const displayPhone = currentUser?.phone || "";
     const displayName = currentUser?.fullName || "User";
-    const displayAvatar = currentUser?.avatar || "/public/image/blank-photo.jpg";
+    const displayAvatar = currentUser?.avatar || "/image/blank-photo.jpg";
 
   return (
     <section className="mt-6 text-medium font-montserrat">

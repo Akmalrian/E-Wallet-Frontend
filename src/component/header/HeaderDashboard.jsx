@@ -8,11 +8,9 @@ function HeaderDashboard() {
 
   const toggleDropDrown = () => setIsOpen(!isOpen);
 
-  // Tampilkan fullName jika sudah diisi, fallback ke "User"
   const displayName = currentUser?.fullName || "User";
 
-  // Tampilkan avatar jika sudah diupload, fallback ke foto default
-  const displayAvatar = currentUser?.avatar || "/public/image/blank-photo.jpg";
+  const displayAvatar = currentUser?.avatar || "/image/blank-photo.jpg";
   
   return (
     <header className="bg-[#ffffff] shadow w-full z-60 md:relative fixed">
