@@ -39,7 +39,7 @@ const ContentLogin = () => {
       toast.error(error);
       dispatch(clearMessages());
     }
-  }, [success, error]);
+  }, [success, error, dispatch, navigate]);
 
   return (
     <section className="h-screen w-full md:p-20 p-10">
