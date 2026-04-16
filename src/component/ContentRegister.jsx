@@ -39,27 +39,41 @@ const ContentRegister = () => {
       toast.error(error);
       dispatch(clearMessages());
     }
-  }, [success, error]);
+  }, [success, error, dispatch, navigate]);
 
   return (
     <section className="h-screen w-full md:p-20 p-10 items-center">
       <div className="container">
         <h4 className="logo flex text-primary my-2 font-nunitoSans text-xl items-center gap-2">
-          <img className="w-8 h-8" src="/image/MoneyWallet.png" alt="Money-Wallet.png" />{" "}
+          <img
+            className="w-8 h-8"
+            src="/image/MoneyWallet.png"
+            alt="Money-Wallet.png"
+          />{" "}
           E-Wallet
         </h4>
         <p className="text-3xl my-2 font-montserrat">
-          <b>Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</b>
+          <b>
+            Start Accessing Banking Needs With All Devices and All Platforms
+            With 30.000+ Users
+          </b>
         </p>
         <p className="text-secondary mt-4 mb-6 font-montserrat">
-          Transfering money is eassier than ever, you can access Zwallet wherever you are.
-          Desktop, laptop, mobile phone? we cover all of that for you!
+          Transfering money is eassier than ever, you can access Zwallet
+          wherever you are. Desktop, laptop, mobile phone? we cover all of that
+          for you!
         </p>
       </div>
       <div className="space-y-6">
         <div className="space-y-3">
-          <SignInWithButton icon="/image/google.png" text="Sign In With Google" />
-          <SignInWithButton icon="/image/facebook.png" text="Sign In With Facebook" />
+          <SignInWithButton
+            icon="/image/google.png"
+            text="Sign In With Google"
+          />
+          <SignInWithButton
+            icon="/image/facebook.png"
+            text="Sign In With Facebook"
+          />
         </div>
         <div className="relative flex py-2 items-center">
           <div className="grow border-t border-gray-200"></div>
@@ -69,36 +83,57 @@ const ContentRegister = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <InputLogin
-              label="Email" type="text" placeholder="Enter Your Email"
-              id="username" icon="/image/mail.png" {...register("username")}
+              label="Email"
+              type="text"
+              placeholder="Enter Your Email"
+              id="username"
+              icon="/image/mail.png"
+              {...register("username")}
             />
             {errors.username && (
-              <span className="text-red-500 text-sm block mt-1">{errors.username.message}</span>
+              <span className="text-red-500 text-sm block mt-1">
+                {errors.username.message}
+              </span>
             )}
           </div>
           <div>
             <InputLogin
-              label="Password" type="password" placeholder="Enter Your Password"
-              id="password" icon="/image/password.png" {...register("password")}
+              label="Password"
+              type="password" // Pastikan type-nya password agar ikon mata muncul
+              placeholder="Enter Your Password"
+              id="password"
+              icon="/image/password.png"
+              {...register("password")}
             />
             {errors.password && (
-              <span className="text-red-500 text-sm block mt-1">{errors.password.message}</span>
+              <span className="text-red-500 text-sm block mt-1">
+                {errors.password.message}
+              </span>
             )}
           </div>
           <div>
             <InputLogin
-              label="Confirm Password" type="password" placeholder="Enter Your Password Again"
-              id="repeat_password" icon="/image/password.png" {...register("repeat_password")}
+              label="Confirm Password"
+              type="password" // Ini juga akan otomatis memiliki fitur show/hide
+              placeholder="Enter Your Password Again"
+              id="repeat_password"
+              icon="/image/password.png"
+              {...register("repeat_password")}
             />
             {errors.repeat_password && (
-              <span className="text-red-500 text-sm block mt-1">{errors.repeat_password.message}</span>
+              <span className="text-red-500 text-sm block mt-1">
+                {errors.repeat_password.message}
+              </span>
             )}
           </div>
           <ButtonLogin type="submit">Register</ButtonLogin>
         </form>
         <p className="text-center text-secondary font-montserrat">
           Have An Account?
-          <Link className="text-primary hover:underline" to={"/login"}> Login</Link>
+          <Link className="text-primary hover:underline" to={"/login"}>
+            {" "}
+            Login
+          </Link>
         </p>
       </div>
     </section>
