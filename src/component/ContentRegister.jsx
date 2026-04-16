@@ -28,7 +28,6 @@ const ContentRegister = () => {
     dispatch(registerUser(userData));
   };
 
-  // Reaksi terhadap perubahan state Redux
   useEffect(() => {
     if (success) {
       toast.success(success);
@@ -99,7 +98,7 @@ const ContentRegister = () => {
           <div>
             <InputLogin
               label="Password"
-              type="password" // Pastikan type-nya password agar ikon mata muncul
+              type="password" 
               placeholder="Enter Your Password"
               id="password"
               icon="/image/password.png"
@@ -114,7 +113,7 @@ const ContentRegister = () => {
           <div>
             <InputLogin
               label="Confirm Password"
-              type="password" // Ini juga akan otomatis memiliki fitur show/hide
+              type="password" 
               placeholder="Enter Your Password Again"
               id="repeat_password"
               icon="/image/password.png"

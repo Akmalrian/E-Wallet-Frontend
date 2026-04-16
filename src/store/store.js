@@ -9,7 +9,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-// Pastikan baris ini TIDAK menggunakan kurung kurawal { storage }
+
 import storage from "redux-persist/es/storage";
 import authReducer from "./slices/authSlice";
 
@@ -21,7 +21,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  timeout: null, // Tambahkan ini untuk mencegah masalah sinkronisasi di beberapa browser
+  timeout: null,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

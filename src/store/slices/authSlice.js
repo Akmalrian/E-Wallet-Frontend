@@ -5,7 +5,7 @@ const authSlice = createSlice({
   initialState: {
     currentUser: null,
     users: [],
-    isLogin: false,  // ← ini yang akan dijelaskan di bawah
+    isLogin: false, 
     error: null,
     success: null,
   },
@@ -17,7 +17,7 @@ const authSlice = createSlice({
       );
       if (found) {
         state.currentUser = found;
-        state.isLogin = true;   // ← set true saat login berhasil
+        state.isLogin = true; 
         state.error = null;
         state.success = "Login Berhasil!";
       } else {
@@ -49,7 +49,6 @@ const authSlice = createSlice({
         if (email !== undefined) state.currentUser.email = email;
         if (avatar !== undefined) state.currentUser.avatar = avatar;
 
-        // Update juga di array users
         const index = state.users.findIndex(
           (u) => u.username === state.currentUser.username
         );
@@ -63,7 +62,7 @@ const authSlice = createSlice({
 
     logoutUser: (state) => {
       state.currentUser = null;
-      state.isLogin = false;  // ← set false saat logout
+      state.isLogin = false; 
       state.error = null;
       state.success = null;
     },

@@ -3,7 +3,6 @@ import { useState, forwardRef } from "react";
 const InputLogin = forwardRef(({ label, type, icon, placeholder, id, ...rest }, ref) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  // Tentukan tipe input: jika aslinya password dan state showPassword true, ubah jadi text
   const inputType = type === "password" && showPassword ? "text" : type;
 
   const togglePassword = () => {

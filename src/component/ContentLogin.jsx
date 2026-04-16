@@ -28,7 +28,7 @@ const ContentLogin = () => {
     dispatch(loginUser({ username: data.username, password: data.password }));
   };
 
-  // Reaksi terhadap perubahan state Redux
+
   useEffect(() => {
     if (success) {
       toast.success(success);
