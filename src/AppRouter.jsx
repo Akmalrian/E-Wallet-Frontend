@@ -24,13 +24,13 @@ function AppRouter() {
           <Route index element={<LoginPage />} />
           <Route path="forgot-password">
             <Route index element={<ForgotPasswordPage />} />
-            <Route path="enter-pin" element={<EnterPin />} />
           </Route>
         </Route>
         <Route path="/register" element={<RegisterPage />} />
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="enter-pin" element={<EnterPin />} />
             <Route path="/transfer">
               <Route index element={<Transfer />} />
               <Route path="nominal" element={<TransferSetNominal />} />

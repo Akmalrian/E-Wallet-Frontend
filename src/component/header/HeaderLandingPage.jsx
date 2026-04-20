@@ -1,17 +1,16 @@
 import { useState } from "react"; // PERBAIKAN: Import useState
 import { Link } from "react-router";
-import DropdownMenu from "./DropdownMenu";
 
 function DropdownLanding() {
   return (
     <div>
       <Link to={"/login"}>
-      <button className="bg-white text-primary h-11 px-50 w-full rounded-[5px] hover:bg-gray-200 transition font-medium">
+      <button className="bg-white text-primary h-11 w-full rounded-[5px] hover:bg-gray-200 transition font-medium">
         Sign In
       </button>
       </Link>
       <Link to={"/register"}>
-      <button className="bg-white text-primary h-11 px-50 w-full rounded-[5px] hover:bg-gray-200 transition font-medium">
+      <button className="bg-white text-primary h-11 w-full rounded-[5px] hover:bg-gray-200 transition font-medium">
         Sign Up
       </button>
       </Link>

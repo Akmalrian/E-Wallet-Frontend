@@ -3,11 +3,20 @@ import ButtonLogin from "../button/ButtonLogin";
 import InputNominal from "../input/InputNominal";
 import PinModal from "./PinModal";
 import TransferSuccessModal from "./TransferSuccesModal";
-
+import { useSearchParams } from "react-router";
+import { TRANSACTION_DATA } from "./TransactionData";
 
 function SetNominal() {
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const id = Number(searchParams.get("id"));
+  const selectedPerson = TRANSACTION_DATA.find((item) => item.id === id);
+
+  const name = selectedPerson?.title || "Unknown";
+  const phone = selectedPerson?.detail || "-";
+  const image = selectedPerson?.image || "/image/historyPhoto.svg";
   return (
     <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
@@ -30,21 +39,21 @@ function SetNominal() {
         </div>
         <div>
           <div className="ml-10 mr-10 max-md:ml-4 max-md:mr-4">
-            <div className="flex justify-between items-center h-28.75 w-full p-4 bg-[#E8E8E84D] ">
-              <div className="flex items-center">
-                <img
-                  className="w-20 h-20"
-                  src="/image/historyPhoto.svg"
-                  alt="Ghaluh Photo"
-                />
-                <div className="ml-5 grid gap-2">
-                  <h6 className="font-bold">Ghaluh 1</h6>
-                  <p>(239) 555-0108</p>
-                  <img src="/image/verified.svg" alt="icon verified" />
-                </div>
-              </div>
-              <img className="w-6 h-6" src="/image/Star.svg" alt="icon star" />
-            </div>
+            <div className="flex justify-between items-center h-28.75 w-full p-4 bg-[#E8E8E84D]">
+        <div className="flex items-center">
+          <img
+            className="w-20 h-20"
+            src={image}   
+            alt={name}
+          />
+          <div className="ml-5 grid gap-2">
+            <h6 className="font-bold">{name}</h6>     
+            <p>{phone}</p>                       
+            <img src="/image/verified.svg" alt="icon verified" />
+          </div>
+        </div>
+        <img className="w-6 h-6" src="/image/Star.svg" alt="icon star" />
+      </div>
             <h6 className="mt-5 font-bold">Amount</h6>
             <p className="mt-1">
               Type the amount you want to transfer and then press continue to
@@ -81,18 +90,13 @@ function SetNominal() {
         isOpen={isPinModalOpen}
         onClose={() => setIsPinModalOpen(false)}
         onSuccess={() => setIsSuccessModalOpen(true)}
-        recipientName="Ghaluh 1"
+        recipientName={name} 
       />
-
-      {/* Modal Success */}
       <TransferSuccessModal
         isOpen={isSuccessModalOpen}
         onClose={() => setIsSuccessModalOpen(false)}
-        onTransferAgain={() => {
-          setIsSuccessModalOpen(false);
-          // tambahkan logika reset form atau navigasi ke halaman transfer baru
-        }}
-        recipientName="Ghaluh 1"
+        onTransferAgain={() => setIsSuccessModalOpen(false)}
+        recipientName={name}  
       />
     </section>
   );

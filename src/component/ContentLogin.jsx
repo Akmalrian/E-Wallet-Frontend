@@ -10,10 +10,11 @@ import { loginSchema } from "../schemas/schema.auth";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { loginUser, clearMessages } from "../store/slices/authSlice";
+import store from "../store/store";
 
 const ContentLogin = () => {
   const dispatch = useAppDispatch();
-  const { error, success } = useAppSelector((state) => state.auth);
+  const { error, success, needsPin } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const {
@@ -25,21 +26,28 @@ const ContentLogin = () => {
   });
 
   const onLogin = (data) => {
-    dispatch(loginUser({ username: data.username, password: data.password }));
+    const users = store.getState().register.users;
+    dispatch(loginUser({ username: data.username, password: data.password, users }));
   };
-
 
   useEffect(() => {
     if (success) {
       toast.success(success);
       dispatch(clearMessages());
-      setTimeout(() => navigate("/dashboard"), 1000);
+      setTimeout(() => {
+
+        if (needsPin) {
+          navigate("/enter-pin"); 
+        } else {
+          navigate("/dashboard");
+        }
+      }, 1000);
     }
     if (error) {
       toast.error(error);
       dispatch(clearMessages());
     }
-  }, [success, error, dispatch, navigate]);
+  }, [success, error, dispatch, navigate, needsPin]);
 
   return (
     <section className="h-screen w-full md:p-20 p-10">

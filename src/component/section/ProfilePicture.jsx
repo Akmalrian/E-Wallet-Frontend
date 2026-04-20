@@ -5,6 +5,8 @@ import InputNominal from "../input/InputNominal";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateProfile, clearMessages } from "../../store/slices/authSlice";
 import toast from "react-hot-toast";
+import { updateUserProfile } from "../../store/slices/registerSlice";
+import store from "../../store/store";
 
 function ProfilePicture() {
   const dispatch = useAppDispatch();
@@ -63,16 +65,31 @@ function ProfilePicture() {
   };
 
   // Submit form → dispatch updateProfile ke Redux
-  const handleSubmit = (e) => {
+ const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      updateProfile({
-        fullName,
-        phone,
-        email,
-        avatar: avatarPreview,
-      })
-    );
+
+    const profileData = {
+      fullName,
+      phone,
+      email,
+      avatar: avatarPreview,
+    };
+
+    // ✅ Step 1: Update currentUser di authSlice
+    dispatch(updateProfile(profileData));
+
+    // ✅ Step 2: Update users array di registerSlice agar persistent saat login ulang
+    dispatch(updateUserProfile({
+      username: currentUser.username,
+      ...profileData,
+    }));
+
+    // ✅ Step 3: Sync currentUser dengan data terbaru dari users array
+    const updatedUsers = store.getState().register.users;
+    const updatedUser = updatedUsers.find((u) => u.username === currentUser.username);
+    if (updatedUser) {
+      dispatch(currentUser(updatedUser));
+    }
   };
 
   return (
@@ -84,7 +101,7 @@ function ProfilePicture() {
 
       <form
         onSubmit={handleSubmit}
-        className="mx-4 w-280 h-auto justify-between shadow max-md:w-auto max-md:h-auto max-md:mx-4 max-md:pb-28"
+        className="mx-4 w-280 md:h-198 h-auto justify-between shadow max-md:w-auto max-md:h-auto max-md:mx-4 max-md:pb-28"
       >
         <div>
           <p className="font-semibold px-10 py-5">Profile Picture</p>
@@ -202,7 +219,7 @@ function ProfilePicture() {
             </p>
 
             <h6 className="mt-4 font-bold">Pin</h6>
-            <p className="mt-1 mb-4 text-primary">
+            <p className="mt-1 mb-8 text-primary">
               <Link to="pin-profile">Change Pin</Link>
             </p>
 

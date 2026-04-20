@@ -1,27 +1,37 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { 
-  persistStore, 
+import {
+  persistStore,
   persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
+  FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
 } from "redux-persist";
-
-import storage from "redux-persist/es/storage";
 import authReducer from "./slices/authSlice";
+import registerReducer from "./slices/registerSlice";
+
+// ✅ Buat custom storage sendiri — ini solusi untuk bug Vite + redux-persist
+const customStorage = {
+  getItem: (key) => {
+    return Promise.resolve(localStorage.getItem(key));
+  },
+  setItem: (key, value) => {
+    localStorage.setItem(key, value);
+    return Promise.resolve();
+  },
+  removeItem: (key) => {
+    localStorage.removeItem(key);
+    return Promise.resolve();
+  },
+};
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  register: registerReducer,
 });
 
 const persistConfig = {
   key: "root",
   version: 1,
-  storage,
-  timeout: null,
+  storage: customStorage, // ← pakai custom storage, bukan import dari redux-persist
+  whitelist: ["auth", "register"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
