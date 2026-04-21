@@ -1,4 +1,4 @@
-import toast from "react-hot-toast"; // Pastikan install react-hot-toast
+import toast from "react-hot-toast";
 import ButtonLogin from "../button/ButtonLogin";
 
 const showSuccessToast = () => {

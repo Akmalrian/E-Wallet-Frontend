@@ -26,7 +26,7 @@ const ContentForgotPassword = () => {
       return;
     }
 
-    // Reset password ke default "12345"
+    // Reset password ke default
     dispatch(resetPasswordToDefault({ username: email }));
   };
 
@@ -35,7 +35,7 @@ const ContentForgotPassword = () => {
     if (isSuccess) {
       toast.success(
         "Password berhasil direset! Password baru kamu adalah: qwerty",
-        { duration: 5000 } // tampil lebih lama agar user sempat baca
+        { duration: 5000 }
       );
       dispatch(resetRegister());
       navigate("/login");

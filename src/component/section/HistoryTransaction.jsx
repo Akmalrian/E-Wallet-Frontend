@@ -107,7 +107,6 @@ function HistoryTransaction() {
           )}
         </div>
 
-        {/* PAGINATION UI */}
         {filteredTransactions.length > 0 && (
           <div className="mx-6 text-tiny mt-10 flex justify-between max-md:flex-col max-md:items-center max-md:gap-4 max-md:mx-2 max-md:pb-24">
             <p>
@@ -115,7 +114,6 @@ function HistoryTransaction() {
             </p>
             
             <div className="flex gap-4 max-md:gap-3 max-md:flex-wrap max-md:justify-center items-center">
-              {/* Prev Button */}
               <button 
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
@@ -137,7 +135,6 @@ function HistoryTransaction() {
                 </button>
               ))}
 
-              {/* Next Button */}
               <button 
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}

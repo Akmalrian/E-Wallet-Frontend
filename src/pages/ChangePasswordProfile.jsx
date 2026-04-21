@@ -1,9 +1,13 @@
+import { useEffect } from "react";
 import ButtonLogin from "../component/button/ButtonLogin";
-import HeaderDashboard from "../component/header/HeaderDashboard";
 import NavigationDashboard from "../component/header/NavigationDashboard";
 import InputNominal from "../component/input/InputNominal";
 
-const ChangePasswordProfile = () => (
+function ChangePasswordProfile(){
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      });
+  return(
   <main>
     <section className="grid md:grid-cols-[1fr_3fr_1.5fr] gap-15 font-montserrat">
       <nav>
@@ -46,5 +50,5 @@ const ChangePasswordProfile = () => (
       </section>
     </section>
   </main>
-);
+);}
 export default ChangePasswordProfile;

@@ -1,7 +1,9 @@
+import { useAppSelector } from "../../store/hooks";
 import CardIncome from "../Card/CardIncome";
 import ChartDashboard from "../section/ChartDashboard";
 
 function IncomeChartDashboard() {
+  const { currentUser } = useAppSelector((state) => state.auth);
   return (
     <section className="text-medium">
       <div className="grid grid-cols-2 md:flex md:justify-between justify-center max-md:grid max-md:gap-0 max-md:px-4 ">
@@ -9,7 +11,7 @@ function IncomeChartDashboard() {
           <CardIncome
             icon="/image/balance.svg"
             title="Balance"
-            text="Rp.120.000"
+            text={`Rp${(currentUser?.balance || 0).toLocaleString("id-ID")}`}
             detail="+2%"
             arrow="/image/ArrowRise.svg"
             day="3 Days Ago"

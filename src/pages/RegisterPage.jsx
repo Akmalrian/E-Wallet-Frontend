@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import ContentRegister from "../component/ContentRegister";
 
-const RegisterPage = () => (
+function RegisterPage(){
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    });
+    return(
   <main className="md:bg-primary bg-white w-full ">
     <section className="flex w-full h-[130vh]">
       <div className="bg-white flex-1 rounded-r-2xl">
@@ -20,6 +25,6 @@ const RegisterPage = () => (
       </div>
     </section>
   </main>
-);
+);}
 export default RegisterPage;
 

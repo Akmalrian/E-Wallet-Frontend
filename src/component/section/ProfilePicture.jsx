@@ -18,12 +18,9 @@ function ProfilePicture() {
   const [email, setEmail] = useState(currentUser?.email || currentUser?.username || "");
   const [avatarPreview, setAvatarPreview] = useState(currentUser?.avatar || null);
 
-  // Ref untuk input file (hidden)
+  //untuk input file
   const fileInputRef = useRef(null);
 
-  // Saat currentUser berubah (misal setelah login), sync ke form
-
-  // Reaksi toast dari Redux
   useEffect(() => {
     if (success) {
       toast.success(success);
@@ -35,17 +32,14 @@ function ProfilePicture() {
     }
   }, [success, error, dispatch]);
 
-  // Klik tombol Change Profile → trigger input file
   const handleChangeProfile = () => {
     fileInputRef.current.click();
   };
 
-  // Saat file dipilih → convert ke base64 → simpan ke state preview
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Validasi ukuran file (max 2MB)
     if (file.size > 2 * 1024 * 1024) {
       toast.error("Ukuran file terlalu besar! Maksimal 2MB.");
       return;
@@ -53,7 +47,7 @@ function ProfilePicture() {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setAvatarPreview(reader.result); // base64 string
+      setAvatarPreview(reader.result);
     };
     reader.readAsDataURL(file);
   };
@@ -64,7 +58,7 @@ function ProfilePicture() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Submit form → dispatch updateProfile ke Redux
+  // dispatch updateProfile ke Redux
  const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -75,16 +69,16 @@ function ProfilePicture() {
       avatar: avatarPreview,
     };
 
-    // ✅ Step 1: Update currentUser di authSlice
+    // Update currentUser di authSlice
     dispatch(updateProfile(profileData));
 
-    // ✅ Step 2: Update users array di registerSlice agar persistent saat login ulang
+    // Update users array di registerSlice agar persistent saat login ulang
     dispatch(updateUserProfile({
       username: currentUser.username,
       ...profileData,
     }));
 
-    // ✅ Step 3: Sync currentUser dengan data terbaru dari users array
+    // Sync currentUser dengan data terbaru dari users array
     const updatedUsers = store.getState().register.users;
     const updatedUser = updatedUsers.find((u) => u.username === currentUser.username);
     if (updatedUser) {
@@ -110,12 +104,10 @@ function ProfilePicture() {
         <div>
           <div className="ml-10 mr-10 max-md:ml-4 max-md:mr-4">
 
-            {/* Avatar + Tombol */}
             <div className="flex justify-between items-center h-28.75 w-full
               max-md:h-auto max-md:py-4 max-md:flex-col max-md:items-start max-md:gap-4">
               <div className="flex items-center max-md:flex-col max-md:items-center max-md:w-full max-md:gap-4">
 
-                {/* Preview Avatar */}
                 <div className="w-32 h-32 bg-[#E8E8E84D] flex justify-center items-center overflow-hidden rounded-md">
                   {avatarPreview ? (
                     <img
@@ -132,7 +124,6 @@ function ProfilePicture() {
                   )}
                 </div>
 
-                {/* Input file hidden */}
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -168,7 +159,6 @@ function ProfilePicture() {
               The profile picture must be 512 x 512 pixels or less
             </p>
 
-            {/* Full Name */}
             <h6 className="mt-5 font-bold">Full Name</h6>
             <div className="w-full mt-1">
               <div className="relative flex items-center">
@@ -183,7 +173,6 @@ function ProfilePicture() {
               </div>
             </div>
 
-            {/* Phone */}
             <h6 className="mt-5 font-bold">Phone</h6>
             <div className="w-full mt-1">
               <div className="relative flex items-center">
@@ -198,7 +187,6 @@ function ProfilePicture() {
               </div>
             </div>
 
-            {/* Email */}
             <h6 className="mt-5 font-bold">Email</h6>
             <div className="w-full mt-1">
               <div className="relative flex items-center">

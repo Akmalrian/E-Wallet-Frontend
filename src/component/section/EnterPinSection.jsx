@@ -14,22 +14,28 @@ function EnterPinSection() {
   const [pin, setPin] = useState(["", "", "", "", "", ""]);
 
   const handleKeyDown = (e, index) => {
-    const inputs = document.querySelectorAll(".pin-input");
-    if (e.key === "Backspace" && !e.target.value && index > 0) {
-      inputs[index - 1].focus();
+    if (e.key === "Backspace") {
+      if (!pin[index] && index > 0) {
+        const inputs = document.querySelectorAll(".pin-input");
+        inputs[index - 1].focus();
+      }
+      
+      const newPin = [...pin];
+      newPin[index] = "";
+      setPin(newPin);
     }
   };
 
   const handleInput = (e, index) => {
-    const value = e.target.value.replace(/\D/, ""); // hanya angka
-    if (!value) return;
+    const value = e.target.value.slice(-1);
+    if (!/^\d*$/.test(value)) return;
 
     const newPin = [...pin];
     newPin[index] = value;
     setPin(newPin);
 
-    const inputs = document.querySelectorAll(".pin-input");
-    if (value.length === 1 && index < inputs.length - 1) {
+    if (value && index < 5) {
+      const inputs = document.querySelectorAll(".pin-input");
       inputs[index + 1].focus();
     }
   };
@@ -37,25 +43,21 @@ function EnterPinSection() {
   const handleSubmit = () => {
     const pinString = pin.join("");
 
-    // Validasi pin harus 6 digit
     if (pinString.length < 6) {
       toast.error("PIN harus 6 digit!");
       return;
     }
 
-    // Validasi harus angka semua
     if (!/^\d{6}$/.test(pinString)) {
       toast.error("PIN hanya boleh angka!");
       return;
     }
 
-    // ✅ Step 1: Simpan pin ke users array di registerSlice
     dispatch(savePinToUser({
       username: currentUser.username,
       pin: pinString,
     }));
 
-    // ✅ Step 2: Sync currentUser di authSlice dengan data terbaru
     const updatedUsers = store.getState().register.users;
     const updatedUser = updatedUsers.find(
       (u) => u.username === currentUser.username
@@ -64,12 +66,10 @@ function EnterPinSection() {
       dispatch(syncCurrentUser(updatedUser));
     }
 
-    // ✅ Step 3: Set needsPin = false
     dispatch(pinSaved());
 
     toast.success("PIN berhasil disimpan!");
 
-    // ✅ Step 4: Redirect ke dashboard
     setTimeout(() => navigate("/dashboard"), 1000);
   };
 
@@ -96,7 +96,7 @@ function EnterPinSection() {
               type="password"
               maxLength="1"
               value={pin[i]}
-              onChange={(e) => handleInput(e, i)}
+              onInput={(e) => handleInput(e, i)}
               onKeyDown={(e) => handleKeyDown(e, i)}
             />
           ))}
