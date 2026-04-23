@@ -28,9 +28,9 @@ function AppRouter() {
         </Route>
         <Route path="/register" element={<RegisterPage />} />
         <Route element={<ProtectedRoute />}>
+        <Route path="enter-pin" element={<EnterPin />} />
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="enter-pin" element={<EnterPin />} />
             <Route path="/transfer">
               <Route index element={<Transfer />} />
               <Route path="nominal" element={<TransferSetNominal />} />

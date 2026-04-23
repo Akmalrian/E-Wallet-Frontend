@@ -16,14 +16,14 @@ const registerSlice = createSlice({
     },
 
     updateUserProfile: (state, action) => {
-    const { username, fullName, phone, email, avatar } = action.payload;
-    const index = state.users.findIndex((u) => u.username === username);
-    if (index !== -1) {
+      const { username, fullName, phone, email, avatar } = action.payload;
+      const index = state.users.findIndex((u) => u.username === username);
+      if (index !== -1) {
         if (fullName !== undefined) state.users[index].fullName = fullName;
         if (phone !== undefined) state.users[index].phone = phone;
         if (email !== undefined) state.users[index].email = email;
         if (avatar !== undefined) state.users[index].avatar = avatar;
-        }
+      }
     },
 
     registerSuccess: (state, action) => {
@@ -94,6 +94,59 @@ const registerSlice = createSlice({
         }
       }
     },
+
+    changePassword: (state, action) => {
+      const { username, existingPassword, newPassword } = action.payload;
+
+      const index = state.users.findIndex((u) => u.username === username);
+
+      if (index === -1) {
+        state.error = "User tidak ditemukan!";
+        state.isSuccess = false;
+        return;
+      }
+
+      if (state.users[index].password !== existingPassword) {
+        state.error = "Password lama tidak sesuai!";
+        state.isSuccess = false;
+        return;
+      }
+
+      if (existingPassword === newPassword) {
+        state.error = "Password baru tidak boleh sama dengan password lama!";
+        state.isSuccess = false;
+        return;
+      }
+
+      state.users[index].password = newPassword;
+      state.isSuccess = true;
+      state.error = null;
+    },
+    // Tambahkan di dalam reducers: {}
+    changePin: (state, action) => {
+      const { username, newPin } = action.payload;
+
+      // Cari user berdasarkan username
+      const index = state.users.findIndex((u) => u.username === username);
+
+      if (index === -1) {
+        state.error = "User tidak ditemukan!";
+        state.isSuccess = false;
+        return;
+      }
+
+      // Cek apakah PIN baru sama dengan PIN lama
+      if (state.users[index].pin === newPin) {
+        state.error = "PIN baru tidak boleh sama dengan PIN lama!";
+        state.isSuccess = false;
+        return;
+      }
+
+      // Semua validasi lolos → ganti PIN
+      state.users[index].pin = newPin;
+      state.isSuccess = true;
+      state.error = null;
+    },
   },
 });
 
@@ -107,6 +160,8 @@ export const {
   addBalance,
   deductBalance,
   updateUserProfile,
+  changePassword,
+  changePin,
 } = registerSlice.actions;
 
 export default registerSlice.reducer;

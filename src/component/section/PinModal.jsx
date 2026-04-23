@@ -54,6 +54,8 @@ function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, amount 
     if (!userData || userData.pin !== inputPin) {
       setTimeout(() => {
         onFailed();
+        setPin(["", "", "", "", "", ""]);
+        setPinError("");
       }, 500);
       return;
     }

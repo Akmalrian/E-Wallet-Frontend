@@ -7,7 +7,6 @@ import {
 import authReducer from "./slices/authSlice";
 import registerReducer from "./slices/registerSlice";
 
-// ✅ Buat custom storage sendiri — ini solusi untuk bug Vite + redux-persist
 const customStorage = {
   getItem: (key) => {
     return Promise.resolve(localStorage.getItem(key));
@@ -30,7 +29,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   version: 1,
-  storage: customStorage, // ← pakai custom storage, bukan import dari redux-persist
+  storage: customStorage,
   whitelist: ["auth", "register"],
 };
 

@@ -35,7 +35,7 @@ const InputLogin = forwardRef(({ label, type, icon, placeholder, id, ...rest }, 
             onClick={togglePassword}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-primary transition-colors"
           >
-            {showPassword ? <img className="w-8" src="/image/closed-eye.jpg" alt="closed eye password" /> : <img className="w-8" src="/image/open-eye.png" alt="open eye password"/>}
+            {showPassword ? <img className="w-6" src="/image/closed-eye.jpg" alt="closed eye password" /> : <img className="w-6" src="/image/open-eye.png" alt="open eye password"/>}
           </button>
         )}
       </div>
