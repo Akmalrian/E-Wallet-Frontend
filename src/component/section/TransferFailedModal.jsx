@@ -12,7 +12,7 @@ function TransferFailedModal({ isOpen, onClose, onTransferAgain, recipientName }
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-10 max-md:items-end max-md:px-0"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white md:ml-30 mx-15 rounded-xl w-149 h-147.5 p-8 font-montserrat">
+      <div className="bg-white md:ml-45 mx-15 rounded-xl w-149 h-147.5 p-8 font-montserrat">
         <p className="text-xs font-semibold text-gray-400 border-b border-gray-200 pb-3 tracking-widest uppercase">
           Transfer to {recipientName}
         </p>

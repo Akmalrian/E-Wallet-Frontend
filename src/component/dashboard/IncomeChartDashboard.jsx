@@ -21,7 +21,7 @@ function IncomeChartDashboard() {
           <CardIncome
             icon="/image/income-withdraw.svg"
             title="Income"
-            text="Rp2.120.000"
+            text={`Rp${(currentUser?.income || 0).toLocaleString("id-ID")}`}
             detail="+11.01%"
             arrow="/image/ArrowRise.svg"
           />
@@ -30,7 +30,7 @@ function IncomeChartDashboard() {
           <CardIncome
             icon="/image/expense-withdraw.svg"
             title="Expense"
-            text="Rp.200.000"
+            text={`Rp${(currentUser?.expense || 0).toLocaleString("id-ID")}`}
             detail="-5.06%"
             arrow="/image/arrowDown.svg"
           />

@@ -1,7 +1,12 @@
 
+import { useEffect } from "react";
 import EnterPinSection from "../component/section/EnterPinSection";
 
-const EnterPin = () => (
+function EnterPin (){
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      });
+  return(
   <main className="md:bg-primary w-full bg-white ">
     <section className="flex w-full h-[120vh]">
       <div className="bg-white flex-1 rounded-r-2xl">
@@ -21,5 +26,6 @@ const EnterPin = () => (
       </div>
     </section>
   </main>
-);
+  )
+};
 export default EnterPin;

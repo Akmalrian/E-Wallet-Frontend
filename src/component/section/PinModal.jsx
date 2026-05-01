@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { deductBalance } from "../../store/slices/registerSlice";
+import { deductBalance, addTransaction } from "../../store/slices/registerSlice"; // ← tambah addTransaction
 import { syncCurrentUser } from "../../store/slices/authSlice";
 import store from "../../store/store";
 
-function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, amount }) {
+function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, recipientImage, amount }) {
+  // ← tambah recipientImage di props
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.auth);
   const [pin, setPin] = useState(["", "", "", "", "", ""]);
@@ -42,7 +43,6 @@ function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, amount 
   const handleNext = () => {
     const inputPin = pin.join("");
 
-    // Validasi panjang PIN
     if (inputPin.length < 6) {
       setPinError("PIN harus 6 digit!");
       return;
@@ -60,8 +60,20 @@ function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, amount 
       return;
     }
 
-    // PIN benar lakukan kurangi balance
+    // PIN benar → kurangi balance
     dispatch(deductBalance({ username: currentUser.username, amount }));
+
+    // ✅ Simpan transaksi ke history
+    dispatch(addTransaction({
+      username: currentUser.username,
+      transaction: {
+        image: recipientImage || "/image/historyPhoto.svg",
+        title: recipientName,
+        detail: "Transfer",
+        text: `-Rp${amount.toLocaleString("id-ID")}`,
+        result: false,
+      },
+    }));
 
     // Sync currentUser
     setTimeout(() => {

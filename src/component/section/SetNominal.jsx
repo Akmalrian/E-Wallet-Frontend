@@ -47,6 +47,22 @@ function SetNominal() {
         window.scrollTo(0, 0);
   });
 
+  // Tambahkan recipientImage ke PinModal
+<PinModal
+  isOpen={isPinModalOpen}
+  onClose={() => setIsPinModalOpen(false)}
+  onSuccess={() => {
+    setIsPinModalOpen(false);
+    setIsSuccessModalOpen(true);
+  }}
+  onFailed={() => {
+    setIsPinModalOpen(false);
+    setIsFailedModalOpen(true);
+  }}
+  recipientName={name}
+  recipientImage={image} // ← tambahkan ini
+  amount={parseInt(amount.replace(/\D/g, ""), 10) || 0}
+/>
   return (
     <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">

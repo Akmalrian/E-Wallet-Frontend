@@ -31,10 +31,13 @@ const registerSlice = createSlice({
         ...action.payload,
         pin: "",
         balance: 0,
+        income: 0,
+        expense: 0,
         fullName: "",
         phone: "",
         email: action.payload.username,
         avatar: null,
+        transactionHistory: [],
       };
       state.users.push(newUser);
       state.isLoading = false;
@@ -54,11 +57,11 @@ const registerSlice = createSlice({
       state.error = null;
     },
 
-    resetPasswordToDefault: (state, action) => {
-      const { username } = action.payload;
+    changePasswordByEmail: (state, action) => {
+      const { username, newPassword } = action.payload;
       const index = state.users.findIndex((u) => u.username === username);
       if (index !== -1) {
-        state.users[index].password = "qwerty"; // password default
+        state.users[index].password = newPassword;
         state.isSuccess = true;
         state.error = null;
       } else {
@@ -80,6 +83,7 @@ const registerSlice = createSlice({
       const index = state.users.findIndex((u) => u.username === username);
       if (index !== -1) {
         state.users[index].balance += amount;
+        state.users[index].income += amount;
       }
     },
 
@@ -89,6 +93,7 @@ const registerSlice = createSlice({
       if (index !== -1) {
         if (state.users[index].balance >= amount) {
           state.users[index].balance -= amount;
+          state.users[index].expense += amount;
         } else {
           state.error = "Saldo tidak mencukupi!";
         }
@@ -147,6 +152,22 @@ const registerSlice = createSlice({
       state.isSuccess = true;
       state.error = null;
     },
+    addTransaction: (state, action) => {
+      const { username, transaction } = action.payload;
+      const index = state.users.findIndex((u) => u.username === username);
+      if (index !== -1) {
+        // Pastikan transactionHistory ada
+        if (!state.users[index].transactionHistory) {
+          state.users[index].transactionHistory = [];
+        }
+        // Tambahkan transaksi baru di paling atas
+        state.users[index].transactionHistory.unshift({
+          id: Date.now(),           // ID unik berdasarkan waktu
+          ...transaction,
+          date: new Date().toISOString(), // waktu transaksi
+        });
+      }
+    },
   },
 });
 
@@ -155,13 +176,14 @@ export const {
   registerSuccess,
   registerFailed,
   resetRegister,
-  resetPasswordToDefault,
+  changePasswordByEmail,
   savePinToUser,
   addBalance,
   deductBalance,
   updateUserProfile,
   changePassword,
   changePin,
+  addTransaction,
 } = registerSlice.actions;
 
 export default registerSlice.reducer;
