@@ -83,7 +83,7 @@ const ContentForgotPassword = () => {
         {/* ✅ Judul berubah sesuai step */}
         {step === 1 ? (
           <>
-            <p className="text-3xl my-6 font-montserrat">
+            <p className="text-3xl my-2 font-montserrat">
               <b>Fill Out Form Correctly 👋</b>
             </p>
             <p className="text-secondary mt-4 mb-6 font-montserrat">
@@ -92,10 +92,10 @@ const ContentForgotPassword = () => {
           </>
         ) : (
           <>
-            <p className="text-3xl my-6 font-montserrat">
-              <b>Create New Password 🔐</b>
+            <p className="text-3xl my-2 font-montserrat">
+              <b>Create New Password</b>
             </p>
-            <p className="text-secondary mt-4 mb-6 font-montserrat">
+            <p className="text-secondary mt-2 mb-6 font-montserrat">
               Enter your new password for <b>{email}</b>
             </p>
           </>
@@ -134,6 +134,7 @@ const ContentForgotPassword = () => {
         {/* ✅ Step 2 — Form password baru */}
         {step === 2 && (
           <form onSubmit={handleChangePassword} className="space-y-4">
+            <div className="bg-white md:w-137.5">
             <InputLogin
               label="New Password"
               type="password"
@@ -181,6 +182,7 @@ const ContentForgotPassword = () => {
             >
               ← Kembali
             </button>
+            </div>
           </form>
         )}
       </div>
