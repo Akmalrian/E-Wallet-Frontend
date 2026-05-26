@@ -9,30 +9,29 @@ function NavigationDashboard() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // ✅ State untuk buka/tutup modal logout
+  // State untuk buka/tutup modal logout
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  // ✅ Saat tombol Keluar diklik → buka modal dulu
+  // Saat tombol Keluar diklik → buka modal dulu
   const handleLogoutClick = (e) => {
     e.preventDefault(); // cegah navigasi ke /login dulu
     setIsLogoutModalOpen(true);
   };
 
-  // ✅ Saat user konfirmasi keluar di modal
+  // Saat user konfirmasi keluar di modal
   const handleLogoutConfirm = () => {
     dispatch(logoutUser());
     setIsLogoutModalOpen(false);
     navigate("/login");
   };
 
-  // ✅ Saat user batal atau klik backdrop
+  // Saat user batal atau klik backdrop
   const handleLogoutCancel = () => {
     setIsLogoutModalOpen(false);
   };
 
   return (
     <>
-      {/* ✅ Modal Logout */}
       <LogoutModal
         isOpen={isLogoutModalOpen}
         onConfirm={handleLogoutConfirm}
@@ -40,8 +39,7 @@ function NavigationDashboard() {
       />
 
       <nav className="shadow min-h-screen md:h-[130vh] w-full md:w-65.5 hidden md:flex z-50 relative bg-white
-        max-md:flex max-md:min-h-0 max-md:h-16 max-md:w-full max-md:fixed max-md:bottom-0
-        max-md:left-0 max-md:right-0 max-md:shadow-[0_-2px_10px_rgba(0,0,0,0.08)]">
+        max-md:flex max-md:min-h-0 max-md:h-16 max-md:w-full max-md:fixed">
         <div className="w-52 h-87.5 grid gap-2 p-6 ml-2
           max-md:w-full max-md:h-full max-md:flex max-md:flex-row
           max-md:justify-around max-md:items-center max-md:p-0 max-md:ml-0">
@@ -101,7 +99,6 @@ function NavigationDashboard() {
             <ButtonDashboardMenu icon="/image/2 User.svg" text="Profile" />
           </NavLink>
 
-          {/* ✅ Tombol Keluar — tidak pakai NavLink, pakai button biasa */}
           <button
             onClick={handleLogoutClick}
             className="bg-white rounded-md hover:bg-[#ff5e49] hover:text-white
