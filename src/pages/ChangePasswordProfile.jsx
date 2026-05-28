@@ -26,7 +26,6 @@ function ChangePasswordProfile() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Reaksi terhadap perubahan state Redux
   useEffect(() => {
     if (isSuccess) {
       toast.success("Password berhasil diubah!");
@@ -42,27 +41,22 @@ function ChangePasswordProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validasi form di sisi client sebelum dispatch
 
-    // 1. Semua field harus diisi
     if (!existingPassword || !newPassword || !confirmPassword) {
       toast.error("Semua field harus diisi!");
       return;
     }
 
-    // 2. Password baru minimal 6 karakter
     if (newPassword.length < 6) {
       toast.error("Password baru minimal 6 karakter!");
       return;
     }
 
-    // 3. Konfirmasi password harus sama
     if (newPassword !== confirmPassword) {
       toast.error("Konfirmasi password tidak cocok!");
       return;
     }
 
-    // 4. Dispatch ke Redux — validasi password lama dilakukan di slice
     dispatch(changePassword({
       username: currentUser.username,
       existingPassword,
@@ -115,7 +109,6 @@ function ChangePasswordProfile() {
                 </button>
               </div>
 
-              {/* New Password */}
               <h6 className="mt-3 font-semibold">New Password</h6>
               <div className="relative flex items-center mt-1">
                 <img
@@ -140,7 +133,6 @@ function ChangePasswordProfile() {
                 </button>
               </div>
 
-              {/* Confirm New Password */}
               <h6 className="mt-3 font-semibold">Confirm New Password</h6>
               <div className="relative flex items-center mt-1">
                 <img
@@ -169,7 +161,6 @@ function ChangePasswordProfile() {
                 </button>
               </div>
 
-              {/* Pesan jika konfirmasi tidak cocok */}
               {confirmPassword && confirmPassword !== newPassword && (
                 <p className="text-red-500 text-xs mt-1">
                   Konfirmasi password tidak cocok!

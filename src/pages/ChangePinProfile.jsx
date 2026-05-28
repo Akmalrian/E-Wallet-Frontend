@@ -86,7 +86,6 @@ const ChangePinProfile = () => {
 
   return (
     <main>
-      {/* ✅ Modal Verifikasi PIN Lama */}
       <VerifyPinModal
         isOpen={isVerifyModalOpen}
         onClose={handleVerifyClose}
@@ -107,7 +106,6 @@ const ChangePinProfile = () => {
 
           <div className="mx-4 md:w-280 md:h-auto justify-between shadow">
 
-            {/* ✅ Blur konten jika PIN belum diverifikasi */}
             <div className={`${!isPinVerified ? "blur-sm pointer-events-none" : ""}`}>
               <div className="text-center mb-10 md:mb-15 pt-5">
                 <p className="font-semibold px-10 py-5">Change Pin 👋</p>
@@ -115,7 +113,6 @@ const ChangePinProfile = () => {
                   Please save your pin because this is so important.
                 </p>
 
-                {/* PIN Input Baru */}
                 <div className="flex gap-5 justify-center mt-10">
                   {[0, 1, 2, 3, 4, 5].map((i) => (
                     <input

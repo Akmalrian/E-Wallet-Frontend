@@ -11,7 +11,6 @@ const ContentForgotPassword = () => {
   const navigate = useNavigate();
   const { users, isSuccess, error } = useAppSelector((state) => state.register);
 
-  // ✅ Step 1: verifikasi email, Step 2: input password baru
   const [step, setStep] = useState(1);
 
   const [email, setEmail] = useState("");
@@ -20,7 +19,6 @@ const ContentForgotPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  // ✅ Step 1 — cek apakah email terdaftar
   const handleVerifyEmail = (e) => {
     e.preventDefault();
     setEmailError("");
@@ -31,35 +29,29 @@ const ContentForgotPassword = () => {
       return;
     }
 
-    // Email valid → lanjut ke step 2
     setStep(2);
   };
 
-  // ✅ Step 2 — ubah password baru
   const handleChangePassword = (e) => {
     e.preventDefault();
     setPasswordError("");
 
-    // Validasi password baru
     if (newPassword.length < 6) {
       setPasswordError("Password minimal 6 karakter!");
       return;
     }
 
-    // Validasi konfirmasi password
     if (newPassword !== confirmPassword) {
       setPasswordError("Konfirmasi password tidak cocok!");
       return;
     }
 
-    // Dispatch ganti password
     dispatch(changePasswordByEmail({
       username: email,
       newPassword,
     }));
   };
 
-  // Reaksi setelah dispatch berhasil
   useEffect(() => {
     if (isSuccess) {
       toast.success("Password berhasil diubah!", { duration: 3000 });
@@ -80,7 +72,6 @@ const ContentForgotPassword = () => {
           E-Wallet
         </h4>
 
-        {/* ✅ Judul berubah sesuai step */}
         {step === 1 ? (
           <>
             <p className="text-3xl my-2 font-montserrat">
@@ -104,7 +95,6 @@ const ContentForgotPassword = () => {
 
       <div className="space-y-6">
 
-        {/* ✅ Step 1 — Form verifikasi email */}
         {step === 1 && (
           <form onSubmit={handleVerifyEmail} className="space-y-4">
             <InputLogin
@@ -131,7 +121,6 @@ const ContentForgotPassword = () => {
           </form>
         )}
 
-        {/* ✅ Step 2 — Form password baru */}
         {step === 2 && (
           <form onSubmit={handleChangePassword} className="space-y-4">
             <div className="bg-white md:w-137.5">
@@ -156,19 +145,16 @@ const ContentForgotPassword = () => {
               required
             />
 
-            {/* Error password */}
             {passwordError && (
               <p className="text-red-500 text-sm">{passwordError}</p>
             )}
 
-            {/* Indikator konfirmasi cocok */}
             {confirmPassword && confirmPassword === newPassword && (
               <p className="text-green-500 text-sm">✓ Password cocok</p>
             )}
 
             <ButtonLogin type="submit">Change Password</ButtonLogin>
 
-            {/* Tombol kembali ke step 1 */}
             <button
               type="button"
               onClick={() => {
