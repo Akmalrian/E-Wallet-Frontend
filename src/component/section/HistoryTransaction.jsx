@@ -1,33 +1,57 @@
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import CardHistoryTransaction from "../Card/CardHistoryTransaction";
 import SearchNumberOrName from "../input/SearchNumberOrName";
-import { useSearchParams } from "react-router";
+import { getHistoryAPI } from "../../services/dashboardService";
+import toast from "react-hot-toast";
 import { useAppSelector } from "../../store/hooks";
 
-const ITEMS_PER_PAGE = 7;
+const BASE_URL = import.meta.env.VITE_API_URL
 
 function HistoryTransaction() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { currentUser } = useAppSelector((state) => state.auth);
+  const { currentUser }                 = useAppSelector((state) => state.auth);
+
+  const [histories, setHistories]     = useState([]);
+  const [totalData, setTotalData]     = useState(0);
+  const [totalPages, setTotalPages]   = useState(0);
+  const [isLoading, setIsLoading]     = useState(true);
 
   const searchQuery = searchParams.get("search") || "";
   const currentPage = parseInt(searchParams.get("page")) || 1;
+  const ITEMS_PER_PAGE = 7;
 
-  // ✅ Ambil history dari currentUser, fallback ke array kosong
-  const transactionHistory = currentUser?.transactionHistory || [];
+  // Fetch history dari backend saat page atau search berubah
+  useEffect(() => {
+    const fetchHistory = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getHistoryAPI({
+          page:  currentPage,
+          limit: ITEMS_PER_PAGE,
+        });
 
-  // ✅ Filter berdasarkan search query
-  const filteredTransactions = transactionHistory.filter((item) => {
+        setHistories(response.data.transactions   || []);
+        setTotalData(response.data.meta.total_data || 0);
+        setTotalPages(response.data.meta.total_pages || 0);
+      } catch (err) {
+        toast.error("Gagal memuat history");
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, [currentPage]);
+
+  // Filter search di frontend dari data yang sudah diambil
+  const filteredHistories = histories.filter((item) => {
+    if (!searchQuery) return true;
     const searchLower = searchQuery.toLowerCase();
-    return (
-      item.title.toLowerCase().includes(searchLower) ||
-      item.detail.toLowerCase().includes(searchLower)
-    );
+    const title = getTitle(item).toLowerCase();
+    return title.includes(searchLower);
   });
-
-  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentData = filteredTransactions.slice(startIndex, endIndex);
 
   const updateParams = (newParams) => {
     const nextParams = Object.fromEntries([...searchParams]);
@@ -47,6 +71,56 @@ function HistoryTransaction() {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       updateParams({ page: pageNumber.toString() });
     }
+  };
+
+  // Foto pengirim/penerima
+  const getPhoto = (item) => {
+    if (item.type === "topup") {
+      return currentUser?.photo_path
+        ? `${BASE_URL}${currentUser.photo_path}`
+        : "/image/blank-photo.jpg";
+    }
+    if (item.type === "receive" && item.sender_info?.photo_path) {
+      return `${BASE_URL}${item.sender_info.photo_path}`;
+    }
+    if (item.type === "transfer" && item.receiver_info?.photo_path) {
+      return `${BASE_URL}${item.receiver_info.photo_path}`;
+    }
+    if (item.type === "receive")  return "/image/1(6).svg";
+    return "/image/1(8).svg";
+  };
+
+  // Nama pengirim/penerima
+  function getTitle(item) {
+    if (item.type === "receive") {
+      return item.sender_info?.fullname
+        || "Someone";
+    }
+    if (item.type === "transfer") {
+      return item.receiver_info?.fullname
+        || "Transfer";
+    }
+    if (item.type === "topup") return "Top Up";
+    return "-";
+  }
+
+  function getPhone(item) {
+    if (item.type === "receive") {
+      return item.sender_info?.phone_number;
+    }
+    if (item.type === "transfer") {
+      return item.receiver_info?.phone_number;
+    }
+    if (item.type === "topup") return "Top Up";
+    return "-";
+  }
+
+  // Format jumlah uang
+  const formatAmount = (type, amount) => {
+    const formatted = `Rp${Number(amount).toLocaleString("id-ID")}`;
+    return type === "receive" || type === "topup"
+      ? `+${formatted}`
+      : `-${formatted}`;
   };
 
   return (
@@ -73,21 +147,28 @@ function HistoryTransaction() {
         </div>
 
         <div className="grid gap-4 px-6 max-md:px-2">
-          {/* ✅ Tampilkan history atau pesan jika kosong */}
-          {transactionHistory.length === 0 ? (
+          {isLoading ? (
+            <p className="text-center py-10 text-gray-400">
+              Memuat history...
+            </p>
+          ) : histories.length === 0 ? (
             <p className="text-center py-10 text-gray-400">
               Belum ada riwayat transaksi.
             </p>
-          ) : currentData.length > 0 ? (
-            currentData.map((item) => (
+          ) : filteredHistories.length > 0 ? (
+            filteredHistories.map((item) => (
               <CardHistoryTransaction
                 key={item.id}
-                image={item.image}
-                title={item.title}
-                detail={item.detail}
-                text={item.text}
+                image={getPhoto(item)}
+                title={getTitle(item)}
+                detail={getPhone(item)}
+                text={formatAmount(item.type, item.amount)}
                 icon="/image/Trash.svg"
-                result={item.result}
+                result={
+                  item.type === "receive" || item.type === "topup"
+                    ? "positive"
+                    : "negative"
+                }
               />
             ))
           ) : (
@@ -97,11 +178,11 @@ function HistoryTransaction() {
           )}
         </div>
 
-        {filteredTransactions.length > 0 && (
+        {totalData > 0 && (
           <div className="mx-6 text-tiny mt-10 flex justify-between
             max-md:flex-col max-md:items-center max-md:gap-4 max-md:mx-2 max-md:pb-24">
             <p>
-              Show {currentData.length} History of {filteredTransactions.length} History
+              Show {filteredHistories.length} History of {totalData} History
             </p>
             <div className="flex gap-4 max-md:gap-3 max-md:flex-wrap
               max-md:justify-center items-center">
