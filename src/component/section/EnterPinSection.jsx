@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { savePinToUser } from "../../store/slices/registerSlice";
-import { pinSaved, syncCurrentUser } from "../../store/slices/authSlice";
+import { useAppDispatch } from "../../store/hooks";
+import { pinSaved } from "../../store/slices/authSlice";
+
 import toast from "react-hot-toast";
-import store from "../../store/store";
+import { enterPinAPI } from "../../services/authservice";
 
 function EnterPinSection() {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { currentUser } = useAppSelector((state) => state.auth);
-
-  const [pin, setPin] = useState(["", "", "", "", "", ""]);
+  const dispatch  = useAppDispatch();
+  const navigate  = useNavigate();
+  const [pin, setPin]           = useState(["", "", "", "", "", ""]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
@@ -19,8 +18,7 @@ function EnterPinSection() {
         const inputs = document.querySelectorAll(".pin-input");
         inputs[index - 1].focus();
       }
-      
-      const newPin = [...pin];
+      const newPin  = [...pin];
       newPin[index] = "";
       setPin(newPin);
     }
@@ -30,7 +28,7 @@ function EnterPinSection() {
     const value = e.target.value.slice(-1);
     if (!/^\d*$/.test(value)) return;
 
-    const newPin = [...pin];
+    const newPin  = [...pin];
     newPin[index] = value;
     setPin(newPin);
 
@@ -40,37 +38,31 @@ function EnterPinSection() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const pinString = pin.join("");
 
     if (pinString.length < 6) {
       toast.error("PIN harus 6 digit!");
       return;
     }
-
     if (!/^\d{6}$/.test(pinString)) {
       toast.error("PIN hanya boleh angka!");
       return;
     }
 
-    dispatch(savePinToUser({
-      username: currentUser.username,
-      pin: pinString,
-    }));
+    setIsLoading(true);
+    try {
+      await enterPinAPI(pinString);
 
-    const updatedUsers = store.getState().register.users;
-    const updatedUser = updatedUsers.find(
-      (u) => u.username === currentUser.username
-    );
-    if (updatedUser) {
-      dispatch(syncCurrentUser(updatedUser));
+      dispatch(pinSaved());
+      toast.success("PIN berhasil disimpan!");
+      setTimeout(() => navigate("/dashboard"), 1000);
+
+    } catch (err) {
+      toast.error(err.message || "Gagal menyimpan PIN");
+    } finally {
+      setIsLoading(false);
     }
-
-    dispatch(pinSaved());
-
-    toast.success("PIN berhasil disimpan!");
-
-    setTimeout(() => navigate("/dashboard"), 1000);
   };
 
   return (
@@ -104,10 +96,12 @@ function EnterPinSection() {
 
         <button
           onClick={handleSubmit}
+          disabled={isLoading}
           className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white
-            rounded-lg font-semibold text-base transition-colors mb-3"
+            rounded-lg font-semibold text-base transition-colors mb-3
+            disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Submit
+          {isLoading ? "Menyimpan..." : "Submit"}
         </button>
 
         <p className="text-center text-sm text-gray-400">
