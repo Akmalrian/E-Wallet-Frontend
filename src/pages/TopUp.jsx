@@ -4,11 +4,13 @@ import TopUpAccountInformation from "../component/section/TopUpAccountInformatio
 import TopUpPayment from "../component/section/TopUpPayment";
 
 const TopUp = () => {
-  const [amount, setAmount] = useState(0);
-  const [selectedMethod, setSelectedMethod] = useState("");
+  const [amount, setAmount]                 = useState(0);
+  const [selectedMethod, setSelectedMethod] = useState(null);
+
   useEffect(() => {
-        window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   });
+
   return (
     <main>
       <section className="grid md:grid-cols-[1fr_3fr_1.5fr] gap-15 font-montserrat
