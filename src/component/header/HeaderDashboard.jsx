@@ -2,15 +2,20 @@ import { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
 import { useAppSelector } from "../../store/hooks";
 
+const BASE_URL = import.meta.env.VITE_API_URL?.replace("", "")
+  || "http://localhost:9000";
+
 function HeaderDashboard() {
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser } = useAppSelector((state) => state.auth);
 
   const toggleDropDrown = () => setIsOpen(!isOpen);
 
-  const displayName = currentUser?.fullName || "User";
+  const displayName = currentUser?.fullname || "User";
 
-  const displayAvatar = currentUser?.avatar || "/image/blank-photo.jpg";
+  const displayAvatar = currentUser?.photo_path
+    ? `${BASE_URL}${currentUser.photo_path}`
+    : "/image/blank-photo.jpg";
   
   return (
     <header className="bg-[#ffffff] shadow w-full z-60 md:relative fixed">
