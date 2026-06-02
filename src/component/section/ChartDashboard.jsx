@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,75 +9,127 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { getGraphAPI } from "../../services/dashboardService";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const ChartDashboard = () => {
-  const [period, setPeriod] = useState("all");
+  const [period, setPeriod]       = useState("all");
+  const [days, setDays]           = useState("7");
+  const [graphData, setGraphData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const dummyData = {
-    labels: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
-    income: [13000, 1000, 90000, 32000, 45000, 23000, 14000],
-    expense: [20000, 55000, 66000, 24000, 7000, 63000, 52000],
+  // ✅ Buat array semua hari dalam range
+  // contoh: days=7 → ["25 May", "26 May", ..., "31 May"]
+  const generateDateRange = (totalDays) => {
+    const dates = [];
+    for (let i = totalDays - 1; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      // Format sama dengan backend: "DD Mon" contoh "25 May"
+      const label = date.toLocaleDateString("en-GB", {
+        day:   "2-digit",
+        month: "short",
+      });
+      dates.push(label);
+    }
+    return dates;
   };
+
+  useEffect(() => {
+    const fetchGraph = async () => {
+      setIsLoading(true);
+      try {
+        const endDate   = new Date();
+        const startDate = new Date();
+        startDate.setDate(endDate.getDate() - parseInt(days) + 1);
+
+        const formatDate = (d) => d.toISOString().split("T")[0];
+        const typeMap    = { all: "both", income: "income", expense: "expense" };
+
+        const response = await getGraphAPI({
+          type:       typeMap[period] || "both",
+          start_date: formatDate(startDate),
+          end_date:   formatDate(endDate),
+        });
+
+        setGraphData(response.data.points || []);
+      } catch (err) {
+        console.error("Gagal memuat graph:", err);
+        setGraphData([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchGraph();
+  }, [period, days]);
+
+  // ✅ Isi semua hari dalam range, hari tanpa data → 0
+  const allLabels = generateDateRange(parseInt(days));
+
+  // Buat map dari data backend: { "26 May": { income: 50000, expense: 0 } }
+  const dataMap = {};
+  graphData.forEach((point) => {
+    dataMap[point.label] = {
+      income:  point.income,
+      expense: point.expense,
+    };
+  });
+
+  // Cocokkan semua label dengan data backend
+  // Jika tidak ada → isi 0
+  const incomes  = allLabels.map((label) => dataMap[label]?.income  || 0);
+  const expenses = allLabels.map((label) => dataMap[label]?.expense || 0);
 
   const getDatasets = () => {
     const datasets = [];
-
     if (period === "income" || period === "all") {
       datasets.push({
-        label: "Income",
-        data: dummyData.income,
-        backgroundColor: "#2948FF", // Biru
-        borderRadius: 5,
+        label:           "Income",
+        data:            incomes,
+        backgroundColor: "#2948FF",
+        borderRadius:    5,
       });
     }
-
-    // Jika pilih Expense atau All, masukkan data Expense (Merah)
     if (period === "expense" || period === "all") {
       datasets.push({
-        label: "Expense",
-        data: dummyData.expense,
-        backgroundColor: "#D60000", // Merah
-        borderRadius: 5,
+        label:           "Expense",
+        data:            expenses,
+        backgroundColor: "#D60000",
+        borderRadius:    5,
       });
     }
-
     return datasets;
   };
 
   const chartData = {
-    labels: dummyData.labels,
+    labels:   allLabels, // ← semua hari tampil
     datasets: getDatasets(),
   };
 
   const options = {
-    responsive: true,
+    responsive:          true,
     maintainAspectRatio: false,
     plugins: {
-      // Tampilkan legend hanya jika mode "All" agar user tahu warna merah/biru itu apa
       legend: {
-        display: period === "all",
+        display:  period === "all",
         position: "bottom",
-        labels: { usePointStyle: true, boxWidth: 10 },
+        labels:   { usePointStyle: true, boxWidth: 10 },
       },
     },
     scales: {
       y: {
-        grid: { drawBorder: false, color: "#F0F0F0" },
-        ticks: { color: "#B5B5B5", stepSize: 25000 },
+        grid:        { drawBorder: false, color: "#F0F0F0" },
+        ticks:       { color: "#B5B5B5", stepSize: 25000 },
         beginAtZero: true,
       },
       x: {
-        grid: { display: false },
-        ticks: { color: "#4F5665" },
+        grid:  { display: false },
+        ticks: {
+          color:         "#4F5665",
+          maxTicksLimit: days === "30" ? 10 : 7,
+        },
       },
     },
   };
@@ -88,12 +140,17 @@ const ChartDashboard = () => {
         <h2 className="text-lg font-bold text-[#252733]">Income Chart</h2>
 
         <div className="flex gap-3">
-          {/* Dropdown Waktu (Static sample) */}
-          <select className="bg-[#F2F4F7] text-sm font-medium p-2 px-4 rounded-lg outline-none border-none cursor-pointer">
-            <option>7 Days</option>
+          {/* Days dropdown */}
+          <select
+            value={days}
+            onChange={(e) => setDays(e.target.value)}
+            className="bg-[#F2F4F7] text-sm font-medium p-2 px-4 rounded-lg outline-none border-none cursor-pointer"
+          >
+            <option value="7">7 Days</option>
+            <option value="30">30 Days</option>
           </select>
 
-          {/* Dropdown Filter Data */}
+          {/* Type dropdown */}
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
@@ -107,9 +164,16 @@ const ChartDashboard = () => {
       </div>
 
       <div className="relative h-118 max-md:h-64">
-        <Bar data={chartData} options={options} />
+        {isLoading ? (
+          <div className="flex items-center justify-center h-full text-gray-400 text-sm">
+            Memuat data...
+          </div>
+        ) : (
+          <Bar data={chartData} options={options} />
+        )}
       </div>
     </div>
   );
 };
+
 export default ChartDashboard;
