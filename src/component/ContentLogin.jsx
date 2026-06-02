@@ -2,20 +2,21 @@ import { Link } from "react-router";
 import ButtonLogin from "./button/ButtonLogin";
 import SignInWithButton from "./button/SignInWithButton";
 import InputLogin from "./input/InputLogin";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useNavigate } from "react-router";
 import { loginSchema } from "../schemas/schema.auth";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { loginUser, clearMessages } from "../store/slices/authSlice";
-import store from "../store/store";
+import { loginSuccess, loginFailed, clearMessages } from "../store/slices/authSlice";
+import { loginAPI } from "../services/authservice";
 
 const ContentLogin = () => {
-  const dispatch = useAppDispatch();
+  const dispatch  = useAppDispatch();
+  const navigate  = useNavigate();
   const { error, success, needsPin } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -25,9 +26,24 @@ const ContentLogin = () => {
     resolver: joiResolver(loginSchema),
   });
 
-  const onLogin = (data) => {
-    const users = store.getState().register.users;
-    dispatch(loginUser({ username: data.username, password: data.password, users }));
+  const onLogin = async (data) => {
+    setIsLoading(true);
+    try {
+      // ✅ Kirim ke backend
+      const response = await loginAPI(data.username, data.password);
+
+      // Dispatch loginSuccess dengan data dari backend
+      dispatch(loginSuccess({
+        token:   response.data.token,
+        user:    response.data.user,
+        has_pin: response.data.has_pin,
+      }));
+
+    } catch (err) {
+      dispatch(loginFailed(err.message));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -35,11 +51,11 @@ const ContentLogin = () => {
       toast.success(success);
       dispatch(clearMessages());
       setTimeout(() => {
-
+        // ✅ Cek has_pin dari backend
         if (needsPin) {
-          navigate("/enter-pin"); 
+          navigate("/enter-pin"); // ← belum set PIN
         } else {
-          navigate("/dashboard");
+          navigate("/dashboard"); // ← sudah set PIN
         }
       }, 1000);
     }
@@ -81,21 +97,27 @@ const ContentLogin = () => {
             id="email" icon="/image/mail.png" {...register("username")}
           />
           {errors.username && (
-            <span className="text-red-500 text-sm block mt-1">{errors.username.message}</span>
+            <span className="text-red-500 text-sm block mt-1">
+              {errors.username.message}
+            </span>
           )}
           <InputLogin
             label="Password" type="password" placeholder="Enter Your Password"
             id="pass" icon="/image/password.png" {...register("password")}
           />
           {errors.password && (
-            <span className="text-red-500 text-sm block mt-1">{errors.password.message}</span>
+            <span className="text-red-500 text-sm block mt-1">
+              {errors.password.message}
+            </span>
           )}
           <div className="text-right font-montserrat">
             <Link to={"forgot-password"} className="text-sm text-primary hover:underline">
               Forgot Password?
             </Link>
           </div>
-          <ButtonLogin type="submit">Login</ButtonLogin>
+          <ButtonLogin type="submit" disabled={isLoading}>
+            {isLoading ? "Loading..." : "Login"}
+          </ButtonLogin>
         </form>
         <p className="text-center text-secondary font-montserrat">
           Not Have An Account?
@@ -105,4 +127,5 @@ const ContentLogin = () => {
     </section>
   );
 };
+
 export default ContentLogin;
