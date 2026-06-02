@@ -1,25 +1,26 @@
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router";
 import ButtonLogin from "../button/ButtonLogin";
-import InputNominal from "../input/InputNominal";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateProfile, clearMessages } from "../../store/slices/authSlice";
+import { updateProfileAPI, getProfileAPI } from "../../services/userService";
 import toast from "react-hot-toast";
-import { updateUserProfile } from "../../store/slices/registerSlice";
-import store from "../../store/store";
 
 function ProfilePicture() {
   const dispatch = useAppDispatch();
   const { currentUser, success, error } = useAppSelector((state) => state.auth);
 
-  // State form — isi dengan data currentUser jika sudah ada
-  const [fullName, setFullName] = useState(currentUser?.fullName || "");
-  const [phone, setPhone] = useState(currentUser?.phone || "");
-  const [email, setEmail] = useState(currentUser?.email || currentUser?.username || "");
-  const [avatarPreview, setAvatarPreview] = useState(currentUser?.avatar || null);
-
-  //untuk input file
-  const fileInputRef = useRef(null);
+  const [fullName, setFullName]         = useState(currentUser?.fullname     || "");
+  const [phone, setPhone]               = useState(currentUser?.phone_number || "");
+  const [email]               = useState(currentUser?.email        || "");
+  const [avatarPreview, setAvatarPreview] = useState(
+    currentUser?.photo_path
+      ? `http://localhost:9000${currentUser.photo_path}`
+      : null
+  );
+  const [photoFile, setPhotoFile]       = useState(null);
+  const [isLoading, setIsLoading]       = useState(false);
+  const fileInputRef                    = useRef(null);
 
   useEffect(() => {
     if (success) {
@@ -40,49 +41,63 @@ function ProfilePicture() {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Validasi tipe file
+    if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+      toast.error("Hanya file JPG dan PNG yang diizinkan!");
+      return;
+    }
+
+    // Validasi ukuran (max 2MB)
     if (file.size > 2 * 1024 * 1024) {
       toast.error("Ukuran file terlalu besar! Maksimal 2MB.");
       return;
     }
 
+    // Simpan file untuk upload nanti
+    setPhotoFile(file);
+
+    // Preview foto
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setAvatarPreview(reader.result);
-    };
+    reader.onloadend = () => setAvatarPreview(reader.result);
     reader.readAsDataURL(file);
   };
 
-  // Hapus foto profil
   const handleDeleteProfile = () => {
     setAvatarPreview(null);
+    setPhotoFile(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // dispatch updateProfile ke Redux
- const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const profileData = {
-      fullName,
-      phone,
-      email,
-      avatar: avatarPreview,
-    };
+    try {
+      // ✅ Kirim ke backend
+      await updateProfileAPI({
+        fullname:     fullName,
+        phone_number: phone,
+        photo:        photoFile, // null jika tidak ganti foto
+      });
 
-    // Update currentUser di authSlice
-    dispatch(updateProfile(profileData));
+      // ✅ Ambil profile terbaru dari backend
+      const profileResponse = await getProfileAPI();
+      const updatedUser     = profileResponse.data;
 
-    // Update users array di registerSlice agar persistent saat login ulang
-    dispatch(updateUserProfile({
-      username: currentUser.username,
-      ...profileData,
-    }));
+      // ✅ Update Redux state dengan data terbaru
+      dispatch(updateProfile({
+        fullname:     updatedUser.fullname,
+        phone_number: updatedUser.phone_number,
+        photo_path:   updatedUser.photo_path,
+        email:        updatedUser.email,
+      }));
 
-    // Sync currentUser dengan data terbaru dari users array
-    const updatedUsers = store.getState().register.users;
-    const updatedUser = updatedUsers.find((u) => u.username === currentUser.username);
-    if (updatedUser) {
-      dispatch(currentUser(updatedUser));
+      toast.success("Profile berhasil diupdate!");
+
+    } catch (err) {
+      toast.error(err.message || "Gagal update profile");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -127,12 +142,12 @@ function ProfilePicture() {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept="image/*"
+                  accept="image/jpg,image/jpeg,image/png"
                   className="hidden"
                   onChange={handleFileChange}
                 />
 
-                <div className="ml-5 grid gap-2 text-[14px] max-md:ml-0 max-md:w-full max-md:grid-cols-2 ">
+                <div className="ml-5 grid gap-2 text-[14px] max-md:ml-0 max-md:w-full max-md:grid-cols-2">
                   <button
                     type="button"
                     onClick={handleChangeProfile}
@@ -195,8 +210,8 @@ function ProfilePicture() {
                   type="text"
                   placeholder="Enter Your Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full py-3 pl-12 pr-4 rounded-md border border-gray-200 focus:border-primary outline-none transition bg-transparent"
+                  disabled // ← email tidak bisa diubah
+                  className="w-full py-3 pl-12 pr-4 rounded-md border border-gray-200 outline-none bg-gray-50 text-gray-400 cursor-not-allowed"
                 />
               </div>
             </div>
@@ -211,7 +226,9 @@ function ProfilePicture() {
               <Link to="pin-profile">Change Pin</Link>
             </p>
 
-            <ButtonLogin type="submit">Submit</ButtonLogin>
+            <ButtonLogin type="submit" disabled={isLoading}>
+              {isLoading ? "Menyimpan..." : "Submit"}
+            </ButtonLogin>
           </div>
         </div>
       </form>
