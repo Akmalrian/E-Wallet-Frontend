@@ -2,22 +2,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import ButtonLogin from "../component/button/ButtonLogin";
 import NavigationDashboard from "../component/header/NavigationDashboard";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { changePassword, resetRegister } from "../store/slices/registerSlice";
 import toast from "react-hot-toast";
+import { changePasswordAPI } from "../services/userService";
 
 function ChangePasswordProfile() {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { currentUser } = useAppSelector((state) => state.auth);
-  const { isSuccess, error } = useAppSelector((state) => state.register);
 
-  // State untuk setiap input
   const [existingPassword, setExistingPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Toggle show/hide password
   const [showExisting, setShowExisting] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -26,19 +21,7 @@ function ChangePasswordProfile() {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Password berhasil diubah!");
-      dispatch(resetRegister());
-      navigate("/profile");
-    }
-    if (error) {
-      toast.error(error);
-      dispatch(resetRegister());
-    }
-  }, [isSuccess, error, dispatch, navigate]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
 
@@ -57,11 +40,25 @@ function ChangePasswordProfile() {
       return;
     }
 
-    dispatch(changePassword({
-      username: currentUser.username,
-      existingPassword,
-      newPassword,
-    }));
+    if (existingPassword === newPassword) {
+      toast.error("Password baru tidak boleh sama dengan password lama!");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Kirim ke backend
+      await changePasswordAPI(existingPassword, newPassword);
+
+      toast.success("Password berhasil diubah!");
+      navigate("/profile");
+
+    } catch (err) {
+      // Error dari backend (password lama salah, dll)
+      toast.error(err.message || "Gagal mengubah password");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -168,7 +165,9 @@ function ChangePasswordProfile() {
               )}
 
               <div className="mt-5">
-                <ButtonLogin type="submit">Submit</ButtonLogin>
+                <ButtonLogin type="submit" disabled={isLoading}>
+                  {isLoading?"Menyimpan":"Submit"}
+                  </ButtonLogin>
               </div>
             </div>
           </form>
