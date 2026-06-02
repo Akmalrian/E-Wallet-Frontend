@@ -4,7 +4,7 @@ const isNegative = detail.includes("-");
     <div>
       <div className="flex gap-5 items-center max-md:gap-3">
         <div className="flex items-center">
-          <img className="w-14 h-14" src={icon} alt="" />
+          <img className="w-14 h-14" src={icon} alt="Profile" />
         </div>
         <div className="w-30 max-md:flex-1">
           <h6 className="text-black font-bold text-[18px]">{title}</h6>

@@ -6,6 +6,7 @@ const CardHistoryTransaction = ({
   image,
   result = true,
 }) => {
+   const isPositive = typeof text === "string" && text.startsWith("+");
   return (
     <div className="mx-6 text-secondary text-medium max-md:mx-0">
       <div
@@ -21,6 +22,7 @@ const CardHistoryTransaction = ({
             className="w-14 h-14 max-md:w-11 max-md:h-11 max-md:rounded-full"
             src={image}
             alt="photo profile"
+            onError={(e) => { e.target.src = "/image/UserNone.svg"; }}
           />
         </div>
         <div className="md:flex md:text-center">
@@ -30,7 +32,7 @@ const CardHistoryTransaction = ({
         <p className="md:w-77.5 w-50"> {detail} </p>
         </div>
         <p
-          className={`text-medium font-semibold w-60.75 ${result ? "text-[#D00000]" : "text-[#1EC15F]"} max-md:w-auto max-md:text-sm max-md:font-bold max-md:shrink-0`}
+          className={`text-medium font-semibold w-60.75 ${isPositive ? "text-[#1EC15F]" : "text-[#D00000]"} max-md:w-auto max-md:text-sm max-md:font-bold max-md:shrink-0`}
         >
           {text}
         </p>
