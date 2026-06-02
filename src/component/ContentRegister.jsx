@@ -14,12 +14,13 @@ import {
   registerFailed,
   resetRegister,
 } from "../store/slices/registerSlice";
+import { registerAPI } from "../services/authservice.js";
+
 
 const ContentRegister = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const { users, isSuccess, isLoading, error } = useAppSelector(
+  const dispatch   = useAppDispatch();
+  const navigate   = useNavigate();
+  const { isSuccess, isLoading, error } = useAppSelector(
     (state) => state.register
   );
 
@@ -31,19 +32,18 @@ const ContentRegister = () => {
     resolver: joiResolver(registerSchema),
   });
 
-  const onSubmit = (data) => {
-
+  const onSubmit = async (data) => {
     dispatch(registerStart());
 
-    const isTaken = users.some((u) => u.username === data.username);
+    try {
+      // ✅ Kirim ke backend
+      await registerAPI(data.username, data.password);
+      dispatch(registerSuccess());
 
-    if (isTaken) {
-      dispatch(registerFailed("Email sudah digunakan! Silahkan pilih yang lain."));
-      return;
+    } catch (err) {
+      // Error dari backend (email sudah terdaftar, dll)
+      dispatch(registerFailed(err.message));
     }
-
-    const { repeat_password: _, ...newUser } = data;
-    dispatch(registerSuccess(newUser));
   };
 
   useEffect(() => {
@@ -69,7 +69,8 @@ const ContentRegister = () => {
           <b>Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</b>
         </p>
         <p className="text-secondary mt-4 mb-6 font-montserrat">
-          Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!
+          Transfering money is eassier than ever, you can access Zwallet wherever you are.
+          Desktop, laptop, mobile phone? we cover all of that for you!
         </p>
       </div>
       <div className="space-y-6">
@@ -89,7 +90,9 @@ const ContentRegister = () => {
               id="username" icon="/image/mail.png" {...register("username")}
             />
             {errors.username && (
-              <span className="text-red-500 text-sm block mt-1">{errors.username.message}</span>
+              <span className="text-red-500 text-sm block mt-1">
+                {errors.username.message}
+              </span>
             )}
           </div>
           <div>
@@ -98,16 +101,22 @@ const ContentRegister = () => {
               id="password" icon="/image/password.png" {...register("password")}
             />
             {errors.password && (
-              <span className="text-red-500 text-sm block mt-1">{errors.password.message}</span>
+              <span className="text-red-500 text-sm block mt-1">
+                {errors.password.message}
+              </span>
             )}
           </div>
           <div>
             <InputLogin
-              label="Confirm Password" type="password" placeholder="Enter Your Password Again"
-              id="repeat_password" icon="/image/password.png" {...register("repeat_password")}
+              label="Confirm Password" type="password"
+              placeholder="Enter Your Password Again"
+              id="repeat_password" icon="/image/password.png"
+              {...register("repeat_password")}
             />
             {errors.repeat_password && (
-              <span className="text-red-500 text-sm block mt-1">{errors.repeat_password.message}</span>
+              <span className="text-red-500 text-sm block mt-1">
+                {errors.repeat_password.message}
+              </span>
             )}
           </div>
 
