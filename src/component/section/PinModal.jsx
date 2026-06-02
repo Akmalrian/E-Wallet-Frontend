@@ -1,15 +1,25 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { deductBalance, addTransaction } from "../../store/slices/registerSlice"; // ← tambah addTransaction
-import { syncCurrentUser } from "../../store/slices/authSlice";
-import store from "../../store/store";
+import { useAppDispatch } from "../../store/hooks";
+import { setDashboard } from "../../store/slices/authSlice";
+import { checkPinAPI } from "../../services/userService";
+import { transferAPI } from "../../services/transactionService";
+import { getDashboardAPI } from "../../services/dashboardService";
+import toast from "react-hot-toast";
 
-function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, recipientImage, amount }) {
-  // ← tambah recipientImage di props
+function PinModal({
+  isOpen,
+  onClose,
+  onSuccess,
+  onFailed,
+  recipientName,
+  receiverWalletId,
+  amount,
+  notes,
+}) {
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state) => state.auth);
-  const [pin, setPin] = useState(["", "", "", "", "", ""]);
+  const [pin, setPin]         = useState(["", "", "", "", "", ""]);
   const [pinError, setPinError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -29,7 +39,7 @@ function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, recipie
   };
 
   const handleInput = (e, index) => {
-    const value = e.target.value.replace(/\D/, "");
+    const value  = e.target.value.replace(/\D/, "");
     const newPin = [...pin];
     newPin[index] = value;
     setPin(newPin);
@@ -40,7 +50,7 @@ function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, recipie
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const inputPin = pin.join("");
 
     if (inputPin.length < 6) {
@@ -48,45 +58,43 @@ function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, recipie
       return;
     }
 
-    const users = store.getState().register.users;
-    const userData = users.find((u) => u.username === currentUser.username);
+    setIsLoading(true);
+    try {
+      // ✅ Step 1: Verifikasi PIN ke backend
+      await checkPinAPI(inputPin);
 
-    if (!userData || userData.pin !== inputPin) {
-      setTimeout(() => {
-        onFailed();
-        setPin(["", "", "", "", "", ""]);
-        setPinError("");
-      }, 500);
-      return;
+      // ✅ Step 2: Proses transfer ke backend
+      await transferAPI(receiverWalletId, amount, inputPin, notes || "");
+
+      // ✅ Step 3: Refresh dashboard
+      const dashboardResponse = await getDashboardAPI();
+      dispatch(setDashboard(dashboardResponse.data));
+
+      setPin(["", "", "", "", "", ""]);
+      setPinError("");
+      onSuccess(); // ← buka modal success
+
+    } catch (err) {
+      console.error("Transfer error:", err.message);
+      setPin(["", "", "", "", "", ""]);
+      setPinError("");
+
+      // Tentukan apakah error PIN atau error transfer
+      if (
+        err.message === "invalid pin" ||
+        err.message === "pin has not been set"
+      ) {
+        setPinError("PIN salah! Silahkan coba lagi.");
+        onFailed(); // ← buka modal failed
+      } else if (err.message === "insufficient balance") {
+        toast.error("Saldo tidak mencukupi!");
+        onClose();
+      } else {
+        onFailed(); // ← error lain → modal failed
+      }
+    } finally {
+      setIsLoading(false);
     }
-
-    // PIN benar → kurangi balance
-    dispatch(deductBalance({ username: currentUser.username, amount }));
-
-    // ✅ Simpan transaksi ke history
-    dispatch(addTransaction({
-      username: currentUser.username,
-      transaction: {
-        image: recipientImage || "/image/historyPhoto.svg",
-        title: recipientName,
-        detail: "Transfer",
-        text: `-Rp${amount.toLocaleString("id-ID")}`,
-        result: false,
-      },
-    }));
-
-    // Sync currentUser
-    setTimeout(() => {
-      const updatedUsers = store.getState().register.users;
-      const updatedUser = updatedUsers.find(
-        (u) => u.username === currentUser.username
-      );
-      if (updatedUser) dispatch(syncCurrentUser(updatedUser));
-    }, 0);
-
-    setPin(["", "", "", "", "", ""]);
-    setPinError("");
-    onSuccess();
   };
 
   return (
@@ -132,10 +140,12 @@ function PinModal({ isOpen, onClose, onSuccess, onFailed, recipientName, recipie
 
         <button
           className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white
-            rounded-lg font-semibold text-base transition-colors mb-3 mt-4 md:mt-25"
+            rounded-lg font-semibold text-base transition-colors mb-3 mt-4 md:mt-25
+            disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={handleNext}
+          disabled={isLoading}
         >
-          Next
+          {isLoading ? "Memproses..." : "Next"}
         </button>
 
         <p className="text-center text-sm text-gray-400">

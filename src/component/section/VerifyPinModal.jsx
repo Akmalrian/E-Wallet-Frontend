@@ -1,15 +1,17 @@
-import {useState } from "react";
+import { useState } from "react";
+import { checkPinAPI } from "../../services/userService"; // ← import API
+import toast from "react-hot-toast";
 
-function VerifyPinModal({ isOpen, onClose, onSuccess, currentPin }) {
-  const [pin, setPin] = useState(["", "", "", "", "", ""]);
+function VerifyPinModal({ isOpen, onClose, onSuccess }) {
+  // ← hapus prop currentPin, sekarang verifikasi lewat API
+  const [pin, setPin]         = useState(["", "", "", "", "", ""]);
   const [pinError, setPinError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
 
   const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      handleClose();
-    }
+    if (e.target === e.currentTarget) handleClose();
   };
 
   const handleClose = () => {
@@ -19,7 +21,7 @@ function VerifyPinModal({ isOpen, onClose, onSuccess, currentPin }) {
   };
 
   const handleInput = (e, index) => {
-    const value = e.target.value.replace(/\D/, "");
+    const value  = e.target.value.replace(/\D/, "");
     const newPin = [...pin];
     newPin[index] = value;
     setPin(newPin);
@@ -35,29 +37,31 @@ function VerifyPinModal({ isOpen, onClose, onSuccess, currentPin }) {
     }
   };
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     const inputPin = pin.join("");
+    console.log("PIN yang diverifikasi:", inputPin); 
 
     if (inputPin.length < 6) {
       setPinError("PIN harus 6 digit!");
       return;
     }
 
-
-    if (inputPin !== currentPin) {
-      setPin(["", "", "", "", "", ""]);
-      document.querySelectorAll(".verify-pin-input")[0]?.focus();
-
-      setPinError(
-        `PIN salah! Silahkan coba lagi.`
-      );
-      return;
-    }
-
+    setIsLoading(true);
+  try {
+    await checkPinAPI(inputPin);
+    console.log("Verifikasi berhasil, kirim ke parent:", inputPin); // ← log di sini
     setPin(["", "", "", "", "", ""]);
     setPinError("");
-    onSuccess();
-  };
+    onSuccess(inputPin);
+  } catch (err) {
+    console.log("Verifikasi gagal:", err.message);
+    setPin(["", "", "", "", "", ""]);
+    setPinError("PIN salah! Silahkan coba lagi.");
+    toast.error("PIN salah!");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div
@@ -68,7 +72,7 @@ function VerifyPinModal({ isOpen, onClose, onSuccess, currentPin }) {
       <div
         className="bg-white rounded-xl w-full max-w-md p-8 font-montserrat mx-4
           max-md:rounded-t-2xl max-md:rounded-b-none max-md:mx-0 max-md:p-6"
-        onClick={(e) => e.stopPropagation()} 
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -79,7 +83,6 @@ function VerifyPinModal({ isOpen, onClose, onSuccess, currentPin }) {
           </div>
         </div>
 
-
         <div className="flex gap-3 justify-center mb-4">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <input
@@ -88,8 +91,8 @@ function VerifyPinModal({ isOpen, onClose, onSuccess, currentPin }) {
                 focus:outline-none text-2xl font-semibold text-center
                 text-[#0B132A] transition-colors
                 ${pinError
-                  ? "border-b-red-400" 
-                  : "border-b-gray-300 focus:border-b-blue-500" 
+                  ? "border-b-red-400"
+                  : "border-b-gray-300 focus:border-b-blue-500"
                 }`}
               type="password"
               maxLength="1"
@@ -101,23 +104,23 @@ function VerifyPinModal({ isOpen, onClose, onSuccess, currentPin }) {
         </div>
 
         {pinError && (
-          <p className="text-red-500 text-sm text-center mb-4">
-            {pinError}
-          </p>
+          <p className="text-red-500 text-sm text-center mb-4">{pinError}</p>
         )}
 
         <button
           onClick={handleVerify}
+          disabled={isLoading}
           className="w-full py-3 bg-primary hover:bg-blue-700 text-white
-            rounded-xl font-bold text-base transition-colors mt-2"
+            rounded-xl font-bold text-base transition-colors mt-2
+            disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Verifikasi PIN
+          {isLoading ? "Memverifikasi..." : "Verifikasi PIN"}
         </button>
 
         <button
           onClick={handleClose}
-          className="w-full py-3 mt-3 bg-gray-200 rounded-xl text-black hover:bg-gray-300
-            text-sm transition-colors"
+          className="w-full py-3 mt-3 bg-gray-200 rounded-xl text-black
+            hover:bg-gray-300 text-sm transition-colors"
         >
           Batal
         </button>
