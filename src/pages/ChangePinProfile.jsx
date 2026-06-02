@@ -1,49 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import ButtonLogin from "../component/button/ButtonLogin";
 import NavigationDashboard from "../component/header/NavigationDashboard";
 import VerifyPinModal from "../component/section/VerifyPinModal";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { changePin, resetRegister } from "../store/slices/registerSlice";
-import { syncCurrentUser } from "../store/slices/authSlice";
-import store from "../store/store";
+import { changePinAPI } from "../services/userService"; // ← import API
 import toast from "react-hot-toast";
 
 const ChangePinProfile = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { currentUser } = useAppSelector((state) => state.auth);
-  const { isSuccess, error } = useAppSelector((state) => state.register);
 
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(true);
+  const [isPinVerified, setIsPinVerified]         = useState(false);
+  const [pin, setPin]                             = useState(["", "", "", "", "", ""]);
+  const [isLoading, setIsLoading]                 = useState(false);
 
-  const [isPinVerified, setIsPinVerified] = useState(false);
-
-  const [pin, setPin] = useState(["", "", "", "", "", ""]);
+  const oldPinRef = useRef("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (isSuccess) {
-      toast.success("PIN berhasil diubah!");
-      dispatch(resetRegister());
-      const updatedUsers = store.getState().register.users;
-      const updatedUser = updatedUsers.find(
-        (u) => u.username === currentUser.username
-      );
-      if (updatedUser) dispatch(syncCurrentUser(updatedUser));
-      navigate("/profile");
-    }
-    if (error) {
-      toast.error(error);
-      dispatch(resetRegister());
-    }
-  }, [isSuccess, error, dispatch, navigate, currentUser]);
+  }, []);
 
   const handleInput = (e, index) => {
-    const value = e.target.value.replace(/\D/, "");
+    const value  = e.target.value.replace(/\D/, "");
     const newPin = [...pin];
     newPin[index] = value;
     setPin(newPin);
+
     if (value && index < 5) {
       document.querySelectorAll(".change-pin-input")[index + 1].focus();
     }
@@ -55,8 +37,13 @@ const ChangePinProfile = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const pinString = pin.join("");
+
+      console.log("Old PIN (dari ref):", oldPinRef.current);
+  console.log("New PIN:", pinString);
+  console.log("Sama?:", pinString === oldPinRef.current);
+
     if (pinString.length < 6) {
       toast.error("PIN harus 6 digit!");
       return;
@@ -65,13 +52,30 @@ const ChangePinProfile = () => {
       toast.error("PIN hanya boleh angka!");
       return;
     }
-    dispatch(changePin({
-      username: currentUser.username,
-      newPin: pinString,
-    }));
+    if (pinString === oldPinRef.current) {
+      toast.error("PIN baru tidak boleh sama dengan PIN lama!");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // ✅ Kirim ke backend
+      await changePinAPI(oldPinRef.current, pinString);
+
+      toast.success("PIN berhasil diubah!");
+      navigate("/profile");
+
+    } catch (err) {
+      console.log("Error dari backend:", err.message);
+      toast.error(err.message || "Gagal mengubah PIN");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleVerifySuccess = () => {
+  // ✅ Terima PIN lama dari VerifyPinModal
+  const handleVerifySuccess = (verifiedPin) => {
+    oldPinRef.current = verifiedPin;          // simpan PIN lama
     setIsVerifyModalOpen(false);
     setIsPinVerified(true);
     toast.success("PIN terverifikasi! Silahkan masukkan PIN baru.");
@@ -86,11 +90,11 @@ const ChangePinProfile = () => {
 
   return (
     <main>
+      {/* ✅ Tidak perlu pass currentPin lagi */}
       <VerifyPinModal
         isOpen={isVerifyModalOpen}
         onClose={handleVerifyClose}
         onSuccess={handleVerifySuccess}
-        currentPin={currentUser?.pin || ""}
       />
 
       <section className="grid md:grid-cols-[1fr_3fr_1.5fr] gap-15 font-montserrat">
@@ -105,7 +109,6 @@ const ChangePinProfile = () => {
           </div>
 
           <div className="mx-4 md:w-280 md:h-auto justify-between shadow">
-
             <div className={`${!isPinVerified ? "blur-sm pointer-events-none" : ""}`}>
               <div className="text-center mb-10 md:mb-15 pt-5">
                 <p className="font-semibold px-10 py-5">Change Pin 👋</p>
@@ -132,12 +135,15 @@ const ChangePinProfile = () => {
               </div>
 
               <div className="mx-10 pb-10">
-                <ButtonLogin type="button" onClick={handleSubmit}>
-                  Submit
+                <ButtonLogin
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Menyimpan..." : "Submit"}
                 </ButtonLogin>
               </div>
             </div>
-
           </div>
         </section>
       </section>
