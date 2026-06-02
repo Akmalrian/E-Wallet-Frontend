@@ -1,28 +1,38 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import ButtonLogin from "../button/ButtonLogin";
 import PinModal from "./PinModal";
 import TransferSuccessModal from "./TransferSuccesModal";
 import TransferFailedModal from "./TransferFailedModal";
-import { useSearchParams } from "react-router";
-import { TRANSACTION_DATA } from "./TransactionData";
 import { useAppSelector } from "../../store/hooks";
 import toast from "react-hot-toast";
 
+const BASE_URL = import.meta.env.VITE_API_URL?.replace("/api/v1", "")
+  || "http://localhost:9000";
+
 function SetNominal() {
-  const [isPinModalOpen, setIsPinModalOpen] = useState(false);
+  const [isPinModalOpen, setIsPinModalOpen]       = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [isFailedModalOpen, setIsFailedModalOpen] = useState(false);
-  const [amount, setAmount] = useState("");
+  const [isFailedModalOpen, setIsFailedModalOpen]   = useState(false);
+  const [amount, setAmount]                         = useState("");
+  const [notes, setNotes]                           = useState("");
 
-  const { currentUser } = useAppSelector((state) => state.auth);
+  const { dashboard } = useAppSelector((state) => state.auth);
 
+  // ✅ Ambil data penerima dari URL params
   const [searchParams] = useSearchParams();
-  const id = Number(searchParams.get("id"));
-  const selectedPerson = TRANSACTION_DATA.find((item) => item.id === id);
+  const walletId = Number(searchParams.get("wallet_id"));
+  const name     = decodeURIComponent(searchParams.get("name")  || "Unknown");
+  const phone    = decodeURIComponent(searchParams.get("phone") || "-");
+  const photoPath = decodeURIComponent(searchParams.get("photo") || "");
 
-  const name = selectedPerson?.title || "Unknown";
-  const phone = selectedPerson?.detail || "-";
-  const image = selectedPerson?.image || "/image/historyPhoto.svg";
+  const image = photoPath
+    ? `${BASE_URL}${photoPath}`
+    : "/image/historyPhoto.svg";
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,35 +44,16 @@ function SetNominal() {
       return;
     }
 
-    if (nominal > (currentUser?.balance || 0)) {
+    if (nominal > (dashboard?.balance || 0)) {
       toast.error(
-        `Saldo tidak mencukupi! Saldo kamu: Rp${(currentUser?.balance || 0).toLocaleString("id-ID")}`
+        `Saldo tidak mencukupi! Saldo kamu: Rp${(dashboard?.balance || 0).toLocaleString("id-ID")}`
       );
       return;
     }
 
     setIsPinModalOpen(true);
   };
-  useEffect(() => {
-        window.scrollTo(0, 0);
-  });
 
-  // Tambahkan recipientImage ke PinModal
-<PinModal
-  isOpen={isPinModalOpen}
-  onClose={() => setIsPinModalOpen(false)}
-  onSuccess={() => {
-    setIsPinModalOpen(false);
-    setIsSuccessModalOpen(true);
-  }}
-  onFailed={() => {
-    setIsPinModalOpen(false);
-    setIsFailedModalOpen(true);
-  }}
-  recipientName={name}
-  recipientImage={image} // ← tambahkan ini
-  amount={parseInt(amount.replace(/\D/g, ""), 10) || 0}
-/>
   return (
     <section className="mt-6 text-medium font-montserrat">
       <div className="flex mx-4 items-center font-semibold gap-4 mb-8">
@@ -90,10 +81,16 @@ function SetNominal() {
         <div>
           <div className="ml-10 mr-10 max-md:ml-4 max-md:mr-4">
 
+            {/* Info Penerima */}
             <div className="flex justify-between items-center h-28.75 w-full
               p-4 bg-[#E8E8E84D]">
               <div className="flex items-center">
-                <img className="w-20 h-20" src={image} alt={name} />
+                <img
+                  className="w-20 h-20 rounded-full object-cover"
+                  src={image}
+                  alt={name}
+                  onError={(e) => { e.target.src = "/image/historyPhoto.svg"; }}
+                />
                 <div className="ml-5 grid gap-2">
                   <h6 className="font-bold">{name}</h6>
                   <p>{phone}</p>
@@ -103,14 +100,17 @@ function SetNominal() {
               <img className="w-6 h-6" src="/image/Star.svg" alt="icon star" />
             </div>
 
+            {/* Input Amount */}
             <h6 className="mt-5 font-bold">Amount</h6>
             <p className="mt-1">
               Type the amount you want to transfer and then press continue to the next steps.
             </p>
             <div className="w-full mt-2">
               <div className="relative flex items-center">
-                <img src="/image/u_money-bill.svg" alt=""
-                  className="absolute left-4 w-5 h-5 pointer-events-none" />
+                <img
+                  src="/image/u_money-bill.svg" alt=""
+                  className="absolute left-4 w-5 h-5 pointer-events-none"
+                />
                 <input
                   type="text"
                   placeholder="Enter Nominal Transfer"
@@ -129,6 +129,8 @@ function SetNominal() {
             <textarea
               className="w-full h-55.75 p-3 border border-gray-400 mb-4 max-md:h-32"
               placeholder="Enter Some Notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
             />
 
             <div onClick={handleSubmit}>
@@ -150,7 +152,10 @@ function SetNominal() {
           setIsFailedModalOpen(true);
         }}
         recipientName={name}
+        recipientImage={image}
+        receiverWalletId={walletId}
         amount={parseInt(amount.replace(/\D/g, ""), 10) || 0}
+        notes={notes}
       />
 
       <TransferSuccessModal
