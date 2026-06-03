@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { pinSaved } from "../../store/slices/authSlice";
 
 import toast from "react-hot-toast";
-import { enterPinAPI } from "../../services/authservice";
+import { enterPinAPI } from "../../services/authService";
 
 function EnterPinSection() {
   const dispatch  = useAppDispatch();
