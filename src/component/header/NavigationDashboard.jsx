@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { logoutUser } from "../../store/slices/authSlice";
 import LogoutModal from "../section/LogoutModal";
 import toast from "react-hot-toast";
-import { logoutAPI } from "../../services/authservice";
+import { logoutAPI } from "../../services/authService";
 
 function NavigationDashboard() {
   const dispatch  = useAppDispatch();

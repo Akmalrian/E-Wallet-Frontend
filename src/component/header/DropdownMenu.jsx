@@ -3,7 +3,7 @@ import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 import { useAppDispatch } from "../../store/hooks";
 import { logoutUser } from "../../store/slices/authSlice";
 import toast from "react-hot-toast";
-import { logoutAPI } from "../../services/authservice";
+import { logoutAPI } from "../../services/authService";
 
 function DropdownMenu() {
   const dispatch = useAppDispatch();
