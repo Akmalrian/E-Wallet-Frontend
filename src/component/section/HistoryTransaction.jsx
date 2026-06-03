@@ -6,7 +6,8 @@ import { getHistoryAPI } from "../../services/dashboardService";
 import toast from "react-hot-toast";
 import { useAppSelector } from "../../store/hooks";
 
-const BASE_URL = import.meta.env.VITE_API_URL
+const BASE_URL = import.meta.env.VITE_API_URL?.replace("/api/v1", "")
+  || "http://localhost:9000/ewallet";
 
 function HistoryTransaction() {
   const [searchParams, setSearchParams] = useSearchParams();
