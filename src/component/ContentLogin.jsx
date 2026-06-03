@@ -10,7 +10,7 @@ import { loginSchema } from "../schemas/schema.auth";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { loginSuccess, loginFailed, clearMessages } from "../store/slices/authSlice";
-import { loginAPI } from "../services/authservice";
+import { loginAPI } from "../services/authService";
 
 const ContentLogin = () => {
   const dispatch  = useAppDispatch();

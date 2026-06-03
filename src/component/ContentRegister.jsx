@@ -14,7 +14,7 @@ import {
   registerFailed,
   resetRegister,
 } from "../store/slices/registerSlice";
-import { registerAPI } from "../services/authservice.js";
+import { registerAPI } from "../services/authService.js";
 
 
 const ContentRegister = () => {
