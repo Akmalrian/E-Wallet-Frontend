@@ -15,7 +15,7 @@ export const updateProfileAPI = async ({ fullname, phone_number, photo }) => {
   if (photo)        formData.append("photo",        photo);
 
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL || "http://localhost:9000"}/users/profile`,
+    `${import.meta.env.VITE_API_URL || "http://localhost:9000/ewallet"}/users/profile`,
     {
       method: "PATCH",
       headers: {
