@@ -3,7 +3,7 @@ import DropdownMenu from "./DropdownMenu";
 import { useAppSelector } from "../../store/hooks";
 
 const BASE_URL = import.meta.env.VITE_API_URL?.replace("", "")
-  || "http://localhost:9000";
+  || "http://localhost:9000/ewallet";
 
 function HeaderDashboard() {
   const [isOpen, setIsOpen] = useState(false);

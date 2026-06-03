@@ -1,7 +1,7 @@
 import { useAppSelector } from "../../store/hooks";
 
 const BASE_URL = import.meta.env.VITE_API_URL?.replace("/api/v1", "")
-  || "http://localhost:9000";
+  || "http://localhost:9000/ewallet";
 
 // ✅ Hardcode payment methods — ID harus sesuai dengan database
 const PAYMENT_METHODS = [

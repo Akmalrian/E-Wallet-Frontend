@@ -6,7 +6,7 @@ import { getReceiversAPI } from "../../services/userService";
 import toast from "react-hot-toast";
 
 const BASE_URL = import.meta.env.VITE_API_URL?.replace("/api/v1", "")
-  || "http://localhost:9000";
+  || "http://localhost:9000/ewallet";
 
 const ITEMS_PER_PAGE = 7;
 

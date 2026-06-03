@@ -15,7 +15,7 @@ function ProfilePicture() {
   const [email]               = useState(currentUser?.email        || "");
   const [avatarPreview, setAvatarPreview] = useState(
     currentUser?.photo_path
-      ? `http://localhost:9000${currentUser.photo_path}`
+      ? `http://localhost:9000/ewallet${currentUser.photo_path}`
       : null
   );
   const [photoFile, setPhotoFile]       = useState(null);

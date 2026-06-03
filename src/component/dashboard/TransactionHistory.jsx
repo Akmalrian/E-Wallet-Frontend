@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useAppSelector } from "../../store/hooks";
 
 const BASE_URL = import.meta.env.VITE_API_URL?.replace("", "")
-  || "http://localhost:9000";
+  || "http://localhost:9000/ewallet";
 
 function TransactionHistory() {
   const [histories, setHistories] = useState([]);
