@@ -4,33 +4,24 @@ import {
   persistReducer,
   FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
 } from "redux-persist";
-import authReducer from "./slices/authSlice";
-import registerReducer from "./slices/registerSlice";
 
-const customStorage = {
-  getItem: (key) => {
-    return Promise.resolve(localStorage.getItem(key));
-  },
-  setItem: (key, value) => {
-    localStorage.setItem(key, value);
-    return Promise.resolve();
-  },
-  removeItem: (key) => {
-    localStorage.removeItem(key);
-    return Promise.resolve();
-  },
-};
+import storage from "redux-persist/lib/storage";
+
+import authReducer        from "./slices/authSlice";
+import transactionReducer from "./slices/transactionSlice";
+import profileReducer     from "./slices/profileSlice";   
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  register: registerReducer,
+  auth:        authReducer,
+  transaction: transactionReducer,
+  profile:     profileReducer,
 });
 
 const persistConfig = {
-  key: "root",
-  version: 1,
-  storage: customStorage,
-  whitelist: ["auth", "register"],
+  key:      "root",
+  version:  1,
+  storage,           
+  whitelist: ["auth"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
