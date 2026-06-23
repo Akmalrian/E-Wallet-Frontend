@@ -5,11 +5,29 @@ import {
   FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
 } from "redux-persist";
 
-import { default as storage } from "redux-persist/lib/storage/index.js";
-
 import authReducer        from "./slices/authSlice";
 import transactionReducer from "./slices/transactionSlice";
 import profileReducer     from "./slices/profileSlice";
+
+const storage = {
+  getItem: (key) => {
+    return new Promise((resolve) => {
+      resolve(localStorage.getItem(key));
+    });
+  },
+  setItem: (key, value) => {
+    return new Promise((resolve) => {
+      localStorage.setItem(key, value);
+      resolve(value);
+    });
+  },
+  removeItem: (key) => {
+    return new Promise((resolve) => {
+      localStorage.removeItem(key);
+      resolve();
+    });
+  },
+};
 
 const persistConfig = {
   key:      "root",
