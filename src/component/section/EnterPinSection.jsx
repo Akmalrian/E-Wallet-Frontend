@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAppDispatch } from "../../store/hooks";
-import { pinSaved } from "../../store/slices/authSlice";
-
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { enterPinThunk, clearMessages } from "../../store/slices/authSlice";
 import toast from "react-hot-toast";
-import { enterPinAPI } from "../../services/authService";
 
 function EnterPinSection() {
-  const dispatch  = useAppDispatch();
-  const navigate  = useNavigate();
-  const [pin, setPin]           = useState(["", "", "", "", "", ""]);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [pin, setPin] = useState(["", "", "", "", "", ""]);
+
+  // isLoading dari Redux, bukan useState lokal
+  const { isLoading, success, error } = useAppSelector((state) => state.auth);
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
@@ -38,9 +38,8 @@ function EnterPinSection() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const pinString = pin.join("");
-
     if (pinString.length < 6) {
       toast.error("PIN harus 6 digit!");
       return;
@@ -49,21 +48,21 @@ function EnterPinSection() {
       toast.error("PIN hanya boleh angka!");
       return;
     }
-
-    setIsLoading(true);
-    try {
-      await enterPinAPI(pinString);
-
-      dispatch(pinSaved());
-      toast.success("PIN berhasil disimpan!");
-      setTimeout(() => navigate("/dashboard"), 1000);
-
-    } catch (err) {
-      toast.error(err.message || "Gagal menyimpan PIN");
-    } finally {
-      setIsLoading(false);
-    }
+    // Dispatch thunk langsung
+    dispatch(enterPinThunk({ pin: pinString }));
   };
+
+  useEffect(() => {
+    if (!isLoading && success) {
+      toast.success(success);
+      dispatch(clearMessages());
+      setTimeout(() => navigate("/dashboard"), 1000);
+    }
+    if (!isLoading && error) {
+      toast.error(error);
+      dispatch(clearMessages());
+    }
+  }, [isLoading, success, error, dispatch, navigate]);
 
   return (
     <div className="flex justify-center items-center h-[120vh]">

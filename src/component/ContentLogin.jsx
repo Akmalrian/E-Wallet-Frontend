@@ -2,21 +2,22 @@ import { Link } from "react-router";
 import ButtonLogin from "./button/ButtonLogin";
 import SignInWithButton from "./button/SignInWithButton";
 import InputLogin from "./input/InputLogin";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useNavigate } from "react-router";
 import { loginSchema } from "../schemas/schema.auth";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { loginSuccess, loginFailed, clearMessages } from "../store/slices/authSlice";
-import { loginAPI } from "../services/authService";
+import { loginThunk, clearMessages } from "../store/slices/authSlice";
 
 const ContentLogin = () => {
-  const dispatch  = useAppDispatch();
-  const navigate  = useNavigate();
-  const { error, success, needsPin } = useAppSelector((state) => state.auth);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  // isLoading dari Redux, bukan useState lokal
+  const { isLoading, error, success, needsPin } = useAppSelector(
+    (state) => state.auth
+  );
 
   const {
     register,
@@ -26,44 +27,24 @@ const ContentLogin = () => {
     resolver: joiResolver(loginSchema),
   });
 
-  const onLogin = async (data) => {
-    setIsLoading(true);
-    try {
-      // ✅ Kirim ke backend
-      const response = await loginAPI(data.username, data.password);
-
-      // Dispatch loginSuccess dengan data dari backend
-      dispatch(loginSuccess({
-        token:   response.data.token,
-        user:    response.data.user,
-        has_pin: response.data.has_pin,
-      }));
-
-    } catch (err) {
-      dispatch(loginFailed(err.message));
-    } finally {
-      setIsLoading(false);
-    }
+  // Dispatch thunk langsung, tidak perlu try/catch manual
+  const onLogin = (data) => {
+    dispatch(loginThunk({ email: data.username, password: data.password }));
   };
 
   useEffect(() => {
-    if (success) {
+    if (!isLoading && success) {
       toast.success(success);
       dispatch(clearMessages());
       setTimeout(() => {
-        // ✅ Cek has_pin dari backend
-        if (needsPin) {
-          navigate("/enter-pin"); // ← belum set PIN
-        } else {
-          navigate("/dashboard"); // ← sudah set PIN
-        }
+        navigate(needsPin ? "/enter-pin" : "/dashboard");
       }, 1000);
     }
-    if (error) {
+    if (!isLoading && error) {
       toast.error(error);
       dispatch(clearMessages());
     }
-  }, [success, error, dispatch, navigate, needsPin]);
+  }, [isLoading, success, error, dispatch, navigate, needsPin]);
 
   return (
     <section className="h-screen w-full md:p-20 p-10">
@@ -71,7 +52,7 @@ const ContentLogin = () => {
         <h4 className="logo flex text-primary my-2 font-nunitoSans text-xl items-center gap-2">
           <Link to="/">
             <img className="w-8 h-8" src="/image/MoneyWallet.png" alt="Money-Wallet.png" />
-          </Link>{" "}
+          </Link>
           E-Wallet
         </h4>
         <p className="text-3xl my-2 font-montserrat">

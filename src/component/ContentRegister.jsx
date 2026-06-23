@@ -8,21 +8,14 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { registerSchema } from "../schemas/schema.auth.js";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import {
-  registerStart,
-  registerSuccess,
-  registerFailed,
-  resetRegister,
-} from "../store/slices/registerSlice";
-import { registerAPI } from "../services/authService.js";
-
+// Pakai registerThunk dari authSlice, hapus registerSlice
+import { registerThunk, clearMessages } from "../store/slices/authSlice";
 
 const ContentRegister = () => {
-  const dispatch   = useAppDispatch();
-  const navigate   = useNavigate();
-  const { isSuccess, isLoading, error } = useAppSelector(
-    (state) => state.register
-  );
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  // Ambil state dari authSlice bukan registerSlice
+  const { isLoading, success, error } = useAppSelector((state) => state.auth);
 
   const {
     register,
@@ -32,31 +25,22 @@ const ContentRegister = () => {
     resolver: joiResolver(registerSchema),
   });
 
-  const onSubmit = async (data) => {
-    dispatch(registerStart());
-
-    try {
-      // ✅ Kirim ke backend
-      await registerAPI(data.username, data.password);
-      dispatch(registerSuccess());
-
-    } catch (err) {
-      // Error dari backend (email sudah terdaftar, dll)
-      dispatch(registerFailed(err.message));
-    }
+  // Dispatch thunk langsung
+  const onSubmit = (data) => {
+    dispatch(registerThunk({ email: data.username, password: data.password }));
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      toast.success("Registrasi Berhasil!");
-      dispatch(resetRegister());
-      navigate("/login");
+    if (!isLoading && success) {
+      toast.success(success);
+      dispatch(clearMessages());
+      setTimeout(() => navigate("/login"), 1000);
     }
-    if (error) {
+    if (!isLoading && error) {
       toast.error(error);
-      dispatch(resetRegister());
+      dispatch(clearMessages());
     }
-  }, [isSuccess, error, dispatch, navigate]);
+  }, [isLoading, success, error, dispatch, navigate]);
 
   return (
     <section className="h-screen w-full md:p-20 p-10 items-center">
@@ -119,7 +103,6 @@ const ContentRegister = () => {
               </span>
             )}
           </div>
-
           <ButtonLogin type="submit" disabled={isLoading}>
             {isLoading ? "Mendaftar..." : "Register"}
           </ButtonLogin>
