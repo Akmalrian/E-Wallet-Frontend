@@ -2,14 +2,13 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 import { useAppDispatch } from "../../store/hooks";
-import { logoutUser } from "../../store/slices/authSlice";
+import { logoutThunk } from "../../store/slices/authSlice";
 import LogoutModal from "../section/LogoutModal";
 import toast from "react-hot-toast";
-import { logoutAPI } from "../../services/authService";
 
 function NavigationDashboard() {
-  const dispatch  = useAppDispatch();
-  const navigate  = useNavigate();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const handleLogoutClick = (e) => {
@@ -18,19 +17,11 @@ function NavigationDashboard() {
   };
 
   const handleLogoutConfirm = async () => {
-    try {
-      // ✅ Hapus token dari Redis di backend
-      await logoutAPI();
-    } catch (err) {
-      // Tetap logout di frontend meski backend error
-      console.error("Logout API error:", err);
-    } finally {
-      // ✅ Bersihkan Redux state dan localStorage
-      dispatch(logoutUser());
-      setIsLogoutModalOpen(false);
-      toast.success("Berhasil keluar");
-      navigate("/login");
-    }
+    // Cukup dispatch thunk
+    await dispatch(logoutThunk());
+    setIsLogoutModalOpen(false);
+    toast.success("Berhasil keluar");
+    navigate("/login");
   };
 
   const handleLogoutCancel = () => {

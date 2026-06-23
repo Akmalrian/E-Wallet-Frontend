@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from "react-router";
 import ButtonDashboardMenu from "../button/ButtonDashboardMenu";
 import { useAppDispatch } from "../../store/hooks";
-import { logoutUser } from "../../store/slices/authSlice";
+// Pakai logoutThunk bukan logoutUser + logoutAPI manual
+import { logoutThunk } from "../../store/slices/authSlice";
 import toast from "react-hot-toast";
-import { logoutAPI } from "../../services/authService";
 
 function DropdownMenu() {
   const dispatch = useAppDispatch();
@@ -11,17 +11,10 @@ function DropdownMenu() {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    try {
-      // ✅ Hapus token dari Redis di backend
-      await logoutAPI();
-    } catch (err) {
-      console.error("Logout API error:", err);
-    } finally {
-      // ✅ Bersihkan Redux state dan localStorage
-      dispatch(logoutUser());
-      toast.success("Berhasil keluar");
-      navigate("/login");
-    }
+    // Cukup dispatch thunk, semua sudah dihandle di dalam thunk
+    await dispatch(logoutThunk());
+    toast.success("Berhasil keluar");
+    navigate("/login");
   };
 
   return (
