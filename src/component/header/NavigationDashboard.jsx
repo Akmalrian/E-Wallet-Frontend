@@ -91,12 +91,12 @@ function NavigationDashboard() {
             <ButtonDashboardMenu icon="/image/2 User.svg" text="Profile" />
           </NavLink>
 
-          <button
+          <div
             onClick={handleLogoutClick}
             className="bg-white rounded-md hover:bg-[#ff5e49] hover:text-white
               max-md:flex max-md:flex-col max-md:items-center max-md:px-3 max-md:py-2">
             <ButtonDashboardMenu icon="/image/Log Out.svg" text="Keluar" />
-          </button>
+          </div>
         </div>
       </nav>
     </>

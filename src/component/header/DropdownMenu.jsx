@@ -66,12 +66,11 @@ function DropdownMenu() {
           <ButtonDashboardMenu icon="/image/2 User.svg" text="Profile" />
         </NavLink>
 
-        {/* ✅ Pakai button bukan NavLink agar tidak ikut active state */}
-        <button
+        <div
           onClick={handleLogout}
           className="bg-white -ml-5 mr-5 rounded-md hover:bg-[#ff5e49] hover:text-white text-left">
           <ButtonDashboardMenu icon="/image/Log Out.svg" text="Keluar" />
-        </button>
+        </div>
       </div>
     </nav>
   );

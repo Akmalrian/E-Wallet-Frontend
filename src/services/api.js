@@ -1,5 +1,5 @@
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:9000/ewallet";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:9000";
 
 const apiFetch = async (endpoint, options = {}) => {
     const url = `${BASE_URL}${endpoint}`;
