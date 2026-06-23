@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const registerSlice = createSlice({
   name: "register",
   initialState: {
-    users: [],        // ← tetap ada untuk fitur lokal yang masih pakai
+    users: [],       
     isSuccess: false,
     isLoading: false,
     error: null,
@@ -15,10 +15,7 @@ const registerSlice = createSlice({
       state.isSuccess = false;
     },
 
-    // ← DIUBAH: bisa dipanggil tanpa payload (untuk API)
-    //           atau dengan payload (untuk lokal)
     registerSuccess: (state, action) => {
-      // Jika ada payload (lokal) → simpan ke users[]
       if (action.payload) {
         const newUser = {
           ...action.payload,
@@ -34,7 +31,6 @@ const registerSlice = createSlice({
         };
         state.users.push(newUser);
       }
-      // Jika tidak ada payload (API) → hanya update state
       state.isLoading = false;
       state.isSuccess = true;
       state.error     = null;
@@ -52,7 +48,6 @@ const registerSlice = createSlice({
       state.error     = null;
     },
 
-    // ← semua reducer lama tetap dipertahankan
     updateUserProfile: (state, action) => {
       const { username, fullName, phone, email, avatar } = action.payload;
       const index = state.users.findIndex((u) => u.username === username);

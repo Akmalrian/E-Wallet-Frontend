@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getHistoryAPI } from "../../services/dashboardService";
 import { topupAPI, transferAPI } from "../../services/transactionService";
 
-// ✅ Async Thunk Fetch History
+// Async Thunk Fetch History
 export const fetchHistoryThunk = createAsyncThunk(
   "transaction/fetchHistory",
   async (params, { rejectWithValue }) => {
@@ -15,7 +15,7 @@ export const fetchHistoryThunk = createAsyncThunk(
   }
 );
 
-// ✅ Async Thunk Top Up
+// Async Thunk Top Up
 export const createTopupThunk = createAsyncThunk(
   "transaction/topup",
   async ({ payment_method_id, order_amount }, { rejectWithValue }) => {
@@ -28,7 +28,7 @@ export const createTopupThunk = createAsyncThunk(
   }
 );
 
-// ✅ Async Thunk Transfer
+// Async Thunk Transfer
 export const createTransferThunk = createAsyncThunk(
   "transaction/transfer",
   async ({ receiver_wallet_id, amount, pin, notes }, { rejectWithValue }) => {

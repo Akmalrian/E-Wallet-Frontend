@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getProfileAPI, updateProfileAPI, changePasswordAPI, changePinAPI } from "../../services/userService";
 
-// ✅ Async Thunk Fetch Profile
+// Async Thunk Fetch Profile
 export const fetchProfileThunk = createAsyncThunk(
   "profile/fetch",
   async (_, { rejectWithValue }) => {
@@ -14,7 +14,7 @@ export const fetchProfileThunk = createAsyncThunk(
   }
 );
 
-// ✅ Async Thunk Update Profile
+// Async Thunk Update Profile
 export const updateProfileThunk = createAsyncThunk(
   "profile/update",
   async (profileData, { rejectWithValue }) => {
@@ -28,7 +28,7 @@ export const updateProfileThunk = createAsyncThunk(
   }
 );
 
-// ✅ Async Thunk Change Password
+// Async Thunk Change Password
 export const changePasswordThunk = createAsyncThunk(
   "profile/changePassword",
   async ({ old_password, new_password }, { rejectWithValue }) => {
@@ -41,7 +41,7 @@ export const changePasswordThunk = createAsyncThunk(
   }
 );
 
-// ✅ Async Thunk Change PIN
+// Async Thunk Change PIN
 export const changePinThunk = createAsyncThunk(
   "profile/changePin",
   async ({ old_pin, new_pin }, { rejectWithValue }) => {
