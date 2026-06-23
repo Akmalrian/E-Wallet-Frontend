@@ -9,20 +9,20 @@ import storage from "redux-persist/lib/storage";
 
 import authReducer        from "./slices/authSlice";
 import transactionReducer from "./slices/transactionSlice";
-import profileReducer     from "./slices/profileSlice";   
+import profileReducer     from "./slices/profileSlice";
+
+const persistConfig = {
+  key:      "root",
+  version:  1,
+  storage,
+  whitelist: ["auth"],
+};
 
 const rootReducer = combineReducers({
   auth:        authReducer,
   transaction: transactionReducer,
   profile:     profileReducer,
 });
-
-const persistConfig = {
-  key:      "root",
-  version:  1,
-  storage,           
-  whitelist: ["auth"],
-};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
