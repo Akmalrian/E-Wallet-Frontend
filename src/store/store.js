@@ -5,7 +5,7 @@ import {
   FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
 } from "redux-persist";
 
-import storage from "redux-persist/lib/storage";
+import { default as storage } from "redux-persist/lib/storage/index.js";
 
 import authReducer        from "./slices/authSlice";
 import transactionReducer from "./slices/transactionSlice";
