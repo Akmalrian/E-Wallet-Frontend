@@ -30,10 +30,12 @@ export const registerThunk = createAsyncThunk(
 // Async Thunk Logout
 export const logoutThunk = createAsyncThunk(
   "auth/logout",
+  // eslint-disable-next-line no-unused-vars
   async (_, { rejectWithValue }) => {
     try {
       await logoutAPI();
       return true;
+    // eslint-disable-next-line no-unused-vars
     } catch (err) {
       // Tetap logout lokal meski API gagal
       return true;

@@ -4,16 +4,20 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 
 const ProtectedRoute = () => {
-  const { isLogin } = useAppSelector((state) => state.auth);
+  const { isLogin, needsPin } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (!isLogin) {
-      toast.error("Telah Log Out");
+      toast.error("Silahkan login terlebih dahulu");
     }
   }, [isLogin]);
 
   if (!isLogin) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (needsPin) {
+    return <Navigate to="/enter-pin" replace />;
   }
 
   return <Outlet />;
