@@ -15,7 +15,7 @@ export const getHistoryAPI = async (params = {}) => {
   );
 };
 
-// ✅ Ambil graph data dari backend
+// Ambil graph data dari backend
 export const getGraphAPI = async (params = {}) => {
   const query = new URLSearchParams();
   if (params.type)       query.append("type",       params.type);
