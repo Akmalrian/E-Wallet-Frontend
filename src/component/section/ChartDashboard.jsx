@@ -19,14 +19,12 @@ const ChartDashboard = () => {
   const [graphData, setGraphData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ✅ Buat array semua hari dalam range
-  // contoh: days=7 → ["25 May", "26 May", ..., "31 May"]
   const generateDateRange = (totalDays) => {
     const dates = [];
     for (let i = totalDays - 1; i >= 0; i--) {
       const date = new Date();
       date.setDate(date.getDate() - i);
-      // Format sama dengan backend: "DD Mon" contoh "25 May"
+
       const label = date.toLocaleDateString("en-GB", {
         day:   "2-digit",
         month: "short",
@@ -65,10 +63,8 @@ const ChartDashboard = () => {
     fetchGraph();
   }, [period, days]);
 
-  // ✅ Isi semua hari dalam range, hari tanpa data → 0
   const allLabels = generateDateRange(parseInt(days));
 
-  // Buat map dari data backend: { "26 May": { income: 50000, expense: 0 } }
   const dataMap = {};
   graphData.forEach((point) => {
     dataMap[point.label] = {
@@ -77,8 +73,7 @@ const ChartDashboard = () => {
     };
   });
 
-  // Cocokkan semua label dengan data backend
-  // Jika tidak ada → isi 0
+
   const incomes  = allLabels.map((label) => dataMap[label]?.income  || 0);
   const expenses = allLabels.map((label) => dataMap[label]?.expense || 0);
 
@@ -104,7 +99,7 @@ const ChartDashboard = () => {
   };
 
   const chartData = {
-    labels:   allLabels, // ← semua hari tampil
+    labels:   allLabels,
     datasets: getDatasets(),
   };
 

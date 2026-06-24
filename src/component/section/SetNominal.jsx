@@ -19,7 +19,7 @@ function SetNominal() {
 
   const { dashboard } = useAppSelector((state) => state.auth);
 
-  // ✅ Ambil data penerima dari URL params
+  //  Ambil data penerima dari URL params
   const [searchParams] = useSearchParams();
   const walletId = Number(searchParams.get("wallet_id"));
   const name     = decodeURIComponent(searchParams.get("name")  || "Unknown");

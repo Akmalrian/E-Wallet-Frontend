@@ -10,7 +10,7 @@ function IncomeChartDashboard() {
   const dispatch      = useAppDispatch();
   const { dashboard } = useAppSelector((state) => state.auth);
 
-  // ✅ Fetch dashboard dari API
+  // Fetch dashboard dari API
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
@@ -28,7 +28,7 @@ function IncomeChartDashboard() {
     <section className="text-medium">
       <div className="grid grid-cols-2 md:flex md:justify-between justify-center max-md:grid max-md:gap-0 max-md:px-4">
         <div className="flex flex-col max-md:justify-self-start max-md:w-full col-span-2 md:flex-row gap-4 md:justify-between items-center md:items-stretch">
-          {/* ✅ Dari Redux state dashboard */}
+          {/* Dari Redux state dashboard */}
           <CardIncome
             icon="/image/balance.svg"
             title="Balance"

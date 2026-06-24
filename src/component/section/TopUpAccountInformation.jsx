@@ -3,7 +3,7 @@ import { useAppSelector } from "../../store/hooks";
 const BASE_URL = import.meta.env.VITE_API_URL?.replace("/api/v1", "")
   || "http://localhost:9000/ewallet";
 
-// ✅ Hardcode payment methods — ID harus sesuai dengan database
+//  Hardcode payment methods — ID harus sesuai dengan database
 const PAYMENT_METHODS = [
   { id: 1, payment_name: "bri",   image: "/image/Bank BRI (Bank Rakyat Indonesia).svg",       title: "Bank Rakyat Indonesia" },
   { id: 2, payment_name: "dana",  image: "/image/Logo DANA.svg",                              title: "Dana" },

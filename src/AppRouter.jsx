@@ -25,7 +25,7 @@ function AppRouter() {
         {/* Landing page — bebas diakses siapa saja */}
         <Route path="/" element={<LandingPage />} />
 
-        {/* ✅ Public Routes — tidak bisa diakses jika sudah login */}
+        {/* Public Routes — tidak bisa diakses jika sudah login */}
         <Route element={<PublicRoute />}>
           <Route path="/login">
             <Route index element={<LoginPage />} />
@@ -34,12 +34,12 @@ function AppRouter() {
           <Route path="/register" element={<RegisterPage />} />
         </Route>
 
-        {/* ✅ Pin Route — hanya bisa diakses saat login + belum set PIN */}
+        {/* Pin Route — hanya bisa diakses saat login + belum set PIN */}
         <Route element={<PinRoute />}>
           <Route path="/enter-pin" element={<EnterPin />} />
         </Route>
 
-        {/* ✅ Private Routes — harus login + PIN sudah di-set */}
+        {/* Private Routes — harus login + PIN sudah di-set */}
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />

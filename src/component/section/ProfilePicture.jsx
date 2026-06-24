@@ -15,7 +15,7 @@ function ProfilePicture() {
   const [email]               = useState(currentUser?.email        || "");
   const [avatarPreview, setAvatarPreview] = useState(
     currentUser?.photo_path
-      ? `http://localhost:9000${currentUser.photo_path}`
+      ? `http://localhost:9000/ewallet${currentUser.photo_path}`
       : null
   );
   const [photoFile, setPhotoFile]       = useState(null);
@@ -73,18 +73,18 @@ function ProfilePicture() {
     setIsLoading(true);
 
     try {
-      // ✅ Kirim ke backend
+      //  Kirim ke backend
       await updateProfileAPI({
         fullname:     fullName,
         phone_number: phone,
         photo:        photoFile, // null jika tidak ganti foto
       });
 
-      // ✅ Ambil profile terbaru dari backend
+      //  Ambil profile terbaru dari backend
       const profileResponse = await getProfileAPI();
       const updatedUser     = profileResponse.data;
 
-      // ✅ Update Redux state dengan data terbaru
+      //  Update Redux state dengan data terbaru
       dispatch(updateProfile({
         fullname:     updatedUser.fullname,
         phone_number: updatedUser.phone_number,

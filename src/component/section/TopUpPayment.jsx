@@ -30,12 +30,12 @@ function TopUpPayment({ amount, selectedMethod }) {
 
     setIsLoading(true);
     try {
-      // ✅ selectedMethod.id karena sekarang object
+      //  selectedMethod.id karena sekarang object
       await topupAPI(selectedMethod.id, amount);
 
       toast.success(`Top Up Rp${amount.toLocaleString("id-ID")} berhasil!`);
 
-      // ✅ Refresh dashboard
+      //  Refresh dashboard
       const dashboardResponse = await getDashboardAPI();
       dispatch(setDashboard(dashboardResponse.data));
 
@@ -77,7 +77,7 @@ function TopUpPayment({ amount, selectedMethod }) {
           <b className="text-primary">Rp{subTotal.toLocaleString("id-ID")}</b>
         </div>
 
-        {/* ✅ Tampilkan nama metode yang dipilih */}
+        {/*  Tampilkan nama metode yang dipilih */}
         {selectedMethod && (
           <div className="flex justify-between text-xs text-gray-400">
             <p>Metode</p>

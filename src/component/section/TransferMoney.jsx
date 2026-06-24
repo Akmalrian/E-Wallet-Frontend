@@ -20,7 +20,7 @@ function TransferMoney() {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading]   = useState(true);
 
-  // ✅ Fetch receivers dari backend saat search atau page berubah
+  //  Fetch receivers dari backend saat search atau page berubah
   useEffect(() => {
     const fetchReceivers = async () => {
       setIsLoading(true);
@@ -141,7 +141,7 @@ function TransferMoney() {
           )}
         </div>
 
-        {/* ✅ Pagination */}
+        {/*  Pagination */}
         {totalData > 0 && (
           <div className="mx-6 text-tiny mt-10 flex justify-between
             max-md:flex-col max-md:items-center max-md:gap-4 max-md:mx-2 max-md:pb-8">

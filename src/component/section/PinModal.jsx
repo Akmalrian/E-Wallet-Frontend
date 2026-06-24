@@ -60,13 +60,13 @@ function PinModal({
 
     setIsLoading(true);
     try {
-      // ✅ Step 1: Verifikasi PIN ke backend
+      //  Step 1: Verifikasi PIN ke backend
       await checkPinAPI(inputPin);
 
-      // ✅ Step 2: Proses transfer ke backend
+      //  Step 2: Proses transfer ke backend
       await transferAPI(receiverWalletId, amount, inputPin, notes || "");
 
-      // ✅ Step 3: Refresh dashboard
+      //  Step 3: Refresh dashboard
       const dashboardResponse = await getDashboardAPI();
       dispatch(setDashboard(dashboardResponse.data));
 

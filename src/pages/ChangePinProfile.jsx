@@ -59,7 +59,7 @@ const ChangePinProfile = () => {
 
     setIsLoading(true);
     try {
-      // ✅ Kirim ke backend
+      //  Kirim ke backend
       await changePinAPI(oldPinRef.current, pinString);
 
       toast.success("PIN berhasil diubah!");
@@ -73,7 +73,7 @@ const ChangePinProfile = () => {
     }
   };
 
-  // ✅ Terima PIN lama dari VerifyPinModal
+  //  Terima PIN lama dari VerifyPinModal
   const handleVerifySuccess = (verifiedPin) => {
     oldPinRef.current = verifiedPin;          // simpan PIN lama
     setIsVerifyModalOpen(false);
@@ -90,7 +90,7 @@ const ChangePinProfile = () => {
 
   return (
     <main>
-      {/* ✅ Tidak perlu pass currentPin lagi */}
+      {/*  Tidak perlu pass currentPin lagi */}
       <VerifyPinModal
         isOpen={isVerifyModalOpen}
         onClose={handleVerifyClose}

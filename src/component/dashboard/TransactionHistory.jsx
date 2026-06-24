@@ -66,7 +66,7 @@ const getPhoto = (item) => {
     return "/image/1(8).svg";
   };
 
-  // ✅ Tampilkan nama pengirim jika receive
+  //  Tampilkan nama pengirim jika receive
 const getTitle = (item) => {
 	if (item.type === "receive") {
 		// Tampilkan nama pengirim
@@ -75,7 +75,7 @@ const getTitle = (item) => {
 			|| "Someone";
 	}
 	if (item.type === "transfer") {
-		// ✅ Tampilkan nama penerima
+		//  Tampilkan nama penerima
 		return item.receiver_info?.fullname
 			|| item.receiver_info?.phone_number
 			|| "Transfer";
